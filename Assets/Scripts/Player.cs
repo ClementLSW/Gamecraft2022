@@ -5,30 +5,43 @@ using UnityEngine.UI;
 
 public class Player : StateMachine
 {
-    protected internal Rigidbody2D rb;
-    protected internal SpriteRenderer sr;
+    internal Rigidbody2D rb;
+    internal SpriteRenderer sr;
     Camera cam;
-    protected internal Vector2 moveDir;
-    protected internal Vector2 lookDir;
+    internal Vector2 moveDir;
+    internal Vector2 lookDir;
     [Header("Components")]
     public PlayerProjectile attackPrefab;
     public Slider reloadBar;
     public override BaseState DefaultState() => new StopState(this);
+    internal virtual BasePrimary PrimaryAttack() => new WindShot(this);
+    internal virtual BaseSecondary SecondaryAttack() => new WindDash(this);
+    protected internal bool FirePrimary => Input.GetMouseButton(0) && currentAmmo > 0;
+    protected internal bool FireSecondary => Input.GetMouseButton(1);
     [Header("Player Stats")]
     public float moveSpeed = 4f;
     public float attackMoveSpeedMultiplier = 0.75f;
     public int maxAmmo = 6;
     protected internal int currentAmmo;
-    public float attackRate = 0.5f;
+    public float primaryRate = 0.5f;
     public float reloadDur = 0.75f;
+    float reloadTimer;
     public float projectileSpeed = 7f;
     public float projectileRange = 10f;
+    public float secondaryRate = 0.5f;
+    public float dashSpeed = 7f;
+    //TODO: store primary and secondary ability data in equipment instead of on player
     protected override void Awake()
     {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         cam = Camera.main;
+    }
+    protected override void Start()
+    {
+        base.Start();
+        currentAmmo = maxAmmo;
     }
     protected override void Update()
     {
@@ -37,13 +50,19 @@ public class Player : StateMachine
         lookDir = (target - (Vector2)transform.position).normalized;
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveDir = moveInput.magnitude > 1e-7 ? moveInput.normalized : Vector2.zero;
+        ReloadAmmo();
 
-        if (currentState is not BaseActionState && Input.GetKey(KeyCode.Mouse0))
-            ChangeState(new ShootState(this));
-        if (currentState is not ReloadState &&
-            ((Input.GetKey(KeyCode.Mouse0) && currentAmmo <= 0) ||
-            (Input.GetKeyDown(KeyCode.Mouse1) && currentAmmo < maxAmmo)))
-            ChangeState(new ReloadState(this));
+        if (currentState is BaseIdle && FirePrimary)
+            ChangeState(PrimaryAttack());
+        if (currentState is not BaseSecondary && FireSecondary)
+            ChangeState(SecondaryAttack());
+        if (currentState.bufferPoint)
+        {
+            if (FirePrimary)
+                bufferedState = PrimaryAttack();
+            if (FireSecondary)
+                bufferedState = SecondaryAttack();
+        }
     }
     public void ShootProjectile()
     {
@@ -52,5 +71,24 @@ public class Player : StateMachine
         attack.direction = lookDir;
         attack.range = projectileRange;
         attack.speed = projectileSpeed;
+    }
+    public void ReloadAmmo()
+    {
+        if (currentState is BasePrimary || currentState is BaseSecondary || currentAmmo >= maxAmmo)
+        {
+            reloadBar.gameObject.SetActive(false);
+            reloadTimer = 0;
+        }
+        else
+        {
+            reloadBar.gameObject.SetActive(true);
+            reloadTimer += Time.deltaTime;
+            reloadBar.value = reloadTimer / reloadDur;
+            if (reloadTimer >= reloadDur)
+            {
+                currentAmmo = maxAmmo;
+                reloadTimer = 0;
+            }
+        }
     }
 }

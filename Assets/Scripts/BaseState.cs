@@ -6,6 +6,8 @@ public class BaseState
     [SerializeField] public string stateName = "Base State";
     public float duration = 0;
     public float age = float.MaxValue;
+    public bool bufferPoint = true;
+    public bool forceExit = false;
 
     protected float _elapsedTime => duration - age;
 

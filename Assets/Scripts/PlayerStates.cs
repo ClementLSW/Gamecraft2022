@@ -7,6 +7,7 @@ using UnityEngine;
 public class BasePlayerState : BaseState
 {
     protected readonly Player player;
+    protected readonly float inputBuffer = 0.5f;
     public BasePlayerState(Player sm) : base(sm)
     {
         player = sm;
@@ -17,11 +18,12 @@ public class BasePlayerState : BaseState
         player.rb.velocity = player.moveSpeed * player.moveDir;
     }
 }
-public class BaseIdleState : BasePlayerState
+#region Idle States
+public class BaseIdle : BasePlayerState
 {
-    public BaseIdleState(Player sm) : base(sm) { }
+    public BaseIdle(Player sm) : base(sm) { }
 }
-public class StopState : BaseIdleState
+public class StopState : BaseIdle
 {
     public StopState(Player sm) : base(sm) { }
     public override void Update()
@@ -35,7 +37,7 @@ public class StopState : BaseIdleState
         player.rb.velocity = Vector2.zero;
     }
 }
-public class MoveState : BaseIdleState
+public class MoveState : BaseIdle
 {
     public MoveState(Player sm) : base(sm) { }
     public override void Update()
@@ -45,63 +47,66 @@ public class MoveState : BaseIdleState
             sm.ChangeState(new StopState(player));
     }
 }
-public class BaseActionState : BasePlayerState
+#endregion
+#region Primary Attack States
+public class BasePrimary : BasePlayerState
 {
-    public BaseActionState(Player sm) : base(sm) { }
+    public BasePrimary(Player sm) : base(sm) { }
 }
-public class ShootState : BaseActionState
+public class WindShot : BasePrimary
 {
-    const float shotBuffer = 0.1f;
-    float exitTimer;
-    public ShootState(Player sm) : base(sm) { }
+    public WindShot(Player sm) : base(sm)
+    {
+        duration = player.primaryRate;
+        bufferPoint = false;
+    }
     public override void OnEnter()
     {
         base.OnEnter();
-        age = shotBuffer;
-        exitTimer = player.attackRate;
+        player.ShootProjectile();
     }
     public override void Update()
     {
         base.Update();
-        age -= Time.deltaTime;
-        if (age <= 0 && player.currentAmmo > 0)
-        {
-            player.ShootProjectile();
-            age = player.attackRate;
-        }
-        if (!Input.GetKey(KeyCode.Mouse0))
-            exitTimer -= Time.deltaTime;
-        else
-            exitTimer = player.attackRate;
-        if (exitTimer <= 0 || player.currentAmmo <= 0)
-            sm.ChangeState(sm.DefaultState());
+        if (age < inputBuffer * duration)
+            bufferPoint = true;
     }
     public override void FixedUpdate()
     {
         player.rb.velocity = player.moveSpeed * player.attackMoveSpeedMultiplier * player.moveDir;
     }
 }
-public class ReloadState : BaseActionState
+#endregion
+#region Secondary Attack States
+public class BaseSecondary : BasePlayerState
 {
-    public ReloadState(Player sm) : base(sm)
+    public BaseSecondary(Player sm) : base(sm) { }
+}
+public class WindDash : BaseSecondary
+{
+    Vector2 dashDir;
+    float currentSpeed;
+    public WindDash(Player sm) : base(sm)
     {
-        duration = player.reloadDur;
+        duration = player.secondaryRate;
+        bufferPoint = false;
     }
     public override void OnEnter()
     {
         base.OnEnter();
-        player.reloadBar.gameObject.SetActive(true);
+        dashDir = player.moveDir == Vector2.zero ? player.lookDir : player.moveDir;
     }
     public override void Update()
     {
         base.Update();
-        player.reloadBar.value = 1 - age / duration;
+        currentSpeed = Mathf.SmoothStep(player.dashSpeed + player.moveSpeed, player.moveSpeed, 1 - age / duration);
+        if (age < inputBuffer * duration)
+            bufferPoint = true;
     }
-    public override void OnExit()
+    public override void FixedUpdate()
     {
-        base.OnExit();
-        player.reloadBar.gameObject.SetActive(false);
-        if (age <= 0)
-            player.currentAmmo = player.maxAmmo;
+        base.FixedUpdate();
+        player.rb.velocity = currentSpeed * dashDir;
     }
 }
+#endregion

@@ -808,10 +808,12 @@ MonoBehaviour:
   moveSpeed: 4
   attackMoveSpeedMultiplier: 0.75
   maxAmmo: 6
-  attackRate: 0.5
+  primaryRate: 0.5
   reloadDur: 0.75
   projectileSpeed: 7
   projectileRange: 10
+  secondaryRate: 0.35
+  dashSpeed: 10
 --- !u!4 &828537378
 Transform:
   m_ObjectHideFlags: 0

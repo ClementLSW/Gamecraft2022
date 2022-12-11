@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager i;
+    public AudioClip bgm;
     private void Awake()
     {
         if (i == null)
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+
+        AudioManager.i.PlayBGM(bgm);
     }
     void RunOnce()
     {

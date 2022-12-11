@@ -34,4 +34,15 @@ public class AudioManager : MonoBehaviour
         float linear2dB = value == 0 ? -80f : 20f * Mathf.Log10(value);
         mixer.SetFloat("soundVol", linear2dB);
     }
+
+    public void PlaySFX(AudioClip clip){
+        soundSource.clip = clip;
+        soundSource.Play();
+    }
+
+    public void PlayBGM(AudioClip clip, bool loop = true){
+        musicSource.loop = loop;
+        musicSource.clip = clip;
+        musicSource.Play();
+    }
 }

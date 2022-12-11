@@ -7,12 +7,15 @@ public class Player : StateMachine
 {
     internal Rigidbody2D rb;
     internal SpriteRenderer sr;
-    Camera cam;
     internal Vector2 moveDir;
     internal Vector2 lookDir;
+    Camera cam;
     [Header("Components")]
     public PlayerProjectile attackPrefab;
     public Slider reloadBar;
+    //public Transform targetLookAt;
+    //public float lookAheadDist = 10f;
+    //bool toggleLookAhead = false;
     public override BaseState DefaultState() => new StopState(this);
     internal virtual BasePrimary PrimaryAttack() => new WindShot(this);
     internal virtual BaseSecondary SecondaryAttack() => new WindDash(this);
@@ -46,8 +49,8 @@ public class Player : StateMachine
     protected override void Update()
     {
         base.Update();
-        Vector2 target = cam.ScreenToWorldPoint(Input.mousePosition);
-        lookDir = (target - (Vector2)transform.position).normalized;
+        Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        lookDir = (mousePos - (Vector2)transform.position).normalized;
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveDir = moveInput.magnitude > 1e-7 ? moveInput.normalized : Vector2.zero;
         ReloadAmmo();

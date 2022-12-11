@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using PlayerStates;
 
 public class Player : StateMachine
 {
@@ -13,27 +14,19 @@ public class Player : StateMachine
     [Header("Components")]
     public PlayerProjectile attackPrefab;
     public Slider reloadBar;
-    //public Transform targetLookAt;
-    //public float lookAheadDist = 10f;
-    //bool toggleLookAhead = false;
+    public BasePrimaryAbility primary;
+    public BaseSecondaryAbility secondary;
     public override BaseState DefaultState() => new StopState(this);
-    internal virtual BasePrimary PrimaryAttack() => new WindShot(this);
-    internal virtual BaseSecondary SecondaryAttack() => new WindDash(this);
+    internal virtual BasePrimary PrimaryAttack() => primary.PrimaryState();
+    internal virtual BaseSecondary SecondaryAttack() => secondary.SecondaryState();
     protected internal bool FirePrimary => Input.GetMouseButton(0) && currentAmmo > 0;
-    protected internal bool FireSecondary => Input.GetMouseButton(1);
+    protected internal bool FireSecondary => Input.GetMouseButton(1) && currentCooldown <= 0;
     [Header("Player Stats")]
     public float moveSpeed = 4f;
     public float attackMoveSpeedMultiplier = 0.75f;
-    public int maxAmmo = 6;
     protected internal int currentAmmo;
-    public float primaryRate = 0.5f;
-    public float reloadDur = 0.75f;
+    protected internal float currentCooldown;
     float reloadTimer;
-    public float projectileSpeed = 7f;
-    public float projectileRange = 10f;
-    public float secondaryRate = 0.5f;
-    public float dashSpeed = 7f;
-    //TODO: store primary and secondary ability data in equipment instead of on player
     protected override void Awake()
     {
         base.Awake();
@@ -44,7 +37,7 @@ public class Player : StateMachine
     protected override void Start()
     {
         base.Start();
-        currentAmmo = maxAmmo;
+        InitAbilities();
     }
     protected override void Update()
     {
@@ -54,6 +47,7 @@ public class Player : StateMachine
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveDir = moveInput.magnitude > 1e-7 ? moveInput.normalized : Vector2.zero;
         ReloadAmmo();
+        RechargeCooldown();
 
         if (currentState is BaseIdle && FirePrimary)
             ChangeState(PrimaryAttack());
@@ -67,17 +61,21 @@ public class Player : StateMachine
                 bufferedState = SecondaryAttack();
         }
     }
-    public void ShootProjectile()
+    public void ActivatePrimary()
     {
         currentAmmo--;
         var attack = Instantiate(attackPrefab, transform.position, Quaternion.identity).GetComponent<PlayerProjectile>();
         attack.direction = lookDir;
-        attack.range = projectileRange;
-        attack.speed = projectileSpeed;
+        attack.range = primary.projectileRange;
+        attack.speed = primary.projectileSpeed;
+    }
+    public void ActivateSecondary()
+    {
+        currentCooldown = secondary.cooldown;
     }
     public void ReloadAmmo()
     {
-        if (currentState is BasePrimary || currentState is BaseSecondary || currentAmmo >= maxAmmo)
+        if (currentState is BasePrimary || currentState is BaseSecondary || currentAmmo >= primary.maxAmmo)
         {
             reloadBar.gameObject.SetActive(false);
             reloadTimer = 0;
@@ -86,12 +84,27 @@ public class Player : StateMachine
         {
             reloadBar.gameObject.SetActive(true);
             reloadTimer += Time.deltaTime;
-            reloadBar.value = reloadTimer / reloadDur;
-            if (reloadTimer >= reloadDur)
+            reloadBar.value = reloadTimer / primary.reloadDur;
+            if (reloadTimer >= primary.reloadDur)
             {
-                currentAmmo = maxAmmo;
+                currentAmmo = primary.maxAmmo;
                 reloadTimer = 0;
             }
         }
+    }
+    public void RechargeCooldown()
+    {
+        if (currentCooldown > 0)
+        {
+            currentCooldown -= Time.deltaTime;
+            // Do some ui shit here
+        }
+    }
+    public void InitAbilities()
+    {
+        primary.player = this;
+        secondary.player = this;
+        currentAmmo = primary.maxAmmo;
+        currentCooldown = 0;
     }
 }

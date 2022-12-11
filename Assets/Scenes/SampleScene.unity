@@ -928,15 +928,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPrefab: {fileID: 5514849272783740179, guid: 4d79b128c1041af49989b29575977026, type: 3}
   reloadBar: {fileID: 702414623}
+  primary: {fileID: 4769426102478642142, guid: 4be67e34f67aa8d49bf637c813042639, type: 3}
+  secondary: {fileID: 1777243582170073703, guid: 78ce441a30b1b8c4e97e0475b254569d, type: 3}
   moveSpeed: 4
-  attackMoveSpeedMultiplier: 0.75
-  maxAmmo: 6
-  primaryRate: 0.5
-  reloadDur: 0.75
-  projectileSpeed: 7
-  projectileRange: 10
-  secondaryRate: 0.35
-  dashSpeed: 10
+  attackMoveSpeedMultiplier: 0.5
 --- !u!4 &828537378
 Transform:
   m_ObjectHideFlags: 0
@@ -1269,6 +1264,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8617c8096cab94cb88f779ca82ca22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elementAffinityInspector:
+  - key: 0
+    val:
+      baseRatio:
+      - 0.33333334
+      - 0.33333334
+      - 0.33333334
+      colourProfile: {r: 1, g: 1, b: 1, a: 1}
+  - key: 1
+    val:
+      baseRatio:
+      - 1
+      - 0
+      - 0
+      colourProfile: {r: 1, g: 0.5, b: 0, a: 1}
+  - key: 2
+    val:
+      baseRatio:
+      - 0
+      - 1
+      - 0
+      colourProfile: {r: 0.5, g: 1, b: 0, a: 1}
+  - key: 3
+    val:
+      baseRatio:
+      - 0
+      - 0
+      - 1
+      colourProfile: {r: 0, g: 0.5, b: 1, a: 1}
   defaultPrefs:
     musicVol: 0.5
     soundVol: 0.5

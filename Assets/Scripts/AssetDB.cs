@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+public enum Element { Wind, Fire, Earth, Water };
+[System.Serializable]
+public class Affinity
+{
+    public float[] baseRatio;
+    public Color colourProfile;
+}
+
 [System.Serializable]
 public class Preferences
 {
@@ -10,9 +18,14 @@ public class Preferences
     public float soundVol;
 }
 
-public class PlayerData : MonoBehaviour
+public class AssetDB : MonoBehaviour
 {
-    public static PlayerData i;
+    public static AssetDB i;
+    [Header("Game")]
+    public SerialKeyValuePair<Element, Affinity>[] elementAffinityInspector;
+    public Dictionary<Element, Affinity> elementAffinity = new();
+
+    [Header("Settings")]
     public Preferences defaultPrefs;
     public Preferences prefs;
     string prefsPath;
@@ -33,6 +46,8 @@ public class PlayerData : MonoBehaviour
         prefs = LoadPrefs();
         if (prefs == null)
             prefs = defaultPrefs;
+
+        elementAffinity = elementAffinityInspector.ToDict();
     }
     public async void SavePrefs()
     {
@@ -55,4 +70,5 @@ public class PlayerData : MonoBehaviour
             return null;
         }
     }
+    // Im not doing webGL cuz fuck javascript
 }

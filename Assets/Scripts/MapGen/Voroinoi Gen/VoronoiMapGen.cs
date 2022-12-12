@@ -163,14 +163,27 @@ public class VoronoiMapGen : MonoBehaviour
         regions = regionGrid.Values.ToArray();
         isGened = true;
         var imageTex = new Texture2D(mapSize.width, mapSize.height);
-        imageTex.filterMode = FilterMode.Point;
+        imageTex.filterMode = FilterMode.Bilinear;
         imageTex.wrapMode = TextureWrapMode.Clamp;
         imageTex.SetPixels(biomesColorMap);
         imageTex.Apply();
-        map.material.SetTexture("_MainTex", imageTex);
+
+        var newTex = Resize(imageTex, 100, 100);
+
+        //map.material.SetTexture("_MainTex", imageTex);
+        map.material.SetTexture("_MainTex", newTex);
     }
 
-    
+    Texture2D Resize(Texture2D texture2D, int targetX, int targetY)
+    {
+        RenderTexture rt = new RenderTexture(targetX, targetY, 24);
+        RenderTexture.active = rt;
+        Graphics.Blit(texture2D, rt);
+        Texture2D result = new Texture2D(targetX, targetY);
+        result.ReadPixels(new Rect(0, 0, targetX, targetY), 0, 0);
+        result.Apply();
+        return result;
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;

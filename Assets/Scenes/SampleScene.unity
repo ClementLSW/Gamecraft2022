@@ -1289,28 +1289,37 @@ MonoBehaviour:
   noiseScale: 100
   octaves: 5
   persistance: 0.5
-  lacunarity: 2
+  lacunarity: 1.5
   seed: 0
   offset: {x: 0, y: 0}
   autoUpdate: 1
   regions:
   - name: FireDeep
-    height: 0.2
+    height: 0.15
     colour: {r: 0.8, g: 0.4, b: 0, a: 1}
   - name: Fire
-    height: 0.4
+    height: 0.3
     colour: {r: 1, g: 0.5, b: 0, a: 1}
+  - name: Air
+    height: 0.375
+    colour: {r: 1, g: 1, b: 1, a: 1}
+  - name: AirDeep
+    height: 0.425
+    colour: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  - name: Air
+    height: 0.5
+    colour: {r: 1, g: 1, b: 1, a: 1}
   - name: Earth
-    height: 0.475
+    height: 0.575
     colour: {r: 0.5, g: 1, b: 0, a: 1}
   - name: EarthDeep
-    height: 0.525
+    height: 0.625
     colour: {r: 0.4, g: 0.8, b: 0, a: 1}
   - name: EarthDeep
-    height: 0.6
+    height: 0.7
     colour: {r: 0.5, g: 1, b: 0, a: 1}
   - name: Water
-    height: 0.8
+    height: 0.85
     colour: {r: 0, g: 0.5, b: 1, a: 1}
   - name: WaterDeep
     height: 1
@@ -1680,20 +1689,23 @@ MonoBehaviour:
   - key: 0
     val:
       baseRatio:
-      - 0.33333334
-      - 0.33333334
-      - 0.33333334
-      colourProfile: {r: 1, g: 1, b: 1, a: 1}
-  - key: 1
-    val:
-      baseRatio:
       - 1
       - 0
       - 0
-      colourProfile: {r: 1, g: 0.5, b: 0, a: 1}
+      - 0
+      colourProfile: {r: 1, g: 0.5019608, b: 0, a: 1}
+  - key: 1
+    val:
+      baseRatio:
+      - 0
+      - 1
+      - 0
+      - 0
+      colourProfile: {r: 1, g: 1, b: 1, a: 1}
   - key: 2
     val:
       baseRatio:
+      - 0
       - 0
       - 1
       - 0
@@ -1701,6 +1713,7 @@ MonoBehaviour:
   - key: 3
     val:
       baseRatio:
+      - 0
       - 0
       - 0
       - 1

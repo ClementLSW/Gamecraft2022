@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public enum Element { Wind, Fire, Earth, Water };
+public enum Element { Fire, Wind, Earth, Water };
 [System.Serializable]
 public class Affinity
 {

@@ -1,0 +1,125 @@
+#pragma kernel InitDust
+#pragma kernel UpdateDust
+
+struct Particle
+{
+    float2 position;
+    float2 velocity;
+    float sizeMultiplier;
+    //Store integer about type
+};
+
+RWStructuredBuffer<float3> positions;
+RWStructuredBuffer<Particle> particles;
+
+int numPoints2Add;
+int currPointCount;
+
+//RWStructuredBuffer<uint> numParticlesGenerated;
+RWStructuredBuffer<uint> numParticlesConsumed;
+uint numParticles;
+
+float deltaTime;
+float3 attractPos;
+float attractRadius;
+float eatDst;
+float attractForce;
+float size;
+
+float spawnRad;
+
+// Hash function www.cs.ubc.ca/~rbridson/docs/schechter-sca08-turbulence.pdf
+uint hash(uint state)
+{
+    state ^= 2747636419u;
+    state *= 2654435769u;
+    state ^= state >> 16;
+    state *= 2654435769u;
+    state ^= state >> 16;
+    state *= 2654435769u;
+    return state;
+}
+
+float scaleToRange01(uint state)
+{
+    return state / 4294967295.0;
+}
+static const float PI = 3.1415926f;
+
+float2 randCircle(uint id)
+{
+    uint randState = id;
+    randState = hash(randState);
+    float angle = scaleToRange01(randState) * 2 * PI;
+    float2 dir = float2(cos(angle), sin(angle));
+    randState = hash(randState);
+    return dir * sqrt(scaleToRange01(randState)) * spawnRad;
+}
+
+float2 randBounds(uint id)
+{
+    uint randState = id;
+    randState = hash(randState);
+    float tx = scaleToRange01(randState);
+    randState = hash(randState);
+    float ty = scaleToRange01(randState);
+    return float2(tx * spawnRad, ty * spawnRad);
+}
+
+[numthreads(64, 1, 1)]
+void InitDust(uint3 id : SV_DispatchThreadID)
+{
+    uint i = id.x;
+
+    if (i < currPointCount || i> currPointCount + numPoints2Add - 1)
+    {
+        return;
+    }
+
+    uint randState = id.x;
+
+    particles[id.x].position = randCircle(randState);
+    particles[id.x].sizeMultiplier = 1;
+    positions[id.x].xy = particles[id.x].position;
+    positions[id.x].z = size;
+}
+
+[numthreads(64, 1, 1)]
+void UpdateDust(uint3 id : SV_DispatchThreadID)
+{
+    uint i = id.x;
+
+    if (i >= numParticles || particles[i].sizeMultiplier == 0)
+    {
+        return;
+    }
+    float2 pos = particles[i].position;
+
+    float2 offsetToAttractor = attractPos - pos;
+    //offsetToAttractor.y = 0;
+
+    float sqrDst = dot(offsetToAttractor, offsetToAttractor);
+    particles[i].velocity -= particles[i].velocity * deltaTime * 5;
+
+    if (sqrDst < attractRadius * attractRadius && attractForce > 0)
+    {
+        float dst = sqrt(sqrDst);
+        float2 dir = offsetToAttractor / dst;
+        float t = 1 - dst / attractRadius;
+        particles[i].velocity += deltaTime * dir * attractForce * t;
+
+        float sqrEatDst = eatDst * eatDst;
+
+        if (sqrDst < sqrEatDst)
+        {
+            particles[i].sizeMultiplier = 0;
+            InterlockedAdd(numParticlesConsumed[0], 1);
+        }
+
+        float2 startPos = float2(particles[i].position);
+        float2 endPos = startPos + float2(particles[i].velocity) * deltaTime;
+    }
+
+    particles[i].position += particles[i].velocity * deltaTime;
+    positions[i] = float3(particles[i].position, size * particles[i].sizeMultiplier);
+}

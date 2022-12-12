@@ -17,8 +17,8 @@ public class Player : StateMachine
     public BasePrimaryAbility primary;
     public BaseSecondaryAbility secondary;
     public override BaseState DefaultState() => new StopState(this);
-    internal virtual BasePrimary PrimaryAttack() => primary.PrimaryState();
-    internal virtual BaseSecondary SecondaryAttack() => secondary.SecondaryState();
+    internal virtual BasePrimary PrimaryAbility() => primary.PrimaryState();
+    internal virtual BaseSecondary SecondaryAbility() => secondary.SecondaryState();
     protected internal bool FirePrimary => Input.GetMouseButton(0) && currentAmmo > 0;
     protected internal bool FireSecondary => Input.GetMouseButton(1) && currentCooldown <= 0;
     [Header("Player Stats")]
@@ -50,15 +50,15 @@ public class Player : StateMachine
         RechargeCooldown();
 
         if (currentState is BaseIdle && FirePrimary)
-            ChangeState(PrimaryAttack());
+            ChangeState(PrimaryAbility());
         if (currentState is not BaseSecondary && FireSecondary)
-            ChangeState(SecondaryAttack());
+            ChangeState(SecondaryAbility());
         if (currentState.bufferPoint)
         {
             if (FirePrimary)
-                bufferedState = PrimaryAttack();
+                bufferedState = PrimaryAbility();
             if (FireSecondary)
-                bufferedState = SecondaryAttack();
+                bufferedState = SecondaryAbility();
         }
     }
     public void ActivatePrimary()

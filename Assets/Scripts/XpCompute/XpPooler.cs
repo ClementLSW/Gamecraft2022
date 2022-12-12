@@ -5,7 +5,7 @@ using ComputeShaderUtility;
 using UnityEngine.Rendering;
 public class XpPooler : MonoBehaviour
 {
-
+    public static XpPooler i;
     public ComputeShader dustCompute;
     public int totalParticles = 1_000_000;
     public int currentParticles = 0;
@@ -31,6 +31,10 @@ public class XpPooler : MonoBehaviour
     const int UpdateDustKernel = 1;
     AsyncGPUReadbackRequest readbackRequest;
 
+    private void Awake()
+    {
+        i = this;
+    }
     void Start()
     {
         ComputeHelper.CreateStructuredBuffer<Particle>(ref particleBuffer, totalParticles);
@@ -69,13 +73,14 @@ public class XpPooler : MonoBehaviour
     {
         readbackRequest = AsyncGPUReadback.Request(numParticlesConsumedBuffer);
     }
-    void AddPoints(int numPoints)
+    public void SpawnXp(int numPoints, Vector2 pos, Element element)
     {
         dustCompute.SetInt("currPointCount", currentParticles % totalParticles);
         dustCompute.SetInt("numPoints2Add", numPoints);
+        spawnRegion = pos;
+        instancedMaterial.color = AssetDB.i.elementAffinity[element].colourProfile;
         ComputeHelper.Dispatch(dustCompute, totalParticles, 1, 1, InitDustKernel);
         currentParticles += numPoints;
-
     }
 
     void Update()
@@ -100,7 +105,7 @@ public class XpPooler : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            AddPoints(toSpawn);
+            SpawnXp(toSpawn, Vector2.zero, Element.Water);
         }
     }
 

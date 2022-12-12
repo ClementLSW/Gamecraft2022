@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager i;
+    public static Player player;
     public AudioClip bgm;
     private void Awake()
     {

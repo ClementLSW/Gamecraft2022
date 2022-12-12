@@ -28,10 +28,10 @@ public class StateMachine : MonoBehaviour
     //{
     //    currentState.OnCollisionEnter2D(collision);
     //}
-    //protected virtual void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    currentState.OnTriggerEnter2D(collision);
-    //}
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        currentState.OnTriggerEnter2D(collision);
+    }
     public virtual void ChangeState(BaseState newState)
     {
         currentState.OnExit();

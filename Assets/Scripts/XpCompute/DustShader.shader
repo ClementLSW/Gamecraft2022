@@ -63,7 +63,7 @@ Shader "Instanced/DustShader" {
 				//alpha = 1;
                 fixed4 col = tex2D(_MainTex, i.uv);
 				//fixed4 col = float4(_Color.rgb, alpha * _Color.a);
-
+				col.rgb = _Color.rgb;
 				return col;
 			}
 

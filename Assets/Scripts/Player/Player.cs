@@ -37,6 +37,7 @@ public class Player : StateMachine
     protected override void Start()
     {
         base.Start();
+        GameManager.player = this;
         InitAbilities();
     }
     protected override void Update()

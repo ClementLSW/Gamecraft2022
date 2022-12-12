@@ -37,7 +37,7 @@ public class Player : StateMachine
     protected override void Start()
     {
         base.Start();
-        GameManager.player = this;
+        GameManager.SetPlayer(this);
         InitAbilities();
     }
     protected override void Update()
@@ -62,13 +62,15 @@ public class Player : StateMachine
                 bufferedState = SecondaryAbility();
         }
     }
-    public void ActivatePrimary()
+    public void ActivatePrimary(Vector2 targetDir, bool piercing)
     {
-        currentAmmo--;
-        var attack = Instantiate(attackPrefab, transform.position, Quaternion.identity).GetComponent<PlayerProjectile>();
-        attack.direction = lookDir;
+        var attack = Instantiate(primary.projectilePrefab, transform.position, Quaternion.identity).GetComponent<PlayerProjectile>();
+        attack.targetDir = targetDir;
         attack.range = primary.projectileRange;
         attack.speed = primary.projectileSpeed;
+        attack.transform.localScale = Vector3.one * primary.projectileSize;
+        attack.piercing = piercing;
+        attack.Init();
     }
     public void ActivateSecondary()
     {

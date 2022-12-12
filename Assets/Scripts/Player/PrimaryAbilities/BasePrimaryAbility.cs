@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using PlayerStates;
 
-public class BasePrimaryAbility : MonoBehaviour
+public class BasePrimaryAbility : ScriptableObject
 {
     internal Player player;
     public Element element;
     public Sprite icon;
+    public string descrption;
+    public PlayerProjectile projectilePrefab;
     public virtual BasePrimary PrimaryState() { return new BasePrimary(player); }
     [Header("Stats")]
     public int damage;
@@ -17,4 +19,5 @@ public class BasePrimaryAbility : MonoBehaviour
     public float reloadDur;
     public float projectileSpeed;
     public float projectileRange;
+    public float projectileSize;
 }

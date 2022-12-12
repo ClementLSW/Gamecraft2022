@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager i;
-    public static Player player;
+    public static GameManager instance;
+    private Player _player;
+    public static Player Player
+    {
+        get { return instance._player; }
+    }
+    public static void SetPlayer(Player player)
+    {
+        instance._player = player;
+    }
     public AudioClip bgm;
+    private bool isPaused = false;
+    public static bool IsPaused
+    {
+        get { return instance.isPaused; }
+        set { instance.isPaused = value; }
+    }
+
     private void Awake()
     {
-        if (i == null)
+        if (instance == null)
         {
-            i = this;
-            DontDestroyOnLoad(i);
+            instance = this;
+            DontDestroyOnLoad(instance);
             RunOnce();
         }
         else

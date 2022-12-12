@@ -1,16 +1,17 @@
-#pragma kernel InitDust
-#pragma kernel UpdateDust
+#pragma kernel InitXp
+#pragma kernel UpdateXp
 
 struct Particle
 {
     float2 position;
     float2 velocity;
     float sizeMultiplier;
-    //Store integer about type
-    int colorType;
+    uint colorType;
 };
 
+
 RWStructuredBuffer<float3> positions;
+RWStructuredBuffer<uint> colorTypes;
 RWStructuredBuffer<Particle> particles;
 
 int numPoints2Add;
@@ -69,7 +70,7 @@ float2 randBounds(uint id)
 }
 
 [numthreads(64, 1, 1)]
-void InitDust(uint3 id : SV_DispatchThreadID)
+void InitXp(uint3 id : SV_DispatchThreadID)
 {
     uint i = id.x;
 
@@ -82,12 +83,14 @@ void InitDust(uint3 id : SV_DispatchThreadID)
 
     particles[id.x].position = randCircle(randState);
     particles[id.x].sizeMultiplier = 1;
+    particles[id.x].colorType = colorType2Add;
     positions[id.x].xy = particles[id.x].position;
     positions[id.x].z = size;
+    colorTypes[id.x] = colorType2Add;
 }
 
 [numthreads(64, 1, 1)]
-void UpdateDust(uint3 id : SV_DispatchThreadID)
+void UpdateXp(uint3 id : SV_DispatchThreadID)
 {
     uint i = id.x;
 
@@ -115,7 +118,8 @@ void UpdateDust(uint3 id : SV_DispatchThreadID)
         if (sqrDst < sqrEatDst)
         {
             particles[i].sizeMultiplier = 0;
-            InterlockedAdd(numParticlesConsumed[0], 1);
+
+            InterlockedAdd(numParticlesConsumed[ particles[i].colorType], 1);
         }
 
         float2 startPos = float2(particles[i].position);
@@ -123,5 +127,7 @@ void UpdateDust(uint3 id : SV_DispatchThreadID)
     }
 
     particles[i].position += particles[i].velocity * deltaTime;
-    positions[i] = float3(particles[i].position, size * particles[i].sizeMultiplier);
+    positions[i].xy = particles[i].position;
+    positions[i].z = size * particles[i].sizeMultiplier;
+  
 }

@@ -68,17 +68,22 @@ namespace PlayerStates
     }
     public class WindShotState : BasePrimary
     {
-        protected readonly WindShot ability;
+        protected readonly WindShotAbility ability;
         public WindShotState(Player sm) : base(sm)
         {
-            ability = sm.primary as WindShot;
+            ability = sm.primary as WindShotAbility;
             duration = ability.fireRate;
             bufferPoint = false;
         }
         public override void OnEnter()
         {
             base.OnEnter();
-            player.ActivatePrimary();
+            player.currentAmmo--;
+            for (int i = 0; i < ability.projectiles; i++)
+            {
+                float angle = ability.spreadAngle == 0 ? 0 : KongrooUtils.RemapRange(i, 0, ability.projectiles - 1, -ability.spreadAngle / 2, ability.spreadAngle / 2);
+                player.ActivatePrimary(player.lookDir.Vector2Rotate(angle), ability.piercing);
+            }
         }
         public override void Update()
         {

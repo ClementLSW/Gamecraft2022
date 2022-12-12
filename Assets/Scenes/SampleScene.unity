@@ -1124,7 +1124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPrefab: {fileID: 5514849272783740179, guid: 4d79b128c1041af49989b29575977026, type: 3}
   reloadBar: {fileID: 702414623}
-  primary: {fileID: 4769426102478642142, guid: 4be67e34f67aa8d49bf637c813042639, type: 3}
+  primary: {fileID: 11400000, guid: f95bef9d737bfa643beffc972db31255, type: 2}
   secondary: {fileID: 1777243582170073703, guid: 78ce441a30b1b8c4e97e0475b254569d, type: 3}
   moveSpeed: 4
   attackMoveSpeedMultiplier: 0.5
@@ -1225,7 +1225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c2126949d9b5a49b087449151825fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dustCompute: {fileID: 7200000, guid: 58ad9173d8531714498da82c8c309595, type: 3}
+  dustCompute: {fileID: 7200000, guid: a85f2410e528a7448865b33bd2e0bfa4, type: 3}
   totalParticles: 1000000
   currentParticles: 0
   instancedMaterial: {fileID: 2100000, guid: 5b589b1bea4b65642bdf07196d6c7432, type: 2}
@@ -1802,6 +1802,14 @@ PrefabInstance:
     - target: {fileID: 9103264971355901554, guid: 6018beeab07cecf41935eb0fbd910f1e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9103264971355901566, guid: 6018beeab07cecf41935eb0fbd910f1e, type: 3}
+      propertyPath: xp
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 9103264971355901566, guid: 6018beeab07cecf41935eb0fbd910f1e, type: 3}
+      propertyPath: element
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9103264971355901567, guid: 6018beeab07cecf41935eb0fbd910f1e, type: 3}
       propertyPath: m_Name

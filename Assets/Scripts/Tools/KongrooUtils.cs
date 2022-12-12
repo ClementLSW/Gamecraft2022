@@ -54,6 +54,20 @@ public static class KongrooUtils
         angle *= Mathf.Deg2Rad;
         return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
     }
+    //This is an extension method that cannot mutate the original because its a stuct 
+    public static Vector2 Vector2Rotate(this Vector2 v, float degrees)
+    {
+        if (degrees == 0)
+            return v;
+        float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
+        float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
+
+        float tx = v.x;
+        float ty = v.y;
+        v.x = (cos * tx) - (sin * ty);
+        v.y = (sin * tx) + (cos * ty);
+        return v;
+    }
     public static Vector2 ClampMagnitude(Vector2 v, float max, float min)
     {
         double sm = v.sqrMagnitude;

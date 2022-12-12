@@ -27,7 +27,7 @@ public class Enemy : StateMachine
     protected override void Update()
     {
         base.Update();
-        moveDir = (GameManager.player.transform.position - transform.position).normalized;
+        moveDir = (GameManager.Player.transform.position - transform.position).normalized;
     }
     protected override void FixedUpdate()
     {
@@ -40,7 +40,7 @@ public class Enemy : StateMachine
         if (collision.CompareTag("PlayerPrimary"))
         {
             // We wanna avoid getcomponents for performance so we can get access from the cached player stats
-            hp -= GameManager.player.primary.damage;
+            hp -= GameManager.Player.primary.damage;
         }
         // Just use new tags for each unique type of player attack
         if (hp <= 0)

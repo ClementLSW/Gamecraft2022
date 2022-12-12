@@ -61,6 +61,10 @@ public class Player : StateMachine
             if (FireSecondary)
                 bufferedState = SecondaryAbility();
         }
+        Region currentReg = VoronoiMapGen._.GetRegion(transform.position);
+        if (currentReg == null) return;
+        print($"Currently in {currentReg.biome.name}");
+        
     }
     public void ActivatePrimary(Vector2 targetDir, bool piercing)
     {

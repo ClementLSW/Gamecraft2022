@@ -17,7 +17,7 @@ public class Preferences
     public float musicVol;
     public float soundVol;
 }
-
+//[ExecuteInEditMode]
 public class AssetDB : MonoBehaviour
 {
     public static AssetDB i;
@@ -34,8 +34,8 @@ public class AssetDB : MonoBehaviour
         if (i == null)
         {
             i = this;
-            DontDestroyOnLoad(gameObject);
             RunOnce();
+            DontDestroyOnLoad(gameObject);
         }
         else
             Destroy(gameObject);

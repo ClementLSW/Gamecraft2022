@@ -157,8 +157,9 @@ public static class KongrooUtils
         }
     }
 
-    public static void DrawDebugCircle(Vector2 center, float radius, Color color, int segments = 200)
+    public static void DrawDebugCircle(Vector2 center, float radius, Color color, int segments = 200, float duration = 0)
     {
+        if (duration == 0) duration = Time.deltaTime;
         float angle = 0;
         float increment = 2 * Mathf.PI / segments;
         for (int i = 0; i < segments; i++)
@@ -168,7 +169,8 @@ public static class KongrooUtils
             angle += increment;
             direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
             Vector2 secondLoc = direction * radius + center;
-            Debug.DrawLine(firstLoc, secondLoc, color);
+            
+            Debug.DrawLine(firstLoc, secondLoc, color, duration);
         }
     }
 

@@ -11,6 +11,7 @@ public class Player : StateMachine
     internal Vector2 moveDir;
     internal Vector2 lookDir;
     Camera cam;
+    
     [Header("Components")]
     public PlayerProjectile attackPrefab;
     public Slider reloadBar;
@@ -21,6 +22,7 @@ public class Player : StateMachine
     internal virtual BaseSecondary SecondaryAttack() => secondary.SecondaryState();
     protected internal bool FirePrimary => Input.GetMouseButton(0) && currentAmmo > 0;
     protected internal bool FireSecondary => Input.GetMouseButton(1) && currentCooldown <= 0;
+
     [Header("Player Stats")]
     public float moveSpeed = 4f;
     public float attackMoveSpeedMultiplier = 0.75f;

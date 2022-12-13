@@ -60,7 +60,7 @@ public class Player : StateMachine
             if (FireSecondary)
                 bufferedState = SecondaryAbility();
         }
-        Region currentReg = VoronoiMapGen._.GetRegion(transform.position);
+        Region currentReg = ProcGen.MapManager.GetRegion(transform.position);
         if (currentReg == null) return;
         print($"Currently in {currentReg.biome.name}");
         

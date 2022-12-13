@@ -4,6 +4,19 @@ using System.IO;
 using UnityEngine;
 
 public enum Element: uint { Fire, Wind, Earth, Water };
+public class Region
+{
+    public BiomeType biome;
+    public Vector2Int Center = Vector2Int.zero;
+}
+[System.Serializable]
+public struct BiomeType
+{
+    //public string name;
+    public Element element;
+    public string name;
+    public Color colour;
+}
 [System.Serializable]
 public class Affinity
 {

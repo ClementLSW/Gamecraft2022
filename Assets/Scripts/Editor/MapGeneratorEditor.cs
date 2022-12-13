@@ -2,6 +2,13 @@
 using System.Collections;
 using UnityEditor;
 
+
+//public interface IGeneratable
+//{
+//	public bool autoUpdate { get; set; }
+//	public void Generate();
+//}
+
 [CustomEditor (typeof (MapGenerator))]
 public class MapGeneratorEditor : Editor {
 

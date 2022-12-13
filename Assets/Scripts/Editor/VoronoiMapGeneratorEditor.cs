@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using ProcGen;
 
 [CustomEditor (typeof (VoronoiMapGen))]
 public class VoronoiMapGeneratorEditor : Editor {

@@ -17,6 +17,7 @@ RWStructuredBuffer<Particle> particles;
 int numPoints2Add;
 int colorType2Add;
 int currPointCount;
+float2 spawnCenter;
 
 //RWStructuredBuffer<uint> numParticlesGenerated;
 RWStructuredBuffer<uint> numParticlesConsumed;
@@ -81,7 +82,7 @@ void InitXp(uint3 id : SV_DispatchThreadID)
 
     uint randState = id.x;
 
-    particles[id.x].position = randCircle(randState);
+    particles[id.x].position = randCircle(randState) + spawnCenter;
     particles[id.x].sizeMultiplier = 1;
     particles[id.x].colorType = colorType2Add;
     positions[id.x].xy = particles[id.x].position;

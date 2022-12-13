@@ -18,7 +18,6 @@ public class XpPooler : MonoBehaviour
     public float attractRadius = 1;
     public float attractForce = 10;
     public float eatDst = 0.2f;
-    public Vector2 spawnRegion;
     public bool updateProgress;
     public int toSpawn = 1000;
     public float spawnRad = 10f;
@@ -49,7 +48,6 @@ public class XpPooler : MonoBehaviour
         dustCompute.SetBuffer(InitDustKernel, "positions", positionBuffer);
         dustCompute.SetBuffer(InitDustKernel, "colorTypes", colorTypeBuffer);
         dustCompute.SetInt("numParticles", totalParticles);
-        dustCompute.SetFloat("spawnRad", spawnRad);
         dustCompute.SetFloat("size", size);
 
 
@@ -84,7 +82,7 @@ public class XpPooler : MonoBehaviour
         dustCompute.SetInt("currPointCount", currentParticles % totalParticles);
         dustCompute.SetInt("numPoints2Add", numPoints);
         dustCompute.SetInt("colorType2Add", (int)element);
-        spawnRegion = pos;
+        dustCompute.SetVector("spawnCenter", pos);
         instancedMaterial.color = AssetDB.i.elementAffinity[element].colourProfile;
         ComputeHelper.Dispatch(dustCompute, totalParticles, 1, 1, InitDustKernel);
         currentParticles += numPoints;
@@ -102,6 +100,8 @@ public class XpPooler : MonoBehaviour
         dustCompute.SetFloat("attractRadius", attractRadius);
         dustCompute.SetFloat("eatDst", eatDst);
         dustCompute.SetFloat("attractForce", attractForce);
+        dustCompute.SetFloat("spawnRad", spawnRad);
+
         ComputeHelper.Dispatch(dustCompute, totalParticles, 1, 1, UpdateDustKernel);
 
 
@@ -113,10 +113,12 @@ public class XpPooler : MonoBehaviour
             //Debug.Log(n + " / " + totalParticles + "  " + (n / (float)totalParticles) * 100 + "%");
             RequestAsyncReadback();
         }
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            SpawnXp(toSpawn, Vector2.zero, Element.Water);
+            SpawnXp(toSpawn, GameManager.Player.transform.position , Element.Water);
         }
+#endif
     }
 
     void OnDestroy()
@@ -130,11 +132,5 @@ public class XpPooler : MonoBehaviour
         public Vector2 velocity;
         public float alpha;
         public Element element;
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(Vector3.zero, spawnRegion);
     }
 }

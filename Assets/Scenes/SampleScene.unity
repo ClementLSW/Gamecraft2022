@@ -1114,9 +1114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76452218f938d9946a6e9cc54964c047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPrefab: {fileID: 5514849272783740179, guid: 4d79b128c1041af49989b29575977026, type: 3}
   reloadBar: {fileID: 702414623}
-  primary: {fileID: 11400000, guid: f95bef9d737bfa643beffc972db31255, type: 2}
+  primary: {fileID: 11400000, guid: a4d5939606bbc4d4b8f2fc2f5885e5a4, type: 2}
   secondary: {fileID: 1777243582170073703, guid: 78ce441a30b1b8c4e97e0475b254569d, type: 3}
   moveSpeed: 4
   attackMoveSpeedMultiplier: 0.5
@@ -1325,7 +1324,6 @@ MonoBehaviour:
   attractRadius: 2
   attractForce: 250
   eatDst: 0.2
-  spawnRegion: {x: 0, y: 0}
   updateProgress: 1
   toSpawn: 10
   spawnRad: 0.25
@@ -1817,11 +1815,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9103264971355901554, guid: 6018beeab07cecf41935eb0fbd910f1e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.79
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 9103264971355901554, guid: 6018beeab07cecf41935eb0fbd910f1e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.06
+      value: 255
       objectReference: {fileID: 0}
     - target: {fileID: 9103264971355901554, guid: 6018beeab07cecf41935eb0fbd910f1e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1857,11 +1855,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9103264971355901566, guid: 6018beeab07cecf41935eb0fbd910f1e, type: 3}
       propertyPath: xp
-      value: 50
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9103264971355901566, guid: 6018beeab07cecf41935eb0fbd910f1e, type: 3}
       propertyPath: element
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9103264971355901567, guid: 6018beeab07cecf41935eb0fbd910f1e, type: 3}
       propertyPath: m_Name

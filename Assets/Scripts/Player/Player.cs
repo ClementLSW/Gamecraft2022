@@ -12,7 +12,6 @@ public class Player : StateMachine
     internal Vector2 lookDir;
     Camera cam;
     [Header("Components")]
-    public PlayerProjectile attackPrefab;
     public Slider reloadBar;
     public BasePrimaryAbility primary;
     public BaseSecondaryAbility secondary;

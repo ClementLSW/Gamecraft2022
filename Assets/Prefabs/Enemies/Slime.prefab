@@ -13,6 +13,11 @@ GameObject:
   - component: {fileID: 9103264971355901555}
   - component: {fileID: 9103264971355901557}
   - component: {fileID: 9103264971355901553}
+  - component: {fileID: 1064491887743097192}
+  - component: {fileID: 4587075423517792037}
+  - component: {fileID: 6501356692667321148}
+  - component: {fileID: 2697451276913073324}
+  - component: {fileID: 8109997581592065709}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Mob
@@ -44,14 +49,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 9103264971355901567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce321efa9885ca3429369eba1cd0e84f, type: 3}
+  m_Script: {fileID: 11500000, guid: f4c3230a76299c94da801780ab60649b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
-  moveSpeed: 2
-  xp: 5
-  element: 1
+  HP: 100
   range: 0
+  speed: 0
+  element: 0
+  Player: {fileID: 0}
+  esm: {fileID: 1064491887743097192}
 --- !u!212 &9103264971355901555
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -141,3 +147,76 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1064491887743097192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103264971355901567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87488ef6241d72c41bce841b4a6af51a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: {fileID: 0}
+  IdleState: {fileID: 4587075423517792037}
+  FollowState: {fileID: 6501356692667321148}
+  RetreatState: {fileID: 8109997581592065709}
+  DashState: {fileID: 2697451276913073324}
+--- !u!114 &4587075423517792037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103264971355901567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d07578a54101c04fbdc2836db504bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slime: {fileID: 0}
+--- !u!114 &6501356692667321148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103264971355901567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 717b303e370d04d458ecc1d0a66dc42a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  pos: {fileID: 0}
+  slime: {fileID: 0}
+--- !u!114 &2697451276913073324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103264971355901567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a542bc70f0ef1fd4e9a7960178a47eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8109997581592065709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103264971355901567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb23efcd2204fa4fa3f264be8070a49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  pos: {fileID: 0}
+  slime: {fileID: 0}
+  retreatSpot: {x: 0, y: 0, z: 0}

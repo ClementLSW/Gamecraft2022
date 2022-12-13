@@ -18,8 +18,8 @@ namespace ProcGen
         [Tooltip("Jagged")]
         public float noiseDist;
         public int seed;
-
-        public BiomeType[] biomes;
+        public Region[] regions = new Region[0];
+        public Biome[] biomes;
         public RectInt mapSize;
         public bool autoUpdate = false;
         public bool isGened = false;
@@ -63,7 +63,7 @@ namespace ProcGen
                     //This algo of voronoi generation will make center always be in top right or bottom left quadrants of the gridCell
                     int centerScalar = SeedRandom.Get(gridX, gridY) % biomeGrid;
                     veci2 center = new veci2(centerScalar + gridX * biomeGrid, centerScalar + gridY * biomeGrid);
-                    BiomeType selectedBiome = biomes[SeedRandom.Get(gridX, gridY) % biomes.Length];
+                    Biome selectedBiome = biomes[SeedRandom.Get(gridX, gridY) % biomes.Length];
                     var region = new Region() { biome = selectedBiome, Center = center };
                     regionGrid.Add(gridVec, region);
                 }
@@ -139,7 +139,7 @@ namespace ProcGen
                 }
             }
 
-            MapManager._.regions = regionGrid.Values.ToArray();
+            regions = regionGrid.Values.ToArray();
             isGened = true;
             var imageTex = new Texture2D(mapSize.width, mapSize.height);
             imageTex.filterMode = FilterMode.Bilinear;
@@ -163,7 +163,14 @@ namespace ProcGen
             result.Apply();
             return result;
         }
-
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
+            foreach (var region in regions)
+            {
+                Gizmos.DrawWireSphere((Vector2)region.Center, 1);
+            }
+        }
         //for (int x = 0; x < mapSize.width; x++)
         //{
         //    for (int y = 0; y < mapSize.height; y++)

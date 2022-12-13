@@ -10,30 +10,23 @@ namespace ProcGen
     {
         public static MapManager _;
         public int seed;
-        public Region[] regions = new Region[0];
 
         VoronoiMapGen mapGen;
+        TreeGen treeGen;
         public static Region GetRegion(Vector2 loc) => VoronoiMapGen._.GetRegion(loc);
 
         private void Awake()
         {
             _ = this;
             mapGen = GetComponent<VoronoiMapGen>();
+            treeGen = GetComponent<TreeGen>();
         }
         private void Start()
         {
             seed = Random.Range(0, int.MaxValue);
             mapGen.seed = seed;
             mapGen.GenerateMap();
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.blue;
-            foreach (var region in regions)
-            {
-                Gizmos.DrawWireSphere((Vector2)region.Center, 1);
-            }
+            treeGen.SpawnTrees();
         }
     }
 }

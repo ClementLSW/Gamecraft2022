@@ -67,7 +67,7 @@ public class Player : StateMachine
     }
     public void ActivatePrimary(Vector2 targetDir, bool piercing)
     {
-        var attack = Instantiate(primary.projectilePrefab, transform.position, Quaternion.identity).GetComponent<PlayerProjectile>();
+        var attack = Instantiate(primary.projectilePrefab, transform.position, Quaternion.identity);
         attack.targetDir = targetDir;
         attack.range = primary.projectileRange;
         attack.speed = primary.projectileSpeed;

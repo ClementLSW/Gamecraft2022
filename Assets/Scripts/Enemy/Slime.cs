@@ -9,10 +9,7 @@ public class Slime : Enemy
     private Rigidbody2D rb;
     public EnemyStateManager esm;
 
-    [Header("Stats")]
-    //private bool dashed = false;
-
-     void Awake(){
+    void Awake(){
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 

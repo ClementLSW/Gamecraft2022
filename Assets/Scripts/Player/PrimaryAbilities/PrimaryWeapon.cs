@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using PlayerStates;
 
-public class BasePrimaryAbility : ScriptableObject
+public class PrimaryWeapon : MonoBehaviour
 {
     internal Player player;
-    public Element element;
-    public Sprite icon;
-    public string descrption;
-    public virtual BasePrimary PrimaryState() { return new BasePrimary(player); }
+    public BasePrimary PrimaryState() => new ShootState(player);
     public PlayerProjectile projectilePrefab;
 
-    [Header("Stats")]
+    [Header("Weapon Stats")]
     public int damage;
     public float knockback;
     public int maxAmmo;
     public float fireRate;
     public float reloadDur;
-    [Header("Projectile Types")]
+    [Header("Projectile Stats")]
     public float projectileSpeed;
     public float projectileRange;
     public float projectileSize;
+    public int projectiles = 1;
+    public float spreadAngle = 0;
+    public bool piercing = false;
 
     internal int currentAmmo;
     float reloadTimer;
@@ -31,7 +31,16 @@ public class BasePrimaryAbility : ScriptableObject
         this.player = player;
         currentAmmo = maxAmmo;
     }
-    public virtual void ActivatePrimary(Vector2 targetDir) { }
+    public virtual void ActivatePrimary(Vector2 targetDir)
+    {
+        var attack = Instantiate(projectilePrefab, player.transform.position, Quaternion.identity);
+        attack.targetDir = targetDir;
+        attack.range = projectileRange;
+        attack.speed = projectileSpeed;
+        attack.transform.localScale = Vector3.one * projectileSize;
+        attack.piercing = piercing;
+        attack.Init();
+    }
     public virtual void ReloadAmmo()
     {
         if (player.currentState is BasePrimary || player.currentState is BaseSecondary || currentAmmo >= maxAmmo)

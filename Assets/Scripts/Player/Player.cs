@@ -13,8 +13,8 @@ public class Player : StateMachine
     Camera cam;
     [Header("Components")]
     public Slider reloadBar;
-    public BasePrimaryAbility primary;
-    public BaseSecondaryAbility secondary;
+    public PrimaryWeapon primary;
+    public SecondaryAbility secondary;
     public override BaseState DefaultState() => new StopState(this);
     internal virtual BasePrimary PrimaryAbility() => primary.PrimaryState();
     internal virtual BaseSecondary SecondaryAbility() => secondary.SecondaryState();

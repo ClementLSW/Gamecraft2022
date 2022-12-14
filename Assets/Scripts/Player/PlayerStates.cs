@@ -64,25 +64,27 @@ namespace PlayerStates
     #region Primary Attack States
     public class BasePrimary : BasePlayerState
     {
-        public BasePrimary(Player sm) : base(sm) { }
-    }
-    public class WindShotState : BasePrimary
-    {
-        protected readonly WindShotAbility ability;
-        public WindShotState(Player sm) : base(sm)
+        protected readonly PrimaryWeapon weapon;
+        public BasePrimary(Player sm) : base(sm)
         {
-            ability = sm.primary as WindShotAbility;
-            duration = ability.fireRate;
+            weapon = player.primary;
+        }
+    }
+    public class ShootState : BasePrimary
+    {
+        public ShootState(Player sm) : base(sm)
+        {
+            duration = weapon.fireRate;
             bufferPoint = false;
         }
         public override void OnEnter()
         {
             base.OnEnter();
-            ability.currentAmmo--;
-            for (int i = 0; i < ability.projectiles; i++)
+            weapon.currentAmmo--;
+            for (int i = 0; i < weapon.projectiles; i++)
             {
-                float angle = ability.spreadAngle == 0 ? 0 : KongrooUtils.RemapRange(i, 0, ability.projectiles - 1, -ability.spreadAngle / 2, ability.spreadAngle / 2);
-                ability.ActivatePrimary(player.lookDir.Vector2Rotate(angle));
+                float angle = weapon.spreadAngle == 0 ? 0 : KongrooUtils.RemapRange(i, 0, weapon.projectiles - 1, -weapon.spreadAngle / 2, weapon.spreadAngle / 2);
+                weapon.ActivatePrimary(player.lookDir.Vector2Rotate(angle));
             }
         }
         public override void Update()

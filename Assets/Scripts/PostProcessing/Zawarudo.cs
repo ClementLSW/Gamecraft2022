@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class Zawarudo : PostProcessingApplication
 {
     public enum State
@@ -26,10 +26,10 @@ public class Zawarudo : PostProcessingApplication
         _ = this;
         enabled = false;
     }
-    private void OnDisable()
-    {
-        enabled = true;
-    }
+    //private void OnDisable()
+    //{
+    //    enabled = true;
+    //}
     public static void StartZaWarudo()
     {
         _.timer = 0;

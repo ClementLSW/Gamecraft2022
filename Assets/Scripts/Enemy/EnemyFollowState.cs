@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class EnemyFollowState : EnemyBaseState
 {
-    public GameObject player;
-    public Transform pos;
-    public Slime slime;
-
     public override void OnEnter(EnemyStateManager esm){
         player = GameObject.Find("Player");
         slime = esm.GetComponent<Slime>();
@@ -27,14 +23,16 @@ public class EnemyFollowState : EnemyBaseState
 
     }
 
-    public override void OnCollide(EnemyStateManager esm, Collision2D col){
-        switch(col.gameObject.layer){
-            case 6:
-                //col.gameObject.TakeDamage(10); IDK how you implementing that
-                break;
-            case 7:
-                slime.HP -= 10;
-                break;
-        }
-    }
+    // public override void OnCollide(EnemyStateManager esm, Collision2D col){
+    //     Debug.Log("Collision");
+    //     Debug.Log("Collided with Layer " + col.gameObject.layer);
+    //     switch(col.gameObject.layer){
+    //         case 6:
+    //             //col.gameObject.TakeDamage(10); IDK how you implementing that
+    //             break;
+    //         case 7:
+    //             slime.HP -= 10;
+    //             break;
+    //     }
+    // }
 }

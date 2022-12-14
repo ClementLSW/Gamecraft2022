@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class EnemyRetreatState : EnemyBaseState
 {
-    public GameObject player;
-    public Transform pos;
-    public Slime slime;
     public Vector3 retreatSpot;
     private bool retreatComplete;
 
-    private Vector3 GetRetreatSpot(){
-        Vector3 retreatSpot = player.transform.position + new Vector3(Random.Range(-8, 8), Random.Range(-8, 8), 0);
+    private Vector3 GetRetreatSpot(Vector3 pos){
+        Vector3 retreatSpot = pos + new Vector3(Random.Range(-(slime.range*2), (slime.range*2)), Random.Range(-(slime.range*2), (slime.range*2)), 0);
         return retreatSpot;
     }
 
@@ -19,7 +16,7 @@ public class EnemyRetreatState : EnemyBaseState
         player = GameObject.Find("Player");
         slime = esm.GetComponent<Slime>();
         pos = esm.GetComponent<Transform>();
-        retreatSpot = GetRetreatSpot();
+        retreatSpot = GetRetreatSpot(player.transform.position);
     }
 
     public override void OnUpdate(EnemyStateManager esm){
@@ -28,10 +25,11 @@ public class EnemyRetreatState : EnemyBaseState
         if(pos.position != retreatSpot){
             pos.position = Vector2.MoveTowards(pos.position, retreatSpot, slime.speed * Time.deltaTime);
         }else{
-            if(dist > 4){
+            Debug.Log("Check Distance");
+            if(dist > slime.range){
                 esm.SwitchState(esm.FollowState);
             }else{
-                retreatSpot += retreatSpot;
+                retreatSpot = GetRetreatSpot(retreatSpot);
             }
         }
     }
@@ -40,11 +38,12 @@ public class EnemyRetreatState : EnemyBaseState
 
     }
 
-    public override void OnCollide(EnemyStateManager esm, Collision2D col){
-        switch(col.gameObject.layer){
-            case 7:
-                slime.HP -= 10;
-                break;
-        }
-    }
+    // public override void OnCollide(EnemyStateManager esm, Collision2D col){
+    //     Debug.Log("Collision");
+    //     switch(col.gameObject.layer){
+    //         case 7:
+    //             slime.HP -= 10;
+    //             break;
+    //     }
+    // }
 }

@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 341a9d60f7d160d4a8903ee180ffbef0, type: 3}
-  m_Name: WindDashAbility
+  m_Name: Multi Dash
   m_EditorClassIdentifier: 
   element: 1
   icon: {fileID: 0}
-  cooldown: 5
+  cooldown: 3
   dashSpeed: 10
   dashDur: 0.35
+  charges: 3

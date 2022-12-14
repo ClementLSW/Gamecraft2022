@@ -18,14 +18,11 @@ public class Player : StateMachine
     public override BaseState DefaultState() => new StopState(this);
     internal virtual BasePrimary PrimaryAbility() => primary.PrimaryState();
     internal virtual BaseSecondary SecondaryAbility() => secondary.SecondaryState();
-    protected internal bool FirePrimary => Input.GetMouseButton(0) && currentAmmo > 0;
-    protected internal bool FireSecondary => Input.GetMouseButton(1) && currentCooldown <= 0;
+    internal bool FirePrimary => Input.GetMouseButton(0) && primary.CanActivate;
+    internal bool FireSecondary => Input.GetMouseButton(1) && secondary.CanActivate;
     [Header("Player Stats")]
     public float moveSpeed = 4f;
     public float attackMoveSpeedMultiplier = 0.75f;
-    protected internal int currentAmmo;
-    protected internal float currentCooldown;
-    float reloadTimer;
     protected override void Awake()
     {
         base.Awake();
@@ -37,7 +34,9 @@ public class Player : StateMachine
     {
         base.Start();
         GameManager.SetPlayer(this);
-        InitAbilities();
+        // Init abilities on pickup
+        primary.Init(this);
+        secondary.Init(this);
     }
     protected override void Update()
     {
@@ -46,8 +45,8 @@ public class Player : StateMachine
         lookDir = (mousePos - (Vector2)transform.position).normalized;
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveDir = moveInput.magnitude > 1e-7 ? moveInput.normalized : Vector2.zero;
-        ReloadAmmo();
-        RechargeCooldown();
+        primary.ReloadAmmo();
+        secondary.RechargeCooldown();
 
         if (currentState is BaseIdle && FirePrimary)
             ChangeState(PrimaryAbility());
@@ -63,58 +62,9 @@ public class Player : StateMachine
         Region currentReg = ProcGen.MapManager.GetRegion(transform.position);
         if (currentReg == null) return;
         print($"Currently in {currentReg.biome.name}");
-        
     }
     public void TakeDamage()
     {
 
-    }
-    public void ActivatePrimary(Vector2 targetDir, bool piercing)
-    {
-        var attack = Instantiate(primary.projectilePrefab, transform.position, Quaternion.identity);
-        attack.targetDir = targetDir;
-        attack.range = primary.projectileRange;
-        attack.speed = primary.projectileSpeed;
-        attack.transform.localScale = Vector3.one * primary.projectileSize;
-        attack.piercing = piercing;
-        attack.Init();
-    }
-    public void ActivateSecondary()
-    {
-        currentCooldown = secondary.cooldown;
-    }
-    public void ReloadAmmo()
-    {
-        if (currentState is BasePrimary || currentState is BaseSecondary || currentAmmo >= primary.maxAmmo)
-        {
-            reloadBar.gameObject.SetActive(false);
-            reloadTimer = 0;
-        }
-        else
-        {
-            reloadBar.gameObject.SetActive(true);
-            reloadTimer += Time.deltaTime;
-            reloadBar.value = reloadTimer / primary.reloadDur;
-            if (reloadTimer >= primary.reloadDur)
-            {
-                currentAmmo = primary.maxAmmo;
-                reloadTimer = 0;
-            }
-        }
-    }
-    public void RechargeCooldown()
-    {
-        if (currentCooldown > 0)
-        {
-            currentCooldown -= Time.deltaTime;
-            // Do some ui shit here
-        }
-    }
-    public void InitAbilities()
-    {
-        primary.player = this;
-        secondary.player = this;
-        currentAmmo = primary.maxAmmo;
-        currentCooldown = 0;
     }
 }

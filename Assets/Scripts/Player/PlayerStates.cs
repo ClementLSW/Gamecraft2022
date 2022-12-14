@@ -78,11 +78,11 @@ namespace PlayerStates
         public override void OnEnter()
         {
             base.OnEnter();
-            player.currentAmmo--;
+            ability.currentAmmo--;
             for (int i = 0; i < ability.projectiles; i++)
             {
                 float angle = ability.spreadAngle == 0 ? 0 : KongrooUtils.RemapRange(i, 0, ability.projectiles - 1, -ability.spreadAngle / 2, ability.spreadAngle / 2);
-                player.ActivatePrimary(player.lookDir.Vector2Rotate(angle), ability.piercing);
+                ability.ActivatePrimary(player.lookDir.Vector2Rotate(angle));
             }
         }
         public override void Update()
@@ -116,7 +116,7 @@ namespace PlayerStates
         public override void OnEnter()
         {
             base.OnEnter();
-            player.ActivateSecondary();
+            ability.ActivateSecondary();
             dashDir = player.moveDir == Vector2.zero ? player.lookDir : player.moveDir;
         }
         public override void Update()

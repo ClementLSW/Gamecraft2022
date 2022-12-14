@@ -62,7 +62,7 @@ public class Player : StateMachine
         }
         Region currentReg = ProcGen.MapManager.GetRegion(transform.position);
         if (currentReg == null) return;
-        print($"Currently in {currentReg.biome.name}");
+        //print($"Currently in {currentReg.biome.name}");
         
     }
     public void ActivatePrimary(Vector2 targetDir, bool piercing)

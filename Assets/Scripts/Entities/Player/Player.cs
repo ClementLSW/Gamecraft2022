@@ -14,7 +14,8 @@ public class Player : StateMachine
     [Header("Components")]
     public Slider reloadBar;
     public PrimaryWeapon primary;
-    public SecondaryAbility secondary;
+    public SecondaryAbility secondary = null;
+    public PrimaryWeapon startingWeapon;
     public override BaseState DefaultState() => new StopState(this);
     internal virtual BasePrimary PrimaryAbility() => primary.PrimaryState();
     internal virtual BaseSecondary SecondaryAbility() => secondary.SecondaryState();
@@ -23,6 +24,8 @@ public class Player : StateMachine
     [Header("Player Stats")]
     public float moveSpeed = 4f;
     public float attackMoveSpeedMultiplier = 0.75f;
+
+    internal HashSet<Upgrade> upgrades = new();
     protected override void Awake()
     {
         base.Awake();
@@ -35,8 +38,9 @@ public class Player : StateMachine
         base.Start();
         GameManager.SetPlayer(this);
         // Init abilities on pickup
+        primary = Instantiate(startingWeapon, transform);
         primary.Init(this);
-        secondary.Init(this);
+        //secondary.Init(this);
     }
     protected override void Update()
     {
@@ -46,7 +50,8 @@ public class Player : StateMachine
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveDir = moveInput.magnitude > 1e-7 ? moveInput.normalized : Vector2.zero;
         primary.ReloadAmmo();
-        secondary.RechargeCooldown();
+        if (secondary)
+            secondary.RechargeCooldown();
 
         if (currentState is BaseIdle && FirePrimary)
             ChangeState(PrimaryAbility());
@@ -66,5 +71,10 @@ public class Player : StateMachine
     public void TakeDamage()
     {
 
+    }
+    public void GetUpgrade(Upgrade upgrade)
+    {
+        upgrade.OnAcquire(this);
+        upgrades.Add(upgrade);
     }
 }

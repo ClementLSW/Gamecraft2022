@@ -15,7 +15,6 @@ public class Affinity
     public float[] baseRatio;
     public Color colourProfile;
 }
-
 [System.Serializable]
 public class Preferences
 {

@@ -33,6 +33,17 @@ public class PrimaryWeapon : MonoBehaviour
     }
     public virtual void ActivatePrimary(Vector2 targetDir)
     {
+        ShootPrimary(targetDir);
+        if (player.upgrades.Contains(UpgradeDB._.tailwind))
+            StartCoroutine(ShootDelayed(fireRate / 4f, targetDir));
+    }
+    IEnumerator ShootDelayed(float time, Vector2 targetDir)
+    {
+        yield return new WaitForSeconds(time);
+        ShootPrimary(targetDir);
+    }
+    void ShootPrimary(Vector2 targetDir)
+    {
         var attack = Instantiate(projectilePrefab, player.transform.position, Quaternion.identity);
         attack.targetDir = targetDir;
         attack.range = projectileRange;

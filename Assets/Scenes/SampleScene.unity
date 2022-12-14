@@ -1492,7 +1492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reloadBar: {fileID: 702414623}
   primary: {fileID: 3620316338873583145, guid: c79e638cc8493f94cb8bc087f634b053, type: 3}
-  secondary: {fileID: 11400000, guid: 39121acf0b955b64e9505f4dfba6cf64, type: 2}
+  secondary: {fileID: 0}
   moveSpeed: 4
   attackMoveSpeedMultiplier: 0.5
 --- !u!4 &828537378
@@ -2289,6 +2289,7 @@ GameObject:
   - component: {fileID: 1951838120}
   - component: {fileID: 1951838119}
   - component: {fileID: 1951838118}
+  - component: {fileID: 1951838121}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2375,6 +2376,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1951838121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951838117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5af71fbbbea77a44eafbae52b74e7065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tailwind: {fileID: 11400000, guid: 59425e22596107845b6667a006591388, type: 2}
 --- !u!1 &2052349185
 GameObject:
   m_ObjectHideFlags: 0

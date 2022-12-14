@@ -19,7 +19,8 @@ public class UI : MonoBehaviour
     private void Update()
     {
         UpdateAmmo();
-        UpdateCooldown();
+        if (GameManager.Player.secondary)
+            UpdateCooldown();
     }
     public void InitCharges(int totalCharges)
     {

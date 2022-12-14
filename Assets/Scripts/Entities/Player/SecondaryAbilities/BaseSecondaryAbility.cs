@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PlayerStates;
-public class SecondaryAbility : ScriptableObject
+public class SecondaryAbility : Upgrade
 {
     internal Player player;
     public Element element;
-    public Sprite icon;
     public virtual BaseSecondary SecondaryState() { return new BaseSecondary(player); }
     [Header("Stats")]
     public float cooldown;
@@ -14,9 +13,10 @@ public class SecondaryAbility : ScriptableObject
     internal float currentCooldown;
     internal int currentCharges;
     internal bool CanActivate => currentCharges > 0;
-    public virtual void Init(Player player)
+    public override void OnAcquire(Player sm)
     {
-        this.player = player;
+        base.OnAcquire(sm);
+        player = sm;
         currentCooldown = cooldown;
         currentCharges = charges;
         if (charges > 1)

@@ -1379,6 +1379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 828537378}
   - component: {fileID: 828537377}
+  - component: {fileID: 828537379}
   - component: {fileID: 828537376}
   - component: {fileID: 828537375}
   - component: {fileID: 828537374}
@@ -1491,8 +1492,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadBar: {fileID: 702414623}
-  primary: {fileID: 0}
-  secondary: {fileID: 0}
   startingWeapon: {fileID: 3620316338873583145, guid: c79e638cc8493f94cb8bc087f634b053, type: 3}
   moveSpeed: 4
   attackMoveSpeedMultiplier: 0.5
@@ -1512,6 +1511,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &828537379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828537373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd45e2b5cbe3544ca427b7c3b641adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1152402137
 GameObject:
   m_ObjectHideFlags: 0

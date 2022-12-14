@@ -43,9 +43,4 @@ MonoBehaviour:
     m_Mode: 1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  treeSprites:
-  - {fileID: 21300000, guid: c92d16a4ae0639847b627d9b16556f09, type: 3}
-  - {fileID: 21300000, guid: c88cc5c75cdd5c748af1249b4576a9a1, type: 3}
-  - {fileID: 21300000, guid: ffcbb9d3afa6ff942be09af0e494f1ce, type: 3}
-  - {fileID: 21300000, guid: 25859693308bde143bd9015b7d0df1c6, type: 3}
-  - {fileID: 21300000, guid: 16c0bc259d248c149aa497deb1ad22fa, type: 3}
+  treeSprites: []

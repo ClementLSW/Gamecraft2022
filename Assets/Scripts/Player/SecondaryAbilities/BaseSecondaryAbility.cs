@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PlayerStates;
-public class BaseSecondaryAbility : MonoBehaviour
+public class BaseSecondaryAbility : ScriptableObject
 {
     internal Player player;
     public Element element;

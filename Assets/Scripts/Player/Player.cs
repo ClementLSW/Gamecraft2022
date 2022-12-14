@@ -65,6 +65,10 @@ public class Player : StateMachine
         print($"Currently in {currentReg.biome.name}");
         
     }
+    public void TakeDamage()
+    {
+
+    }
     public void ActivatePrimary(Vector2 targetDir, bool piercing)
     {
         var attack = Instantiate(primary.projectilePrefab, transform.position, Quaternion.identity);

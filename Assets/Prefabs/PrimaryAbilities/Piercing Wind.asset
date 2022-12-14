@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f61da909e33d4694e94b81a69ac2528e, type: 3}
-  m_Name: Cum Shot
+  m_Name: Piercing Wind
   m_EditorClassIdentifier: 
   element: 1
   icon: {fileID: 0}
-  descrption: Poopy starter ability
+  descrption: Projectiles pierce through enemies
   projectilePrefab: {fileID: 5514849272783740179, guid: ad513c4529097b947bb237d3e677cce6, type: 3}
-  damage: 5
-  knockback: 3
-  maxAmmo: 6
-  fireRate: 0.25
-  reloadDur: 0.75
-  projectileSpeed: 7
-  projectileRange: 15
+  damage: 7
+  knockback: 4
+  maxAmmo: 12
+  fireRate: 0.15
+  reloadDur: 0.85
+  projectileSpeed: 12
+  projectileRange: 20
   projectileSize: 1
   projectiles: 1
   spreadAngle: 0
-  piercing: 0
+  piercing: 1

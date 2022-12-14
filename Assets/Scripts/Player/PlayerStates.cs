@@ -106,10 +106,10 @@ namespace PlayerStates
     {
         Vector2 dashDir;
         float currentSpeed;
-        protected readonly WindDash ability;
+        protected readonly WindDashAbility ability;
         public WindDashState(Player sm) : base(sm)
         {
-            ability = sm.secondary as WindDash;
+            ability = sm.secondary as WindDashAbility;
             duration = ability.dashDur;
             bufferPoint = false;
         }

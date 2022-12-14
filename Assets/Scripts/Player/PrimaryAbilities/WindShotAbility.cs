@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PlayerStates;
-[CreateAssetMenu(fileName = "WindShotAbility.asset", menuName = "PrimaryAbilities/WindshotAbility")]
+[CreateAssetMenu(fileName = "WindShotAbility.asset", menuName = "PrimaryAbilities/Wind/WindshotAbility")]
 public class WindShotAbility : BasePrimaryAbility
 {
     public override BasePrimary PrimaryState() => new WindShotState(player);

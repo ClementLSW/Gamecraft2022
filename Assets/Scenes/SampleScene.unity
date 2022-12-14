@@ -1212,8 +1212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadBar: {fileID: 702414623}
-  primary: {fileID: 11400000, guid: a4d5939606bbc4d4b8f2fc2f5885e5a4, type: 2}
-  secondary: {fileID: 1777243582170073703, guid: 78ce441a30b1b8c4e97e0475b254569d, type: 3}
+  primary: {fileID: 11400000, guid: f527642cd2e897d4c9e3bb44c89ba04c, type: 2}
+  secondary: {fileID: 11400000, guid: 70da05f170b951f4fbe32bb7ed0e4d3e, type: 2}
   moveSpeed: 4
   attackMoveSpeedMultiplier: 0.5
 --- !u!4 &828537378

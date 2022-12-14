@@ -10,11 +10,11 @@ public class Player : StateMachine
     internal SpriteRenderer sr;
     internal Vector2 moveDir;
     internal Vector2 lookDir;
+    internal PrimaryWeapon primary = null;
+    internal SecondaryAbility secondary = null;
     Camera cam;
     [Header("Components")]
     public Slider reloadBar;
-    public PrimaryWeapon primary;
-    public SecondaryAbility secondary = null;
     public PrimaryWeapon startingWeapon;
     public override BaseState DefaultState() => new StopState(this);
     internal virtual BasePrimary PrimaryAbility() => primary.PrimaryState();

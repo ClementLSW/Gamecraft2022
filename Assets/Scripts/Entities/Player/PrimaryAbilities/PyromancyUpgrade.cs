@@ -8,6 +8,6 @@ public class PyromancyUpgrade : Upgrade
     {
         base.OnAcquire(sm);
         sm.primary.baseDamage += 20;
-        sm.primary.burnProc += 7.5f;
+        sm.burnProc += 7.5f;
     }
 }

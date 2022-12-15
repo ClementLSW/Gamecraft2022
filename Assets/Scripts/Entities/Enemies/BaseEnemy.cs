@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class BaseEnemy : StateMachine
 {
-    public int totalHealth;
-    public float moveSpeed;
     public int xp;
     public Element element;
     internal Vector2 moveDir;
     internal SpriteRenderer sr;
     internal Rigidbody2D rb;
     internal StatusManager status;
-    internal int currentHealth;
     protected override void Awake()
     {
         base.Awake();
@@ -25,7 +22,6 @@ public class BaseEnemy : StateMachine
         base.Start();
         Affinity affinity = AssetDB._.elementAffinity[element];
         sr.color = affinity.colourProfile;
-        currentHealth = totalHealth;
     }
     protected override void Update()
     {
@@ -35,7 +31,7 @@ public class BaseEnemy : StateMachine
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        rb.velocity = GameManager.TimeScale * moveSpeed * moveDir;
+        rb.velocity = GameManager.TimeScale * base.moveSpeed * moveDir;
     }
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
@@ -43,10 +39,10 @@ public class BaseEnemy : StateMachine
         if (collision.CompareTag("PlayerPrimary"))
         {
             // We wanna avoid getcomponents for performance so we can get access from the cached player stats
-            totalHealth -= GameManager.Player.primary.baseDamage;
+            health -= GameManager.Player.primary.baseDamage;
         }
         // Just use new tags for each unique type of player attack
-        if (totalHealth <= 0)
+        if (health <= 0)
             Despawn();
     }
     public void Despawn()

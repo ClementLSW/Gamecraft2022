@@ -22,9 +22,15 @@ public class Player : StateMachine
     internal virtual BaseSecondary SecondaryAbility() => secondary.SecondaryState();
     internal bool FirePrimary => Input.GetMouseButton(0) && primary.CanActivate;
     internal bool FireSecondary => Input.GetMouseButton(1) && secondary != null && secondary.CanActivate;
-    [Header("Player Stats")]
-    public float moveSpeed = 4f;
-    public float attackMoveSpeedMultiplier = 0.75f;
+    [Header("Status Effects")]
+    public float burnDamageRatio = 1; // burn DoT on burned enemies, percentage of base damage
+    public float burnProc = 0; // burn chance
+    public float burnDur = 5f;
+    public float shockwaveProc = 0; // damage and knockback conversion ratio when enemies are knocked into each other
+    public float frostbiteProc = 0; // frozen once reaches 1
+    public float frostbiteDamageRatio = 0.25f; // percentage health damage
+    public float slowStrength = 0;
+    public float frostDur = 0;
 
     protected override void Awake()
     {

@@ -95,7 +95,7 @@ namespace PlayerStates
         }
         public override void FixedUpdate()
         {
-            player.rb.velocity = player.moveSpeed * player.attackMoveSpeedMultiplier * player.moveDir;
+            player.rb.velocity = player.moveSpeed * player.primary.attackMoveSpeedMultiplier * player.moveDir;
         }
     }
     #endregion

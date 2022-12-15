@@ -15,11 +15,13 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 6366f32a2400ddf4cb7eb778402d5d4e, type: 3}
   element: 3
   description: 'Projectiles apply frost, slowing their movement. Frostbite is triggered
-    on fully frosted enemies, dealing heavy damage.
+    on fully frosted enemies, dealing percentage health damage.
 
-    +5% frost proc
+    +0.3s frost
+    duration
 
-    +0.3s
-    frost duration'
+    +15% slow
+
+    +2% frostbite buildup'
   upgradeRequirements:
   - {fileID: 11400000, guid: f4d319fb8cc71794aaf4ace71d5ead7b, type: 2}

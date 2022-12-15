@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
+    public int baseHealth;
+    public float baseMoveSpeed;
+    internal int health;
+    internal float moveSpeed;
     public virtual BaseState DefaultState() => new BaseState(this);
     public BaseState currentState;
     public BaseState bufferedState;
@@ -13,6 +17,8 @@ public class StateMachine : MonoBehaviour
     }
     protected virtual void Start()
     {
+        health = baseHealth;
+        moveSpeed = baseMoveSpeed;
         currentState = DefaultState();
         currentState.OnEnter();
     }

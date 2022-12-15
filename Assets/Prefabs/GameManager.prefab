@@ -94,6 +94,23 @@ MonoBehaviour:
       - 0
       - 1
       colourProfile: {r: 0, g: 0.5, b: 1, a: 1}
+  statusTypeInspector:
+  - key: 0
+    val:
+      stackable: 1
+      timed: 1
+  - key: 1
+    val:
+      stackable: 0
+      timed: 1
+  - key: 2
+    val:
+      stackable: 1
+      timed: 0
+  - key: 3
+    val:
+      stackable: 0
+      timed: 1
   defaultPrefs:
     musicVol: 0.5
     soundVol: 0.5
@@ -115,7 +132,6 @@ MonoBehaviour:
   burn: {fileID: 11400000, guid: 15ed3f246b80829449e597f663c9bb95, type: 2}
   frost: {fileID: 11400000, guid: bc4a9ccaeba10254a8face25751b37e7, type: 2}
   shockwave: {fileID: 11400000, guid: 7a603629365c83c428627e23cc041acf, type: 2}
-  tickRate: 0.5
 --- !u!114 &5491565563476430502
 MonoBehaviour:
   m_ObjectHideFlags: 0

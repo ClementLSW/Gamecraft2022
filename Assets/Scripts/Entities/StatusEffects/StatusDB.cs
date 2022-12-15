@@ -9,7 +9,7 @@ public class StatusDB : MonoBehaviour
     public StatusEffect burn;
     public StatusEffect frost;
     public StatusEffect shockwave;
-    public float tickRate = 0.5f;
+    public const float tickRate = 0.4f;
     float tickDur;
     public event Action StatusTick;
     private void Update()

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761dc54da5c3a21488ed82bc0bfae898, type: 3}
   m_Name: Tailwind
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c4c70f00ceca50d499ba2ecba4cd9f46, type: 3}
   element: 1
   description: All projectiles are doubled.
   upgradeRequirements:

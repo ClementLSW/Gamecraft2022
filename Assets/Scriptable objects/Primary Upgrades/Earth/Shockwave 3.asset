@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8d6a9dfc744934882a2f73521f6a96, type: 3}
   m_Name: Shockwave 3
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: a9a5b009d23b25b4289e5643f50384fc, type: 3}
   element: 2
   description: 'Staggered enemies damage each other
 

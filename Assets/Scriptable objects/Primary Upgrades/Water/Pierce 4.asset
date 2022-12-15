@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b78f5a0fb1406448b65ee8d8b572e12, type: 3}
   m_Name: Pierce 4
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c01313056240b6a4bb7c6673c9e44648, type: 3}
   element: 3
   description: 'Projectiles pierce through enemies.
 

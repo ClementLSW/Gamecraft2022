@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47d5a7351fe10be4ba1be972114e565a, type: 3}
   m_Name: Multishot 1
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: cdf210eb862abc24db72b1c281673697, type: 3}
   element: 1
   description: '+1 projectile
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb8ca5fb60056944f8f0f786f692b212, type: 3}
   m_Name: Stagger 4
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: b1115bb9cc757df48ada4c6385fee63b, type: 3}
   element: 2
   description: '+10% projectile size
 

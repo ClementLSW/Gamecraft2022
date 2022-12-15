@@ -7,14 +7,14 @@ public class StatusEffect : ScriptableObject
 {
     public Sprite icon;
     public float duration;
-    public virtual void OnAcquire(StateMachine sm)
+    public virtual void OnAcquire(BaseEnemy sm)
     {
-        Debug.Log($"{sm.name}: Pickup up {name}");
+        //Debug.Log($"{sm.name}: Pickup up {name}");
         //player.buffParticles.gameObject.SetActive(true);
     }
-    public virtual void OnExpire(StateMachine sm)
+    public virtual void OnExpire(BaseEnemy sm)
     {
-        Debug.Log($"{sm.name}: Finished up {name}");
+        //Debug.Log($"{sm.name}: Finished up {name}");
         //player.buffParticles.gameObject.SetActive(false);
     }
 }

@@ -26,15 +26,6 @@ public class BaseEnemy : StateMachine
         Affinity affinity = AssetDB._.elementAffinity[element];
         sr.color = affinity.colourProfile;
         currentHealth = totalHealth;
-        status.currentStatus.Clear();
-    }
-    private void OnEnable()
-    {
-        StatusDB._.StatusTick += OnStatusTick;
-    }
-    private void OnDisable()
-    {
-        StatusDB._.StatusTick -= OnStatusTick;
     }
     protected override void Update()
     {
@@ -63,11 +54,5 @@ public class BaseEnemy : StateMachine
         //TODO: Return back to object pool instead of destroying, also spawn death effects in a deathstate instead of deleting instantly
         XpPooler.i.SpawnXp(xp, transform.position, element);
         Destroy(gameObject);
-    }
-    public void OnStatusTick()
-    {
-        if (status.HasStatus(StatusDB._.burn))
-        {
-        }
     }
 }

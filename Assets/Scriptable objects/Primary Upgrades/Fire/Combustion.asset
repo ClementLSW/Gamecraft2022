@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761dc54da5c3a21488ed82bc0bfae898, type: 3}
   m_Name: Combustion
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 554dfa92a4f55854c84967981212b437, type: 3}
   element: 0
   description: Killed enemies explode, applying burn to nearby enemies.
   upgradeRequirements:

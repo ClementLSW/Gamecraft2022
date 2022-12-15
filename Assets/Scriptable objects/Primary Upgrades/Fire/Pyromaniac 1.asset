@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abc5fa194c0fd2b46a3ecdf65d6c3b78, type: 3}
   m_Name: Pyromaniac 1
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 26ea4d40c3ed35e4c9dfe7d5b001291a, type: 3}
   element: 0
   description: +25% of base damage as burn damage
   upgradeRequirements:

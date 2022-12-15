@@ -22,9 +22,9 @@ public class EnemyStateManager : MonoBehaviour
         currentState.OnUpdate(this);
     }
 
-    // public void OnCollision(Collision2D col){
-    //     currentState.OnCollide(this, col);
-    // }
+    public void OnCollision(Collision2D col){
+        currentState.OnCollide(this, col);
+    }
 
     public void SwitchState(EnemyBaseState state){
         currentState = state;

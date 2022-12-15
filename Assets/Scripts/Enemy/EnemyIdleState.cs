@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyIdleState : EnemyBaseState
 {
+    public Slime slime;
     bool move = false;
 
     IEnumerator waiter(){
@@ -14,14 +15,11 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void OnEnter(EnemyStateManager esm){
         slime = esm.GetComponent<Slime>();
-        player = GameObject.Find("Player");
-        pos = esm.GetComponent<Transform>();
         StartCoroutine(waiter());
     }
 
     public override void OnUpdate(EnemyStateManager esm){
-        float dist = Vector2.Distance(player.transform.position, pos.position);
-        if(move && dist < slime.detectRange){
+        if(move){
             esm.SwitchState(esm.FollowState);
         }
     }
@@ -30,15 +28,14 @@ public class EnemyIdleState : EnemyBaseState
 
     }
 
-    // public override void OnCollide(EnemyStateManager esm, Collision2D col){
-    //     Debug.Log("Collision");
-    //     switch(col.gameObject.layer){
-    //         case 6:
-    //             //col.gameObject.TakeDamage(10); IDK how you implementing that
-    //             break;
-    //         case 7:
-    //             slime.HP -= 10;
-    //             break;
-    //     }
-    // }
+    public override void OnCollide(EnemyStateManager esm, Collision2D col){
+        switch(col.gameObject.layer){
+            case 6:
+                //col.gameObject.TakeDamage(10); IDK how you implementing that
+                break;
+            case 7:
+                slime.HP -= 10;
+                break;
+        }
+    }
 }

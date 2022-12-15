@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class EnemyDashState : EnemyBaseState
 {
+    private GameObject player;
+    private Transform pos;
+    private Slime slime;
     private bool dashComplete = false;
 
     IEnumerator Dash(Transform pos, Vector3 target){
         
         // Animate precharge
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(.5f);
         // Animate charge
-
         while(pos.position != target){
-            pos.position = Vector2.MoveTowards(pos.position, target, slime.speed * 1.5f * Time.deltaTime);
+            pos.position = Vector2.MoveTowards(pos.position, target, slime.speed * 3 * Time.deltaTime);
         }
         dashComplete = true;
     }
@@ -36,16 +38,14 @@ public class EnemyDashState : EnemyBaseState
 
     }
 
-    // public override void OnCollide(EnemyStateManager esm, Collision2D col){
-    //     Debug.Log("Collision");
-    //     Debug.Log("Collided with Layer " + col.gameObject.layer);
-    //     switch(col.gameObject.layer){
-    //         case 6:
-    //             //col.gameObject.TakeDamage(10); IDK how you implementing that
-    //             break;
-    //         case 7:
-    //             slime.HP -= 10;
-    //             break;
-    //     }
-    // }
+    public override void OnCollide(EnemyStateManager esm, Collision2D col){
+        switch(col.gameObject.layer){
+            case 6:
+                //col.gameObject.TakeDamage(10); IDK how you implementing that
+                break;
+            case 7:
+                slime.HP -= 10;
+                break;
+        }
+    }
 }

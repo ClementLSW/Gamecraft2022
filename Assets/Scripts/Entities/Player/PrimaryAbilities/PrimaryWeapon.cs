@@ -24,7 +24,7 @@ public class PrimaryWeapon : MonoBehaviour
     public float spreadAngle = 0;
     public int pierce = 0;
     [Header("Status Effects")]
-    public int burnDps = 50; // burn DoT on burned enemies
+    public float burnDps = 1; // burn DoT on burned enemies, percentage of base damage
     public float burnProc = 0; // burn chance
     public float shockwaveProc = 0; // damage and knockback conversion ratio when enemies are knocked into each other
     public float frostProc = 0; // frozen once reaches 1

@@ -24,7 +24,7 @@ public class Preferences
 //[ExecuteInEditMode]
 public class AssetDB : MonoBehaviour
 {
-    public static AssetDB i;
+    public static AssetDB _;
     [Header("Game")]
     public SerialKeyValuePair<Element, Affinity>[] elementAffinityInspector;
     public Dictionary<Element, Affinity> elementAffinity = new();
@@ -35,9 +35,9 @@ public class AssetDB : MonoBehaviour
     string prefsPath;
     private void Awake()
     {
-        if (i == null)
+        if (_ == null)
         {
-            i = this;
+            _ = this;
             RunOnce();
             DontDestroyOnLoad(gameObject);
         }

@@ -22,7 +22,7 @@ public class UpgradeDB : MonoBehaviour
     public Upgrade pierce1, pierce2, pierce3, pierce4, pierce5;
     public Upgrade frost1, frost2, frost3, frost4, frost5;
     [Header("Utility Upgrades")]
-    public Upgrade reroll;
+    [Range(0, 1)] public float utilityUpgradeWeight = 0.5f;
     public Upgrade health1, health2, health3;
     public Upgrade reload1, reload2, reload3;
     public Upgrade haste1, haste2, haste3;
@@ -30,6 +30,9 @@ public class UpgradeDB : MonoBehaviour
     public Upgrade cooldown1, cooldown2, cooldown3;
     public Upgrade succ1, succ2, succ3;
     public Upgrade xp1, xp2, xp3;
+    [Header("Wind Secondary")]
+    public Upgrade windEvolution;
+    public Upgrade windDash1, windDash2, windDash3, windDash4, windDash5;
 
     private void Awake()
     {

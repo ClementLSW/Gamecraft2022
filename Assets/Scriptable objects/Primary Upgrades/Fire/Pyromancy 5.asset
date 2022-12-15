@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   element: 0
-  description: 'Projectiles apply burn, dealing damage over time.
+  description: 'Projectiles apply burn, dealing damage equal to base damage every
+    second.
 
-    +7.5% burn
-    chance on projectiles'
+    +7.5% burn chance on projectiles
+
+    +20 base projectile damage'
   upgradeRequirements:
   - {fileID: 11400000, guid: 4cc1c6022c26f264991704ea13fe7376, type: 2}

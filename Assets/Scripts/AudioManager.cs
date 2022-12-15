@@ -21,8 +21,8 @@ public class AudioManager : MonoBehaviour
     }
     void RunOnce()
     {
-        SetMusicVol(AssetDB.i.prefs.musicVol);
-        SetSoundVol(AssetDB.i.prefs.soundVol);
+        SetMusicVol(AssetDB._.prefs.musicVol);
+        SetSoundVol(AssetDB._.prefs.soundVol);
     }
     public void SetMusicVol(float value)
     {

@@ -7,6 +7,7 @@ public class PyromancyUpgrade : Upgrade
     public override void OnAcquire(Player sm)
     {
         base.OnAcquire(sm);
+        sm.primary.baseDamage += 20;
         sm.primary.burnProc += 7.5f;
     }
 }

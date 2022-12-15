@@ -20,13 +20,19 @@ public class UI : MonoBehaviour
     {
         UpdateAmmo();
         if (GameManager.Player.secondary)
+        {
             UpdateCooldown();
+            UpdateSpecial();
+        }
     }
-    public void InitCharges(int totalCharges)
+    public void InitCharges(int totalCharges, Color color)
     {
         chargeIcons.Clear();
         for (int i = 0; i < totalCharges; i++)
+        {
             chargeIcons.Add(Instantiate(chargeIconPrefab, chargesGrid.transform));
+            chargeIcons[i].color = color;
+        }
     }
     void UpdateAmmo()
     {
@@ -34,14 +40,15 @@ public class UI : MonoBehaviour
     }
     void UpdateCooldown()
     {
-        bool showCooldown = GameManager.Player.secondary.currentCharges < GameManager.Player.secondary.charges;
-        bool showCharges = GameManager.Player.secondary.charges > 1;
-        cooldownSlider.gameObject.SetActive(showCooldown);
-        chargesGrid.gameObject.SetActive(showCharges);
+        cooldownSlider.gameObject.SetActive(GameManager.Player.secondary.ShowCooldown);
 
         cooldownSlider.value = Mathf.Clamp01(GameManager.Player.secondary.currentCooldown / GameManager.Player.secondary.cooldown);
         cooldownCount.text = Mathf.CeilToInt(GameManager.Player.secondary.currentCooldown).ToString();
-        for (int i = 0; i < GameManager.Player.secondary.charges; i++)
-            chargeIcons[i].gameObject.SetActive(i < GameManager.Player.secondary.currentCharges);
+    }
+    void UpdateSpecial()
+    {
+        chargesGrid.gameObject.SetActive(GameManager.Player.secondary.ShowSpecial(out int current));
+        for (int i = 0; i < chargeIcons.Count; i++)
+            chargeIcons[i].gameObject.SetActive(i < current);
     }
 }

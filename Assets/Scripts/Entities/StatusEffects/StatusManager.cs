@@ -6,23 +6,27 @@ using UnityEngine;
 public class StatusManager : MonoBehaviour
 {
     internal StateMachine sm;
-    internal Dictionary<StatusEffect, float> status = new Dictionary<StatusEffect, float>();
+    internal Dictionary<StatusEffect, float> currentStatus = new Dictionary<StatusEffect, float>();
+    private void Awake()
+    {
+        sm = GetComponent<StateMachine>();
+    }
     private void Update()
     {
         List<StatusEffect> statusToRemove = new List<StatusEffect>();
-        var statusList = status.Keys.ToArray();
+        var statusList = currentStatus.Keys.ToArray();
         int i = 0;
 
         for (; i < statusList.Length; i++)
         {
             var effect = statusList[i];
-            if (status[effect] <= 0)
+            if (currentStatus[effect] <= 0)
             {
                 statusToRemove.Add(effect);
             }
             else
             {
-                status[effect] -= Time.deltaTime;
+                currentStatus[effect] -= Time.deltaTime * GameManager.TimeScale;
             }
             //sm.buffIcons[i].gameObject.SetActive(true); //setting active buffs onto ui
             //sm.ui.buffIcons[i].sprite = buffDetails.icon;
@@ -35,7 +39,7 @@ public class StatusManager : MonoBehaviour
 
         foreach (var effect in statusToRemove)
         {
-            status.Remove(effect);
+            currentStatus.Remove(effect);
             effect.OnExpire(sm);
             //sm.buffParticles.gameObject.SetActive(false);
         }
@@ -43,17 +47,16 @@ public class StatusManager : MonoBehaviour
 
     public void AddStatus(StatusEffect effect)
     {
-        //AGilityTimer += buff.itemduration;
-        if (!status.ContainsKey(effect))
+        if (!currentStatus.ContainsKey(effect))
         {
-            status.Add(effect, 0);
+            currentStatus.Add(effect, 0);
             effect.OnAcquire(sm);
         }
-        status[effect] += effect.duration;
+        currentStatus[effect] += effect.duration;
     }
 
     public bool HasStatus(StatusEffect effect)
     {
-        return status.ContainsKey(effect);
+        return currentStatus.ContainsKey(effect);
     }
 }

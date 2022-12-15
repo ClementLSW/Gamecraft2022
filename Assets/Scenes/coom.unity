@@ -1532,7 +1532,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76452218f938d9946a6e9cc54964c047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 1
   reloadBar: {fileID: 702414623}
   startingWeapon: {fileID: 3620316338873583145, guid: c79e638cc8493f94cb8bc087f634b053, type: 3}
   moveSpeed: 4

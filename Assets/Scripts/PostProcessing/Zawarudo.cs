@@ -35,12 +35,13 @@ public class Zawarudo : PostProcessingApplication
         _.timer = 0;
         _.state = State.INCREASE;
         _.enabled = true;
+        GameManager.SetTimeScale(0);
     }
     public static void EndZaWarudo()
     {
         _.timer = _.duration;
         _.state = State.DESCREASE;
-
+        GameManager.SetTimeScale(1);
     }
     private void Update()
     {

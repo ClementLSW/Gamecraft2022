@@ -14,7 +14,7 @@ public class EditorCustomCommands : MonoBehaviour
         {
             Zawarudo.StartZaWarudo();
         }
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.X))
             Zawarudo.EndZaWarudo();
 
 #endif

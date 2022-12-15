@@ -32,7 +32,7 @@ public class BaseEnemy : StateMachine
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        rb.velocity = moveSpeed * moveDir;
+        rb.velocity = GameManager.TimeScale * moveSpeed * moveDir;
     }
     protected override void OnTriggerEnter2D(Collider2D collision)
     {

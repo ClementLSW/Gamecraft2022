@@ -5,8 +5,6 @@ public class StateMachine : MonoBehaviour
     public virtual BaseState DefaultState() => new BaseState(this);
     public BaseState currentState;
     public BaseState bufferedState;
-    public float timeScale = 1;
-    float beforeTimeSCale = 1;
 
     public event System.Action deathEvent;
 
@@ -20,17 +18,10 @@ public class StateMachine : MonoBehaviour
     }
     protected virtual void Update()
     {
-        beforeTimeSCale = Time.timeScale;
-        Time.timeScale = timeScale;
         currentState.Update();
-    }
-    protected virtual void LateUpdate()
-    {
-        Time.timeScale = beforeTimeSCale;
     }
     protected virtual void FixedUpdate()
     {
-        Time.timeScale = timeScale;
         currentState.FixedUpdate();
     }
     //protected virtual void OnCollisionEnter2D(Collision2D collision)

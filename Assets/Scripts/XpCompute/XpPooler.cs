@@ -109,7 +109,7 @@ public class XpPooler : MonoBehaviour
         {
             var n = readbackRequest.GetData<uint>().ToArray();
             // This only goes up to uint max, use a timer to update in player script to check for xp changes
-            print($"partcletypes consumed: {n[0]}, {n[1]}, {n[2]}, {n[3]}");
+            //print($"partcletypes consumed: {n[0]}, {n[1]}, {n[2]}, {n[3]}");
             //Debug.Log(n + " / " + totalParticles + "  " + (n / (float)totalParticles) * 100 + "%");
             RequestAsyncReadback();
         }

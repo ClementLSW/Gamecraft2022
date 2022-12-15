@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerProjectile : MonoBehaviour
+public class PlayerProjectile : PooledItem
 {
     Rigidbody2D rb;
     public Vector2 targetDir;
@@ -16,26 +16,28 @@ public class PlayerProjectile : MonoBehaviour
     }
     public void Init()
     {
+        rb.velocity = speed * targetDir;
     }
     private void Update()
     {
         age += Time.deltaTime * speed; // distance = time * speed
         if (age > range) // despawn when proj reaches distance limit
-            Despawn();
+            DestroyPooled();
     }
     private void FixedUpdate()
     {
-        rb.velocity = speed * targetDir;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (pierce <= 0 && collision.CompareTag("Mob"))
-            Despawn();
+            DestroyPooled();
         else
             pierce--;
     }
-    public void Despawn()
+    
+    protected override void Reset()
     {
-        Destroy(gameObject);
+        targetDir = Vector2.zero;
+        age = 0;
     }
 }

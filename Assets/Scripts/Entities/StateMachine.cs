@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StateMachine : MonoBehaviour
+public class StateMachine : PooledItem
 {
     public int baseHealth;
     public float baseMoveSpeed;
@@ -17,10 +17,7 @@ public class StateMachine : MonoBehaviour
     }
     protected virtual void Start()
     {
-        health = baseHealth;
-        moveSpeed = baseMoveSpeed;
-        currentState = DefaultState();
-        currentState.OnEnter();
+        Init();
     }
     protected virtual void Update()
     {
@@ -44,9 +41,21 @@ public class StateMachine : MonoBehaviour
         newState.OnEnter();
         currentState = newState;
     }
-    public void Die()
+    // Use onDestroy from pooledobject
+    //public void Die()
+    //{
+    //    deathEvent?.Invoke();
+    //    Destroy(gameObject);
+    //}
+    protected override void Reset()
     {
-        deathEvent?.Invoke();
-        Destroy(gameObject);
+        throw new System.NotImplementedException();
+    }
+    public virtual void Init()
+    {
+        health = baseHealth;
+        moveSpeed = baseMoveSpeed;
+        currentState = DefaultState();
+        currentState.OnEnter();
     }
 }

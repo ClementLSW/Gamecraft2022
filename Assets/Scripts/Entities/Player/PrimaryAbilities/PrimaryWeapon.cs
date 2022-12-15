@@ -8,6 +8,7 @@ public class PrimaryWeapon : MonoBehaviour
     internal Player player;
     public BasePrimary PrimaryState() => new ShootState(player);
     public PlayerProjectile projectilePrefab;
+    public GrowingPool<PlayerProjectile> projectilePool;
 
     [Header("Weapon Stats")]
     public int baseDamage = 100;
@@ -32,6 +33,7 @@ public class PrimaryWeapon : MonoBehaviour
     {
         this.player = player;
         currentAmmo = maxAmmo;
+        projectilePool = new GrowingPool<PlayerProjectile>(projectilePrefab, 20);
     }
     public virtual void ActivatePrimary(Vector2 targetDir)
     {
@@ -46,7 +48,8 @@ public class PrimaryWeapon : MonoBehaviour
     }
     void ShootPrimary(Vector2 targetDir)
     {
-        var attack = Instantiate(projectilePrefab, player.transform.position, Quaternion.identity);
+        //var attack = Instantiate(projectilePrefab, player.transform.position, Quaternion.identity);
+        var attack = projectilePool.Instantiate(player.transform.position, Quaternion.identity);
         attack.targetDir = targetDir;
         attack.range = projectileRange;
         attack.speed = projectileSpeed;

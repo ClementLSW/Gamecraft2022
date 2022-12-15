@@ -1,3 +1,4 @@
+using ProcGen;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,8 +21,6 @@ public class BaseEnemy : StateMachine
     protected override void Start()
     {
         base.Start();
-        Affinity affinity = AssetDB._.elementAffinity[element];
-        sr.color = affinity.colourProfile;
     }
     protected override void Update()
     {
@@ -49,6 +48,17 @@ public class BaseEnemy : StateMachine
     {
         //TODO: Return back to object pool instead of destroying, also spawn death effects in a deathstate instead of deleting instantly
         XpPooler.i.SpawnXp(xp, transform.position, element);
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        DestroyPooled();
+    }
+    protected override void Reset()
+    {
+    }
+    public override void Init()
+    {
+        base.Init();
+        var region = MapManager.GetRegion(transform.position);
+        element = region.biome.element;
+        sr.color = AssetDB._.elementCol[element];
     }
 }

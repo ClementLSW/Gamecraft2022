@@ -11,12 +11,12 @@ public class Region
     public Biome biome;
     public Vector2Int Center = Vector2Int.zero;
 }
-[System.Serializable]
-public class Affinity
-{
-    public float[] baseRatio;
-    public Color colourProfile;
-}
+//[System.Serializable]
+//public class ElementStats
+//{
+//    //public float[] baseRatio;
+//    public Color colourProfile;
+//}
 [System.Serializable]
 public class StatusEffect
 {
@@ -34,10 +34,12 @@ public class AssetDB : MonoBehaviour
 {
     public static AssetDB _;
     [Header("Game")]
-    public SerialKeyValuePair<Element, Affinity>[] elementAffinityInspector;
-    public Dictionary<Element, Affinity> elementAffinity = new();
+    //public SerialKeyValuePair<Element, ElementStats>[] elementStatsInspector;
+    //public Dictionary<Element, ElementStats> elementStats = new();
     public SerialKeyValuePair<StatusType, StatusEffect>[] statusTypeInspector;
     public Dictionary<StatusType, StatusEffect> statusType = new();
+    public SerialKeyValuePair<Element, Color>[] elementColInspector;
+    public Dictionary<Element, Color> elementCol = new();
 
     [Header("Settings")]
     public Preferences defaultPrefs;
@@ -61,7 +63,7 @@ public class AssetDB : MonoBehaviour
         if (prefs == null)
             prefs = defaultPrefs;
 
-        elementAffinity = elementAffinityInspector.ToDict();
+        elementCol = elementColInspector.ToDict();
         statusType = statusTypeInspector.ToDict();
     }
     public async void SavePrefs()

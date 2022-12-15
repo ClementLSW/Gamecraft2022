@@ -53,17 +53,15 @@ public class StatusManager : MonoBehaviour
                 OnStatusTick(status);
         }
     }
-    public void AddStatus(StatusType status, float duration)
+    public void AddStatus(StatusType status, float source)
     {
         if (!currentStatus.ContainsKey(status))
-        {
             currentStatus.Add(status, 0);
-            OnStatusAcquire(status);
-        }
         if (AssetDB._.statusType[status].stackable)
-            currentStatus[status] += duration;
+            currentStatus[status] += source;
         else
-            currentStatus[status] = duration;
+            currentStatus[status] = source;
+        OnStatusAcquire(status);
     }
     public void RemoveStatus(StatusType status)
     {
@@ -89,6 +87,8 @@ public class StatusManager : MonoBehaviour
                 sm.moveSpeed *= 0.5f;
                 break;
             case StatusType.Frostbite:
+                if (currentStatus[status] >= 1)
+                    sm.health -= Mathf.CeilToInt(GameManager.Player.frostbiteDamageRatio * sm.baseHealth);
                 break;
             case StatusType.Shockwave:
                 // change tag to shockwaved
@@ -105,8 +105,6 @@ public class StatusManager : MonoBehaviour
             case StatusType.Frost:
                 break;
             case StatusType.Frostbite:
-                if (currentStatus[status] >= 1)
-                    sm.health -= Mathf.CeilToInt(GameManager.Player.frostbiteDamageRatio * sm.baseHealth);
                 break;
             case StatusType.Shockwave:
                 break;

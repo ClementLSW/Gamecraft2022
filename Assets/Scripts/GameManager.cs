@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        AudioManager.i.PlayBGM(bgm);
+        //AudioManager.i.PlayBGM(bgm);
     }
     void RunOnce()
     {

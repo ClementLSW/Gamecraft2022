@@ -801,7 +801,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2998
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -866,7 +866,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0.15686275}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.11764706}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!1 &657868761
@@ -1532,10 +1532,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76452218f938d9946a6e9cc54964c047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 0
-  baseMoveSpeed: 0
+  baseHealth: 3
+  baseMoveSpeed: 4
   reloadBar: {fileID: 702414623}
   startingWeapon: {fileID: 3620316338873583145, guid: c79e638cc8493f94cb8bc087f634b053, type: 3}
+  burnDamageRatio: 1
+  burnProc: 0
+  burnDur: 5
+  shockwaveProc: 0
+  frostbiteProc: 0
+  frostbiteDamageRatio: 0.25
+  slowStrength: 0
+  frostDur: 0
 --- !u!4 &828537378
 Transform:
   m_ObjectHideFlags: 0
@@ -1710,7 +1718,7 @@ GameObject:
   - component: {fileID: 1204578520}
   - component: {fileID: 1204578521}
   m_Layer: 0
-  m_Name: XpPooler
+  m_Name: Pooler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1755,7 +1763,7 @@ MonoBehaviour:
   eatDst: 0.2
   updateProgress: 1
   toSpawn: 10
-  spawnRad: 0.25
+  spawnRad: 0.5
 --- !u!1 &1215726939
 GameObject:
   m_ObjectHideFlags: 0
@@ -2331,6 +2339,56 @@ Canvas:
   m_SortingLayerID: -610009579
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1878471287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1878471288}
+  - component: {fileID: 1878471289}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1878471288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878471287}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1878471289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878471287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2771e3f665267e4ebcf27aeb6b7b8ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRate: 5
+  spawnRadius: 15
+  spawnCount: 5
+  slime: {fileID: 2643778293837742861, guid: b3765ad42efc38a45a739a663e72a9c9, type: 3}
+  slimePool:
+    poolCount: 0
 --- !u!1 &2052349185
 GameObject:
   m_ObjectHideFlags: 0
@@ -2584,8 +2642,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: FSM Test
       objectReference: {fileID: 0}
-    - target: {fileID: 2643778293837742861, guid: b3765ad42efc38a45a739a663e72a9c9, type: 3}
-      propertyPath: element
+    - target: {fileID: 1540837561228763448, guid: b3765ad42efc38a45a739a663e72a9c9, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

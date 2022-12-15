@@ -8,31 +8,25 @@ public class SecondaryAbility : Upgrade
     public virtual BaseSecondary SecondaryState() { return new BaseSecondary(player); }
     [Header("Stats")]
     public float cooldown;
-    public int charges;
     internal float currentCooldown;
-    internal int currentCharges;
-    internal bool CanActivate => currentCharges > 0;
+    internal virtual bool CanActivate => currentCooldown <= 0;
+    internal virtual bool ShowCooldown => currentCooldown > 0;
+    internal virtual bool ShowSpecial(out int current)
+    {
+        current = 0;
+        return false;
+    }
     public override void OnAcquire(Player sm)
     {
         base.OnAcquire(sm);
         player = sm;
-        currentCooldown = cooldown;
-        currentCharges = charges;
-        if (charges > 1)
-            UI._.InitCharges(charges);
     }
     public virtual void ActivateSecondary()
     {
-        currentCharges--;
+        currentCooldown = cooldown;
     }
     public virtual void RechargeCooldown()
     {
-        if (currentCharges == charges) return;
         currentCooldown -= Time.deltaTime;
-        if (currentCooldown <= 0)
-        {
-            currentCharges++;
-            currentCooldown = cooldown;
-        }
     }
 }

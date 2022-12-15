@@ -93,7 +93,7 @@ namespace PlayerStates
         }
         public override void FixedUpdate()
         {
-            player.rb.velocity = player.moveSpeed * player.attackMoveSpeedMultiplier * player.moveDir;
+            player.rb.velocity = player.moveSpeed * player.primary.attackMoveSpeedMultiplier * player.moveDir;
         }
     }
     #endregion
@@ -132,5 +132,27 @@ namespace PlayerStates
             player.rb.velocity = currentSpeed * dashDir;
         }
     }
+    public class FireShootState : BaseSecondary
+    {
+        public FireShootState(Player sm) : base(sm)
+        {
+
+        }
+    }
+    public class EarthRollState : BaseSecondary
+    {
+        public EarthRollState(Player sm) : base(sm)
+        {
+
+        }
+    }
+    public class WaterBlastState : BaseSecondary
+    {
+        public WaterBlastState(Player sm) : base(sm)
+        {
+
+        }
+    }
+
     #endregion
 }

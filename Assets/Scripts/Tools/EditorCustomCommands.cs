@@ -34,6 +34,9 @@ public class EditorCustomCommands : MonoBehaviour
             GameManager.Player.GetUpgrade(UpgradeDB._.pierce5);
         if (Input.GetKeyDown(KeyCode.Alpha8))
             GameManager.Player.GetUpgrade(UpgradeDB._.frost5);
+
+        if (Input.GetKeyDown(KeyCode.P))
+            GameManager.Player.GetUpgrade(UpgradeDB._.windDash1);
 #endif
     }
 }

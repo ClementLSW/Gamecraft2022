@@ -7,6 +7,6 @@ public class PyromaniacUpgrade : Upgrade
     public override void OnAcquire(Player sm)
     {
         base.OnAcquire(sm);
-        sm.primary.burnDps = Mathf.CeilToInt(sm.primary.burnDps * 1.2f);
+        sm.burnDamageRatio += 0.25f;
     }
 }

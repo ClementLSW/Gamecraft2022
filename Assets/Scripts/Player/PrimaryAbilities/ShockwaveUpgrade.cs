@@ -8,6 +8,6 @@ public class ShockwaveUpgrade : Upgrade
     public override void OnAcquire(Player sm)
     {
         base.OnAcquire(sm);
-        sm.primary.shockwaveProc += 0.15f;
+        sm.shockwaveProc += 0.15f;
     }
 }

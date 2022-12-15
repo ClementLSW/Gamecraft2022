@@ -15,6 +15,7 @@ public class PrimaryWeapon : MonoBehaviour
     public int maxAmmo = 6;
     public float fireRate = 0.25f;
     public float reloadDur = 1f;
+    public float attackMoveSpeedMultiplier = 0.5f;
     [Header("Projectile Stats")]
     public float damageScale = 1;
     public float projectileSpeed = 5f;
@@ -23,12 +24,6 @@ public class PrimaryWeapon : MonoBehaviour
     public int projectiles = 1;
     public float spreadAngle = 0;
     public int pierce = 0;
-    [Header("Status Effects")]
-    public int burnDps = 50; // burn DoT on burned enemies
-    public float burnProc = 0; // burn chance
-    public float shockwaveProc = 0; // damage and knockback conversion ratio when enemies are knocked into each other
-    public float frostProc = 0; // frozen once reaches 1
-    public float frostDur = 0;
 
     internal int currentAmmo;
     float reloadTimer;

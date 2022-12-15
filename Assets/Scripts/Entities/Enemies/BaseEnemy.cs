@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class BaseEnemy : StateMachine
 {
-    //public enum Element{FIRE, WATTER, EARTH, WIND}  //Enemy Archetypes, not sure what we doing with it yet
-    public int hp;
-    public float moveSpeed;
     public int xp;
     public Element element;
     internal Vector2 moveDir;
     internal SpriteRenderer sr;
     internal Rigidbody2D rb;
+    internal StatusManager status;
     protected override void Awake()
     {
         base.Awake();
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        status = GetComponent<StatusManager>();
     }
     protected override void Start()
     {
         base.Start();
-        Affinity affinity = AssetDB.i.elementAffinity[element];
+        Affinity affinity = AssetDB._.elementAffinity[element];
         sr.color = affinity.colourProfile;
     }
     protected override void Update()
@@ -32,7 +31,7 @@ public class BaseEnemy : StateMachine
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        rb.velocity = GameManager.TimeScale * moveSpeed * moveDir;
+        rb.velocity = GameManager.TimeScale * base.moveSpeed * moveDir;
     }
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
@@ -40,10 +39,10 @@ public class BaseEnemy : StateMachine
         if (collision.CompareTag("PlayerPrimary"))
         {
             // We wanna avoid getcomponents for performance so we can get access from the cached player stats
-            hp -= GameManager.Player.primary.baseDamage;
+            health -= GameManager.Player.primary.baseDamage;
         }
         // Just use new tags for each unique type of player attack
-        if (hp <= 0)
+        if (health <= 0)
             Despawn();
     }
     public void Despawn()

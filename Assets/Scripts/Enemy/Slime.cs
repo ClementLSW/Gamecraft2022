@@ -7,17 +7,18 @@ public class Slime : Enemy
     [Header("Components")]
     public GameObject Player;       // Can probably change datatype back to transform
     private Rigidbody2D rb;
-    public EnemyStateManager esm;
+    public SlimeStateManager ssm;
 
     void Awake(){
         Player = GameObject.Find("Player");
         rb = gameObject.GetComponent<Rigidbody2D>();
+        ssm = gameObject.GetComponent<SlimeStateManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        esm.Update();
+        ssm.Update();
         
         if(this.HP <= 0){
             Destroy(gameObject);

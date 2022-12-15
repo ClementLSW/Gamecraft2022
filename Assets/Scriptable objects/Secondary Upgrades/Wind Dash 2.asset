@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Wind Dash 2
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  description: Dash
+  element: 1
+  description: Increased dash speed.
   upgradeRequirements:
   - {fileID: 11400000, guid: 70da05f170b951f4fbe32bb7ed0e4d3e, type: 2}
-  element: 1
   cooldown: 5
-  charges: 1
   dashSpeed: 15
   dashDur: 0.35
+  charges: 1

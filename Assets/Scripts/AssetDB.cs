@@ -1,9 +1,15 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+<<<<<<< HEAD
 public enum Element: uint { Fire, Wind, Earth, Water };
+=======
+public enum Element: uint { Fire, Wind, Earth, Water, Neutral };
+public enum StatusType { Burn, Frost, Frostbite, Shockwave };
+>>>>>>> main
 public class Region
 {
     public Biome biome;
@@ -17,6 +23,12 @@ public class Affinity
 }
 
 [System.Serializable]
+public class StatusEffect
+{
+    public bool stackable;
+    public bool timed;
+}
+[System.Serializable]
 public class Preferences
 {
     public float musicVol;
@@ -25,10 +37,12 @@ public class Preferences
 //[ExecuteInEditMode]
 public class AssetDB : MonoBehaviour
 {
-    public static AssetDB i;
+    public static AssetDB _;
     [Header("Game")]
     public SerialKeyValuePair<Element, Affinity>[] elementAffinityInspector;
     public Dictionary<Element, Affinity> elementAffinity = new();
+    public SerialKeyValuePair<StatusType, StatusEffect>[] statusTypeInspector;
+    public Dictionary<StatusType, StatusEffect> statusType = new();
 
     [Header("Settings")]
     public Preferences defaultPrefs;
@@ -36,9 +50,9 @@ public class AssetDB : MonoBehaviour
     string prefsPath;
     private void Awake()
     {
-        if (i == null)
+        if (_ == null)
         {
-            i = this;
+            _ = this;
             RunOnce();
             DontDestroyOnLoad(gameObject);
         }
@@ -53,6 +67,7 @@ public class AssetDB : MonoBehaviour
             prefs = defaultPrefs;
 
         elementAffinity = elementAffinityInspector.ToDict();
+        statusType = statusTypeInspector.ToDict();
     }
     public async void SavePrefs()
     {

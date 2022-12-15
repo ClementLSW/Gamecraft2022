@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Wind Dash 5
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  description: Dash
+  element: 1
+  description: Adds an additional charge to the ability.
   upgradeRequirements:
   - {fileID: 11400000, guid: 2a5d0addd632d804da25a7187551c89a, type: 2}
-  element: 1
   cooldown: 5
-  charges: 3
   dashSpeed: 20
   dashDur: 0.35
+  charges: 3

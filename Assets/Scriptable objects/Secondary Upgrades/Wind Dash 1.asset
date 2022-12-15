@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Wind Dash 1
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  description: Dash
-  upgradeRequirements: []
   element: 1
+  description: 'Dashes towards a location.
+
+'
+  upgradeRequirements: []
   cooldown: 5
-  charges: 1
   dashSpeed: 10
   dashDur: 0.35
+  charges: 1

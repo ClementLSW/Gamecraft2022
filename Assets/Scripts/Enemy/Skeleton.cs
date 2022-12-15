@@ -2,32 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : Enemy
+public class Skeleton : Enemy
 {
     [Header("Components")]
     public GameObject Player;       // Can probably change datatype back to transform
     private Player player;
     private Rigidbody2D rb;
-    public SlimeStateManager ssm;
+    public RangedStateManager rsm;
 
     void setElement(Element e){
         this.element = e;
     }
 
-    void Awake(){
+    // Start is called before the first frame update
+    void Awake()
+    {
         Player = GameObject.Find("Player");
         player = Player.GetComponent<Player>();
         rb = gameObject.GetComponent<Rigidbody2D>();
-        ssm = gameObject.GetComponent<SlimeStateManager>();
+        rsm = gameObject.GetComponent<RangedStateManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ssm.Update();
-        
+        rsm.Update();
+
         if(this.HP <= 0){
-            Destroy(gameObject);    // I should probably do a dying state
+            Destroy(gameObject);
         }
     }
 

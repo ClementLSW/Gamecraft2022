@@ -8,7 +8,7 @@ public class PlayerProjectile : MonoBehaviour
     public Vector2 targetDir;
     public float speed;
     public float range;
-    public bool piercing;
+    public int pierce;
     float age;
     private void Awake()
     {
@@ -16,7 +16,6 @@ public class PlayerProjectile : MonoBehaviour
     }
     public void Init()
     {
-        rb.velocity = speed * targetDir;
     }
     private void Update()
     {
@@ -24,10 +23,16 @@ public class PlayerProjectile : MonoBehaviour
         if (age > range) // despawn when proj reaches distance limit
             Despawn();
     }
+    private void FixedUpdate()
+    {
+        rb.velocity = speed * targetDir;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!piercing && collision.CompareTag("Mob"))
+        if (pierce <= 0 && collision.CompareTag("Mob"))
             Despawn();
+        else
+            pierce--;
     }
     public void Despawn()
     {

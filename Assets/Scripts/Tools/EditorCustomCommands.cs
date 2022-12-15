@@ -16,7 +16,8 @@ public class EditorCustomCommands : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.X))
             Zawarudo.EndZaWarudo();
-
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+            GameManager.Player.GetUpgrade(UpgradeDB._.tailwind);
 #endif
     }
 }

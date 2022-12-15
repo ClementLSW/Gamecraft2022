@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 5514849272783740179, guid: ad513c4529097b947bb237d3e677cce6, type: 3}
-  damage: 5
+  damage: 10
   knockback: 3
   maxAmmo: 6
   fireRate: 0.25

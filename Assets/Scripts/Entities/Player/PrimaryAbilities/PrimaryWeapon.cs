@@ -10,18 +10,19 @@ public class PrimaryWeapon : MonoBehaviour
     public PlayerProjectile projectilePrefab;
 
     [Header("Weapon Stats")]
-    public int damage;
-    public float knockback;
-    public int maxAmmo;
-    public float fireRate;
-    public float reloadDur;
+    public int baseDamage = 100;
+    public float knockback = 10;
+    public int maxAmmo = 6;
+    public float fireRate = 0.25f;
+    public float reloadDur = 1f;
     [Header("Projectile Stats")]
-    public float projectileSpeed;
-    public float projectileRange;
-    public float projectileSize;
+    public float damageScale = 1;
+    public float projectileSpeed = 5f;
+    public float projectileRange = 30f;
+    public float projectileSize = 1f;
     public int projectiles = 1;
     public float spreadAngle = 0;
-    public bool piercing = false;
+    public int pierce = 0;
 
     internal int currentAmmo;
     float reloadTimer;
@@ -49,7 +50,7 @@ public class PrimaryWeapon : MonoBehaviour
         attack.range = projectileRange;
         attack.speed = projectileSpeed;
         attack.transform.localScale = Vector3.one * projectileSize;
-        attack.piercing = piercing;
+        attack.pierce = pierce;
         attack.Init();
     }
     public virtual void ReloadAmmo()

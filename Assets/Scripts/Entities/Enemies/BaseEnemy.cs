@@ -40,7 +40,7 @@ public class BaseEnemy : StateMachine
         if (collision.CompareTag("PlayerPrimary"))
         {
             // We wanna avoid getcomponents for performance so we can get access from the cached player stats
-            hp -= GameManager.Player.primary.damage;
+            hp -= GameManager.Player.primary.baseDamage;
         }
         // Just use new tags for each unique type of player attack
         if (hp <= 0)

@@ -7,8 +7,8 @@ public class MultishotUpgrade : Upgrade
     public override void OnAcquire(Player sm)
     {
         base.OnAcquire(sm);
-        GameManager.Player.primary.damageScale *= 0.9f;
-        GameManager.Player.primary.projectiles += 1;
-        GameManager.Player.primary.spreadAngle += 15f;
+        sm.primary.projectiles += 1;
+        sm.primary.spreadAngle += 15f;
+        sm.primary.damageScale *= 0.85f;
     }
 }

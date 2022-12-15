@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public enum Element: uint { Neutral, Fire, Wind, Earth, Water };
+public enum Element: uint { Fire, Wind, Earth, Water, Neutral };
 public class Region
 {
     public Biome biome;

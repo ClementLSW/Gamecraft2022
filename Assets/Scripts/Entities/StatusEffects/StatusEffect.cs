@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StatusEffect.asset", menuName = "StatemachineExtensions/StatusEffect")]
+[CreateAssetMenu(fileName = "StatusEffect.asset", menuName = "StatusEffect/Base")]
 public class StatusEffect : ScriptableObject
 {
     public Sprite icon;

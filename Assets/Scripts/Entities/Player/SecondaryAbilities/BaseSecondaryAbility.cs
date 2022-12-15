@@ -5,7 +5,6 @@ using PlayerStates;
 public class SecondaryAbility : Upgrade
 {
     internal Player player;
-    public Element element;
     public virtual BaseSecondary SecondaryState() { return new BaseSecondary(player); }
     [Header("Stats")]
     public float cooldown;

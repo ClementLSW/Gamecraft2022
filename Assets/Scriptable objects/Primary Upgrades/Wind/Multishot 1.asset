@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761dc54da5c3a21488ed82bc0bfae898, type: 3}
+  m_Script: {fileID: 11500000, guid: 47d5a7351fe10be4ba1be972114e565a, type: 3}
   m_Name: Multishot 1
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  description: 
+  element: 1
+  description: '+1 projectile
+
+    +15 spread
+
+    -15% projectile damage'
   upgradeRequirements: []

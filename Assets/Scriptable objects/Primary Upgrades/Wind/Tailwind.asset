@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Tailwind
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  description: Double projectiles
-  upgradeRequirements: []
+  element: 1
+  description: All projectiles are doubled.
+  upgradeRequirements:
+  - {fileID: 11400000, guid: fa57358152cf47a458f30eb5a2a50c7d, type: 2}
+  - {fileID: 11400000, guid: 25fac8eb4b1682843ba6834018194727, type: 2}

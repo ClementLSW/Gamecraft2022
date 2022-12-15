@@ -12,6 +12,7 @@ public class Player : StateMachine
     internal Vector2 lookDir;
     internal PrimaryWeapon primary = null;
     internal SecondaryAbility secondary = null;
+    internal HashSet<Upgrade> upgrades = new();
     Camera cam;
     [Header("Components")]
     public Slider reloadBar;
@@ -20,12 +21,11 @@ public class Player : StateMachine
     internal virtual BasePrimary PrimaryAbility() => primary.PrimaryState();
     internal virtual BaseSecondary SecondaryAbility() => secondary.SecondaryState();
     internal bool FirePrimary => Input.GetMouseButton(0) && primary.CanActivate;
-    internal bool FireSecondary => Input.GetMouseButton(1) && secondary.CanActivate;
+    internal bool FireSecondary => Input.GetMouseButton(1) && secondary != null && secondary.CanActivate;
     [Header("Player Stats")]
     public float moveSpeed = 4f;
     public float attackMoveSpeedMultiplier = 0.75f;
 
-    internal HashSet<Upgrade> upgrades = new();
     protected override void Awake()
     {
         base.Awake();
@@ -74,7 +74,10 @@ public class Player : StateMachine
     }
     public void GetUpgrade(Upgrade upgrade)
     {
-        upgrade.OnAcquire(this);
-        upgrades.Add(upgrade);
+        if (!upgrades.Contains(upgrade))
+        {
+            upgrade.OnAcquire(this);
+            upgrades.Add(upgrade);
+        }
     }
 }

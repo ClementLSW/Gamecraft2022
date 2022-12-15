@@ -7,7 +7,7 @@ public class SwiftshotUpgrade : Upgrade
     public override void OnAcquire(Player sm)
     {
         base.OnAcquire(sm);
-        GameManager.Player.primary.fireRate *= 0.8f;
-        GameManager.Player.primary.maxAmmo += 1;
+        sm.primary.fireRate *= 0.8f;
+        sm.primary.maxAmmo += 1;
     }
 }

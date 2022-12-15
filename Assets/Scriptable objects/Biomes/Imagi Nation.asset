@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f010236f43b5d49815df47044d448f, type: 3}
   m_Name: Imagi Nation
   m_EditorClassIdentifier: 
-  element: 1
+  element: 4
   colour: {r: 1, g: 1, b: 1, a: 1}
   elementSpawnRate:
     serializedVersion: 2

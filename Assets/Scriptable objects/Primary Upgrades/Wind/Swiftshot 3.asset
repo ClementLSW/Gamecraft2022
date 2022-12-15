@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761dc54da5c3a21488ed82bc0bfae898, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fe438af818dfab40b6f70142a0b66b3, type: 3}
   m_Name: Swiftshot 3
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  description: 
-  upgradeRequirements: []
+  element: 1
+  description: '+20% attack speed
+
+    +1 max ammo'
+  upgradeRequirements:
+  - {fileID: 11400000, guid: 1e89ef96a2d187649ba7acdd9ba34e86, type: 2}

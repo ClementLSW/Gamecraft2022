@@ -9,9 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 761dc54da5c3a21488ed82bc0bfae898, type: 3}
-  m_Name: BaseWeapon
+  m_Script: {fileID: 11500000, guid: 8b78f5a0fb1406448b65ee8d8b572e12, type: 3}
+  m_Name: Pierce 4
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  description: No maidens?
-  upgradeRequirements: []
+  element: 3
+  description: 'Projectiles pierce through enemies.
+
+    +1 piercing
+
+    -20% projectile
+    speed'
+  upgradeRequirements:
+  - {fileID: 11400000, guid: 2c61bc5798729ef4981637162013114f, type: 2}

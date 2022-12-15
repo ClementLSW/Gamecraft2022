@@ -63,7 +63,7 @@ namespace ProcGen
                     //This algo of voronoi generation will make center always be in top right or bottom left quadrants of the gridCell
                     int centerScalar = SeedRandom.Get(gridX, gridY) % biomeGrid;
                     veci2 center = new veci2(centerScalar + gridX * biomeGrid, centerScalar + gridY * biomeGrid);
-                    Biome selectedBiome = biomes[SeedRandom.Get(gridX, gridY) % biomes.Length];
+                    Biome selectedBiome = biomes[math.abs( SeedRandom.Get(gridX, -gridY)) % biomes.Length];
                     var region = new Region() { biome = selectedBiome, Center = center };
                     regionGrid.Add(gridVec, region);
                 }

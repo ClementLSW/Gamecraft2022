@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public enum Element: uint { Fire, Wind, Earth, Water };
+public enum Element: uint { Fire, Wind, Earth, Water, Neutral };
 public class Region
 {
     public Biome biome;
@@ -15,7 +15,6 @@ public class Affinity
     public float[] baseRatio;
     public Color colourProfile;
 }
-
 [System.Serializable]
 public class Preferences
 {
@@ -25,7 +24,7 @@ public class Preferences
 //[ExecuteInEditMode]
 public class AssetDB : MonoBehaviour
 {
-    public static AssetDB i;
+    public static AssetDB _;
     [Header("Game")]
     public SerialKeyValuePair<Element, Affinity>[] elementAffinityInspector;
     public Dictionary<Element, Affinity> elementAffinity = new();
@@ -36,9 +35,9 @@ public class AssetDB : MonoBehaviour
     string prefsPath;
     private void Awake()
     {
-        if (i == null)
+        if (_ == null)
         {
-            i = this;
+            _ = this;
             RunOnce();
             DontDestroyOnLoad(gameObject);
         }

@@ -18,15 +18,20 @@ namespace ProcGen
         private void Awake()
         {
             _ = this;
-            mapGen = GetComponent<VoronoiMapGen>();
-            treeGen = GetComponent<TreeGen>();
         }
         private void Start()
         {
+            Generate();
+        }
+        public void Generate()
+        {
+            mapGen = GetComponent<VoronoiMapGen>();
+            treeGen = GetComponent<TreeGen>();
             seed = Random.Range(0, int.MaxValue);
             mapGen.seed = seed;
             mapGen.GenerateMap();
             treeGen.SpawnTrees();
+
         }
     }
 }

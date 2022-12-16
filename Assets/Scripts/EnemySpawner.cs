@@ -15,24 +15,21 @@ public class EnemySpawner : MonoBehaviour
     public int waveCounter = 0;
     public int pooledPerWave = 20;
     public List<EnemyWave> waves = new();
-    public GrowingPool<BaseEnemy> firePool;
-    public GrowingPool<BaseEnemy> windPool;
-    public GrowingPool<BaseEnemy> earthPool;
-    public GrowingPool<BaseEnemy> waterPool;
+    public static EnemyWave CurrentWave => _.waves[_.waveCounter];
     private void Awake()
     {
         _ = this;
     }
     private void Start()
     {
-        InitPools();
+        NextWave();
     }
-    public void InitPools()
+    public void NextWave()
     {
-        firePool = new GrowingPool<BaseEnemy>(waves[waveCounter].fireEnemies, pooledPerWave);
-        windPool = new GrowingPool<BaseEnemy>(waves[waveCounter].windEnemies, pooledPerWave);
-        earthPool = new GrowingPool<BaseEnemy>(waves[waveCounter].earthEnemies, pooledPerWave);
-        waterPool = new GrowingPool<BaseEnemy>(waves[waveCounter].waterEnemies, pooledPerWave);
+        CurrentWave.firePool = new GrowingPool<BaseEnemy>(waves[waveCounter].fireEnemies, pooledPerWave);
+        CurrentWave.windPool = new GrowingPool<BaseEnemy>(waves[waveCounter].windEnemies, pooledPerWave);
+        CurrentWave.earthPool = new GrowingPool<BaseEnemy>(waves[waveCounter].earthEnemies, pooledPerWave);
+        CurrentWave.waterPool = new GrowingPool<BaseEnemy>(waves[waveCounter].waterEnemies, pooledPerWave);
         waveCounter++;
     }
     private void Update()
@@ -50,16 +47,16 @@ public class EnemySpawner : MonoBehaviour
                 switch (AssetDB._.colToElement[col])
                 {
                     case Element.Fire:
-                        firePool.Instantiate(randPos, Quaternion.identity).Init();
+                        CurrentWave.firePool.Instantiate(randPos, Quaternion.identity).Init();
                         break;
                     case Element.Wind:
-                        windPool.Instantiate(randPos, Quaternion.identity).Init();
+                        CurrentWave.windPool.Instantiate(randPos, Quaternion.identity).Init();
                         break;
                     case Element.Earth:
-                        earthPool.Instantiate(randPos, Quaternion.identity).Init();
+                        CurrentWave.earthPool.Instantiate(randPos, Quaternion.identity).Init();
                         break;
                     case Element.Water:
-                        waterPool.Instantiate(randPos, Quaternion.identity).Init();
+                        CurrentWave.waterPool.Instantiate(randPos, Quaternion.identity).Init();
                         break;
                 }
             }

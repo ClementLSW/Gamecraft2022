@@ -13,7 +13,7 @@ public class EditorCustomCommands : MonoBehaviour
         xpToNextLevel = GameManager.NeededToLevel;
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Q))
-            EnemySpawner._.InitPools();
+            EnemySpawner._.NextWave();
         if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         if (Input.GetKeyDown(KeyCode.Z))

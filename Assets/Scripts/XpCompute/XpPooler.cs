@@ -79,12 +79,13 @@ public class XpPooler : MonoBehaviour
     {
         readbackRequest = AsyncGPUReadback.Request(numParticlesConsumedBuffer);
     }
-    public void SpawnXp(int numPoints, Vector2 pos, Element element)
+    public void SpawnXp(int numPoints, Vector2 pos, Element element, float radius = 0.5f)
     {
         dustCompute.SetInt("currPointCount", currentParticles % totalParticles);
         dustCompute.SetInt("numPoints2Add", numPoints);
         dustCompute.SetInt("colorType2Add", (int)element);
         dustCompute.SetVector("spawnCenter", pos);
+        dustCompute.SetFloat("spawnRad", radius);
         //instancedMaterial.color = AssetDB._.elementCol[element].darkTheme;
         ComputeHelper.Dispatch(dustCompute, totalParticles, 1, 1, InitDustKernel);
         currentParticles += numPoints;
@@ -102,7 +103,6 @@ public class XpPooler : MonoBehaviour
         dustCompute.SetFloat("attractRadius", attractRadius);
         dustCompute.SetFloat("eatDst", eatDst);
         dustCompute.SetFloat("attractForce", attractForce);
-        dustCompute.SetFloat("spawnRad", spawnRad);
 
         ComputeHelper.Dispatch(dustCompute, totalParticles, 1, 1, UpdateDustKernel);
 

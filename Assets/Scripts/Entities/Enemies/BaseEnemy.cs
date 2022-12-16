@@ -9,11 +9,15 @@ public class BaseEnemy : StateMachine
     public Element element;
     internal Vector2 moveDir;
     internal Animator anim;
+    internal CircleCollider2D circleCollider;
     internal SpriteRenderer[] sr;
     internal Rigidbody2D rb;
     internal StatusManager status;
     public override BaseState DefaultState() => new MoveState(this);
+    public static readonly int IdleKey = Animator.StringToHash("idle");
     public static readonly int MoveKey = Animator.StringToHash("move");
+    public static readonly int AttackKey = Animator.StringToHash("attack");
+
     bool flipBody;
     protected override void Awake()
     {
@@ -21,6 +25,7 @@ public class BaseEnemy : StateMachine
         anim = GetComponent<Animator>();
         sr = GetComponentsInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        circleCollider = GetComponent<CircleCollider2D>();
         status = GetComponent<StatusManager>();
     }
     protected override void Start()
@@ -54,7 +59,7 @@ public class BaseEnemy : StateMachine
     public void Despawn()
     {
         //TODO: Return back to object pool instead of destroying, also spawn death effects in a deathstate instead of deleting instantly
-        XpPooler._.SpawnXp(xp, transform.position, element);
+        XpPooler._.SpawnXp(xp, transform.position, element, circleCollider.radius);
         DestroyPooled();
     }
     protected override void Reset()

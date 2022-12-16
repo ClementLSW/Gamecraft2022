@@ -9,4 +9,8 @@ public class EnemyWave : ScriptableObject
     public BaseEnemy windEnemies;
     public BaseEnemy earthEnemies;
     public BaseEnemy waterEnemies;
+    public GrowingPool<BaseEnemy> firePool;
+    public GrowingPool<BaseEnemy> windPool;
+    public GrowingPool<BaseEnemy> earthPool;
+    public GrowingPool<BaseEnemy> waterPool;
 }

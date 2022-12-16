@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//This pooler is not worky that well for this use case because the objects change around often but good for static objects
+//TODO: Use old pooler for uses in enemy instantiation
 [System.Serializable]
 public class GrowingPool<T> where T : PooledItem
 {
@@ -62,6 +64,15 @@ public class GrowingPool<T> where T : PooledItem
         return instantiateEntity;
 
     }
+
+    //~GrowingPool()
+    //{
+    //    foreach(Transform child in _holder.transform)
+    //    {
+    //        GameObject.Destroy(child.gameObject);
+    //    }
+    //}
+
 }
 
 public abstract class PooledItem : MonoBehaviour

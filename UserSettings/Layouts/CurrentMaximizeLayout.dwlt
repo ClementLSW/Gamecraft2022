@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 327963
+  controlID: 331612
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 327964
+  controlID: 331613
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 327965
+  controlID: 331614
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -225,8 +225,8 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
+      m_SelectedIDs: 74010100
+      m_LastClickedID: 65908
       m_ExpandedIDs: 1c63eefff469eeff782bf0ffc4eef5ffd4eef5ffd8eef5ff82c9f6ff70cbf6ff96cbf6ff9acbf6ff5e36f7ff6839f7ff7c3af7ff3051f8ffba58f8ff5e6ff8ff3eedf8ffc8f4f8ff8229f9ff5663f9ff5683f9ff06abf9ff34f5f9ffb2fef9ffc843faff1e6afafff881faff3c8efaff7a96faff54aafaff2e37fbffb83efbff183cfdff5803feff6617ffff9073ffffaca5ffff3abeffff68c1ffff8adaffff14e2ffff76e4ffffaeecffff7cf5ffff46fbfffff4ffffff8a660000966600002a010100b8e802005ee90200f2ea020090eb0200a236030068970400
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -525,9 +525,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 249.93199, y: 241.32553, z: -4.632586}
+    m_Target: {x: 249.12405, y: 249.32814, z: -4.443554}
     speed: 2
-    m_Value: {x: 249.93199, y: 241.32553, z: -4.632586}
+    m_Value: {x: 249.12405, y: 249.32814, z: -4.443554}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -578,9 +578,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 24.085783
+    m_Target: 5.779167
     speed: 2
-    m_Value: 24.085783
+    m_Value: 5.779167
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -754,7 +754,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 328027
+  controlID: 331636
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -862,7 +862,7 @@ MonoBehaviour:
       m_ResourceFile: 
   m_AssetTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
+    m_SelectedIDs: 74010100
     m_LastClickedID: 0
     m_ExpandedIDs: ffffffff000000008660000000ca9a3b
     m_RenameOverlay:
@@ -889,8 +889,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: 74010100
+    m_LastClickedInstanceID: 65908
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
@@ -1055,8 +1055,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: 74010100
+    m_LastClickedInstanceID: 65908
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
@@ -1096,7 +1096,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -1105,15 +1105,15 @@ MonoBehaviour:
     y: 0
     width: 720
     height: 374
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 19}
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
+  m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
   - {fileID: 18}
   - {fileID: 19}
-  m_Selected: 2
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 2
 --- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1155,22 +1155,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Prefabs/Enemies
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 74
   m_LastFolders:
-  - Assets
+  - Assets/Prefabs/Enemies
   m_LastFoldersGridSize: 74
   m_LastProjectPath: D:\Unity Projects\Gamecraft2022
   m_LockTracker:
     m_IsLocked: 1
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 86600000
-    m_LastClickedID: 24710
-    m_ExpandedIDs: ffffffff000000008660000000ca9a3b
+    m_SelectedIDs: de6e0000
+    m_LastClickedID: 28382
+    m_ExpandedIDs: ffffffff00000000866000008a6000009260000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1223,8 +1223,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: aa240200
-    m_LastClickedInstanceID: 140458
+    m_SelectedInstanceIDs: 74010100
+    m_LastClickedInstanceID: 65908
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:

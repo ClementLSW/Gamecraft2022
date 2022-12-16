@@ -8,13 +8,18 @@ public class BaseEnemy : StateMachine
     public int xp;
     public Element element;
     internal Vector2 moveDir;
-    internal SpriteRenderer sr;
+    internal Animator anim;
+    internal SpriteRenderer[] sr;
     internal Rigidbody2D rb;
     internal StatusManager status;
+    public override BaseState DefaultState() => new MoveState(this);
+    public static readonly int MoveKey = Animator.StringToHash("move");
+    bool flipBody;
     protected override void Awake()
     {
         base.Awake();
-        sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+        sr = GetComponentsInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         status = GetComponent<StatusManager>();
     }
@@ -26,11 +31,13 @@ public class BaseEnemy : StateMachine
     {
         base.Update();
         moveDir = (GameManager.Player.transform.position - transform.position).normalized;
-    }
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-        rb.velocity = GameManager.TimeScale * base.moveSpeed * moveDir;
+        if (moveDir.x < 0 && flipBody || moveDir.x > 0 && !flipBody)
+        {
+            flipBody = !flipBody;
+            var flipped = transform.localScale;
+            flipped.x *= -1;
+            transform.localScale = flipped;
+        }
     }
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
@@ -38,7 +45,7 @@ public class BaseEnemy : StateMachine
         if (collision.CompareTag("PlayerPrimary"))
         {
             // We wanna avoid getcomponents for performance so we can get access from the cached player stats
-            health -= GameManager.Player.primary.baseDamage;
+            health -= Mathf.CeilToInt(GameManager.Player.primary.baseDamage * GameManager.Player.primary.damageScale);
         }
         // Just use new tags for each unique type of player attack
         if (health <= 0)
@@ -48,7 +55,6 @@ public class BaseEnemy : StateMachine
     {
         //TODO: Return back to object pool instead of destroying, also spawn death effects in a deathstate instead of deleting instantly
         XpPooler._.SpawnXp(xp, transform.position, element);
-        //Destroy(gameObject);
         DestroyPooled();
     }
     protected override void Reset()
@@ -57,8 +63,8 @@ public class BaseEnemy : StateMachine
     public override void Init()
     {
         base.Init();
-        var region = MapManager.GetRegion(transform.position);
-        element = region.biome.element;
-        sr.color = AssetDB._.elementCol[element].darkTheme;
+        //var region = MapManager.GetRegion(transform.position);
+        //element = region.biome.element;
+        //sr.color = AssetDB._.elementCol[element].darkTheme;
     }
 }

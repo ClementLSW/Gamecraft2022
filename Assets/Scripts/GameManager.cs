@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public static float TimeScale { get => instance._timeScale; }
     public static void SetTimeScale(float timeScale) { instance._timeScale = timeScale; }
     public static bool IsPaused
-    { 
+    {
         get => instance._isPaused;
         set
         {
@@ -32,19 +32,22 @@ public class GameManager : MonoBehaviour
 
     [Header("Progression")]
     public int levelUpOptions = 4;
-    public float difficultyScaling = 0.15f; // Used in enemy spawner
-    public float xpScaling = 1.15f;
     public int baseXpScaling = 100;
+    public float xpScaling = 1.15f;
+    #region Meth
+    public static int BaseXpScaling { get => instance.baseXpScaling; }
     public static float XpScaling { get => instance.xpScaling; }
-    public static float BaseXpScaling { get => instance.baseXpScaling; }
     public static int LevelUpOptions { get => instance.levelUpOptions; }
     public static int CurrentLevel { get => Player.upgrades.Count + 1; }
-    public static uint NeededToLevel => LevelToXp(CurrentLevel + 1) - LevelToXp(CurrentLevel);
+    //public static uint NeededToLevel => LevelToXp(CurrentLevel + 1) - LevelToXp(CurrentLevel);
+    public static uint NeededToLevel => LevelToXp(CurrentLevel + 1);
     public static uint LevelToXp(int level)
     {
-        var constantK = Mathf.Log(BaseXpScaling, XpScaling) - 1;
-        return (uint)Mathf.Floor(Mathf.Pow(XpScaling, level + constantK) - BaseXpScaling);
+        float constantK = Mathf.Log(BaseXpScaling, XpScaling) - 1;
+        uint xp = (uint)Mathf.Floor(Mathf.Pow(XpScaling, level + constantK) - BaseXpScaling);
+        return xp;
     }
+    #endregion
     private void Awake()
     {
         if (instance == null)
@@ -63,6 +66,8 @@ public class GameManager : MonoBehaviour
         //var possibleOptions = UpgradeDB.Upgrades.Where(s => !Player.upgrades.Contains(s) && s.upgradeRequirements.Length == Player.upgrades.Intersect(s.upgradeRequirements).Count());
         var currentlyUnobtained = UpgradeDB.Upgrades.Except(Player.upgrades).ToDebuggableList();
         var possibleOptions = currentlyUnobtained.Where(s => s.upgradeRequirements.Length == Player.upgrades.Intersect(s.upgradeRequirements).Count());
+
+        if (possibleOptions.ToArray().Length == 0) return;
 
         // Weighted shuffle algo
         for (int i = 0; i < Player.xpProgress.Length; i++)

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Imagi Nation
   m_EditorClassIdentifier: 
   element: 4
-  colour: {r: 1, g: 1, b: 1, a: 1}
+  colour: {r: 0.6431373, g: 0.49803922, b: 0.75686276, a: 1}
   elementSpawnRate:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 1, b: 0, a: 1}
+    key1: {r: 0, g: 1, b: 1, a: 1}
     key2: {r: 0, g: 1, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 1, a: 0}
     key4: {r: 0, g: 0, b: 1, a: 0}

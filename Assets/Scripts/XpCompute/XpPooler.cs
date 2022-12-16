@@ -18,7 +18,7 @@ public class XpPooler : MonoBehaviour
     public float attractRadius = 1;
     public float attractForce = 10;
     public float eatDst = 0.2f;
-    public bool updateProgress;
+    //public bool updateProgress;
     //public int toSpawn = 1000;
     public float spawnRad = 10f;
 
@@ -93,7 +93,7 @@ public class XpPooler : MonoBehaviour
     void Update()
     {
         Graphics.DrawMeshInstancedIndirect(mesh, 0, instancedMaterial, new Bounds(Vector3.zero, Vector3.one * 1000), argsBuffer);
-        if (GameManager.IsPaused) return;
+        //if (GameManager.IsPaused) return;
         dustCompute.SetFloat("deltaTime", Time.deltaTime);
         dustCompute.SetVector("attractorPos", transform.position);
         dustCompute.SetInt("numParticles", totalParticles);
@@ -107,7 +107,7 @@ public class XpPooler : MonoBehaviour
         ComputeHelper.Dispatch(dustCompute, totalParticles, 1, 1, UpdateDustKernel);
 
 
-        if (updateProgress && readbackRequest.done)
+        if (readbackRequest.done)
         {
             collectedXp = readbackRequest.GetData<uint>().ToArray();
             // This only goes up to uint max, use a timer to update in player script to check for xp changes

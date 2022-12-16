@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55842fe267438d341ac885ca82c9b759, type: 3}
+  m_Name: 8
+  m_EditorClassIdentifier: 
+  spawnCount: 10
+  fireEnemies: {fileID: 2172083992229723909, guid: b6665c1d1459a9648b89cb38e5090a5e, type: 3}
+  windEnemies: {fileID: 1130990218888482459, guid: f711d69cc0ee1aa4dac239e5ab4e3ed9, type: 3}
+  earthEnemies: {fileID: -6570634092812360056, guid: 7f870ed1a3aa0c74cbda9323878b98a1, type: 3}
+  waterEnemies: {fileID: -545903947530894303, guid: 39385abaa1419dd49a82630f158c9b93, type: 3}

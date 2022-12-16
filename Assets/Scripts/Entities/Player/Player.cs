@@ -118,6 +118,7 @@ public class Player : StateMachine
     #region Progression
     void CalculateXp() // Unsure if gpu to cpu calculation should be done in update loop, also, assigning a array copy as a ref type in xpPooler?
     {
+        //if (GameManager.IsPaused) return;
         uint totalProgress = 0;
         for (int i = 0; i < xpTotal.Length; i++)
         {

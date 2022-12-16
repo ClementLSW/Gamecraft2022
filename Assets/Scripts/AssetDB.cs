@@ -42,6 +42,9 @@ public class AssetDB : MonoBehaviour
     public SerialKeyValuePair<Element, ElementCols>[] elementColInspector;
     public Dictionary<Element, ElementCols> elementCol = new();
 
+    public SerialKeyValuePair<Color, Element>[] colToElementInspector;
+    public Dictionary<Color, Element> colToElement = new();
+
     [Header("Settings")]
     public Preferences defaultPrefs;
     public Preferences prefs;
@@ -66,6 +69,7 @@ public class AssetDB : MonoBehaviour
 
         elementCol = elementColInspector.ToDict();
         statusType = statusTypeInspector.ToDict();
+        colToElement = colToElementInspector.ToDict();
     }
     public async void SavePrefs()
     {

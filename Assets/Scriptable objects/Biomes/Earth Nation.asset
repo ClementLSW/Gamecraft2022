@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Earth Nation
   m_EditorClassIdentifier: 
   element: 2
-  colour: {r: 1, g: 1, b: 0, a: 1}
+  colour: {r: 0.7254902, g: 0.5411765, b: 0.2627451, a: 1}
   elementSpawnRate:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 0, a: 1}
+    key0: {r: 0, g: 1, b: 0, a: 1}
     key1: {r: 1, g: 0, b: 0, a: 1}
-    key2: {r: 0, g: 1, b: 0, a: 0}
+    key2: {r: 0, g: 1, b: 1, a: 0}
     key3: {r: 0, g: 0, b: 1, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}

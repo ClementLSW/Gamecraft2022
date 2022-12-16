@@ -49,9 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgm: {fileID: 8300000, guid: a45e6b713e4e6e94f8c4872d88829440, type: 3}
   levelUpOptions: 4
-  difficultyScaling: 0.15
-  xpScaling: 1.15
   baseXpScaling: 100
+  xpScaling: 1.15
 --- !u!114 &5491565563476430505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,6 +106,17 @@ MonoBehaviour:
       uiTheme: {r: 0, g: 0, b: 0, a: 0}
       darkTheme: {r: 0.50980395, g: 0.4, b: 0.5803922, a: 1}
       lightTheme: {r: 0.63529414, g: 0.5882353, b: 0.67058825, a: 1}
+  colToElementInspector:
+  - key: {r: 1, g: 0, b: 0, a: 1}
+    val: 0
+  - key: {r: 0, g: 1, b: 1, a: 1}
+    val: 1
+  - key: {r: 0, g: 1, b: 0, a: 1}
+    val: 2
+  - key: {r: 0, g: 0, b: 1, a: 1}
+    val: 3
+  - key: {r: 1, g: 1, b: 1, a: 1}
+    val: 4
   defaultPrefs:
     musicVol: 0.5
     soundVol: 0.5

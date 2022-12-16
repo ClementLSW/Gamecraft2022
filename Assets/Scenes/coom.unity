@@ -3330,7 +3330,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e48c191485b2704ca1c8acc279072f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeOutTimer: 2
+  panel: {fileID: 0}
+  endText: {fileID: 0}
+  fadeoutDur: 2
 --- !u!1 &1773397709
 GameObject:
   m_ObjectHideFlags: 0
@@ -4243,6 +4245,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5491565563476430505, guid: 7acbfe1d6905dda499426afe113d9960, type: 3}
+      propertyPath: enemyMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 98164bda2a0bb6b4399e39677f0ee010, type: 2}
     - target: {fileID: 5491565563476430506, guid: 7acbfe1d6905dda499426afe113d9960, type: 3}
       propertyPath: m_Name
       value: GameManager

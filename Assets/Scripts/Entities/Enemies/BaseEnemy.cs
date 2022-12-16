@@ -33,8 +33,13 @@ public class BaseEnemy : StateMachine
         rb = GetComponent<Rigidbody2D>();
         circleCollider = GetComponent<CircleCollider2D>();
         status = GetComponent<StatusManager>();
+        spriteMat = AssetDB._.enemyMat;
         foreach (var s in sr)
+        {
+
             s.material = spriteMat;
+            s.color = Color.black;
+        }
         initialSpriteOrder = sr.Select(s => s.sortingOrder).ToArray();
 
     }
@@ -72,6 +77,9 @@ public class BaseEnemy : StateMachine
         {
             // We wanna avoid getcomponents for performance so we can get access from the cached player stats
             health -= Mathf.CeilToInt(GameManager.Player.primary.baseDamage * GameManager.Player.primary.damageScale);
+            var vel = collision.attachedRigidbody.velocity;
+            var knockback = GameManager.Player.primary.knockback;
+            ChangeState(new StaggerState(this, knockback, vel, knockback * 1 / circleCollider.radius));
         }
         //if (collision.CompareTag("Mob") && currentState is StaggerState && status.HasStatus(StatusType.Shockwave))
         //{

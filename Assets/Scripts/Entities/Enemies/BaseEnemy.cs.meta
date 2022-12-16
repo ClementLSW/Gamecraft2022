@@ -3,7 +3,9 @@ guid: d2b33ce41d31e634fa47e2e67e2dc810
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - hitSound: {instanceID: 0}
+  - spriteMat: {fileID: 2100000, guid: 98164bda2a0bb6b4399e39677f0ee010, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

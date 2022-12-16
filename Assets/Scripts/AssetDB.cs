@@ -50,6 +50,8 @@ public class AssetDB : MonoBehaviour
     public Preferences defaultPrefs;
     public Preferences prefs;
     string prefsPath;
+
+    public Material enemyMat;
     private void Awake()
     {
         if (_ == null)

@@ -48,7 +48,7 @@ MonoBehaviour:
   projectilePool:
     poolCount: 0
   baseDamage: 100
-  knockback: 3
+  knockback: 0.15
   maxAmmo: 6
   fireRate: 0.25
   reloadDur: 0.75

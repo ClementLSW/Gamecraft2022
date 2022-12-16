@@ -69,13 +69,12 @@ namespace EnemyStates
     public class StaggerState : BaseEnemyState
     {
         readonly float staggerKnockback;
-        readonly float baseStaggerDur = 0.25f;
         float currentStagger;
         float currentSpeed;
         readonly Vector2 knockbackDir;
         public StaggerState(BaseEnemy sm, float staggerDist, Vector2 dir, float staggerDur) : base(sm)
         {
-            duration = baseStaggerDur + staggerDur;
+            duration = staggerDur;
             staggerKnockback = staggerDist;
             knockbackDir = dir;
         }
@@ -103,7 +102,7 @@ namespace EnemyStates
             base.OnExit();
 
             foreach (var s in enemy.sr)
-                s.color = Color.white;
+                s.color = Color.black;
         }
     }
 

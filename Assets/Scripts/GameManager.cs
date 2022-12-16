@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -55,8 +56,12 @@ public class GameManager : MonoBehaviour
         var currentlyUnobtained = UpgradeDB.Upgrades.Except(Player.upgrades).ToDebuggableList();
         var possibleOptions = currentlyUnobtained.Where(s => s.upgradeRequirements.Length == Player.upgrades.Intersect(s.upgradeRequirements).Count());
         var shuffled = KongrooUtils.ShuffleArray(possibleOptions.ToArray());
-        var rolledOptions = shuffled.Take(LevelUpOptions);
+        var rolledOptions = shuffled.Take(LevelUpOptions).ToList();
 
+        for (int i = 0; i < rolledOptions.Count(); i++)
+        {
+            UI._.upgradeCards[i].upgrade = rolledOptions[i];
+        }
         foreach (var item in rolledOptions) // Do the ui thingy and choose 1
         {
             Player.GetUpgrade(item);

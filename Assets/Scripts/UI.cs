@@ -12,9 +12,14 @@ public class UI : MonoBehaviour
     public GridLayoutGroup chargesGrid;
     public Image chargeIconPrefab;
     List<Image> chargeIcons = new();
+    [Header("Level Up")]
+    public GameObject levelupScreen;
+    public GridLayoutGroup upgradesGrid;
+    internal UpgradeCard[] upgradeCards;
     private void Awake()
     {
         _ = this;
+        upgradeCards = upgradesGrid.GetComponentsInChildren<UpgradeCard>();
     }
     private void Update()
     {

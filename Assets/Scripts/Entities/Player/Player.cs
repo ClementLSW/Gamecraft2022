@@ -135,9 +135,9 @@ public class Player : StateMachine
     }
     public void LevelUp()
     {
+        GameManager.OnLevelUp();
         for (int i = 0; i < xpProgress.Length; i++)
             xpProgress[i] = 0;
-        GameManager.OnLevelUp();
     }
     public void GetUpgrade(Upgrade upgrade)
     {

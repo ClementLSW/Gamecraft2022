@@ -15,30 +15,27 @@ public class EnemySpawner : MonoBehaviour
     public int waveCounter = 0;
     public int pooledPerWave = 20;
     public List<EnemyWave> waves = new();
-    public static EnemyWave CurrentWave => _.waves[_.waveCounter];
+    public static EnemyWave CurrentWave => _.waveCounter == 0 ? null : _.waves[_.waveCounter - 1];
     private void Awake()
     {
         _ = this;
     }
-    private void Start()
-    {
-        NextWave();
-    }
     public void NextWave()
     {
-        CurrentWave.firePool = new GrowingPool<BaseEnemy>(waves[waveCounter].fireEnemies, pooledPerWave);
-        CurrentWave.windPool = new GrowingPool<BaseEnemy>(waves[waveCounter].windEnemies, pooledPerWave);
-        CurrentWave.earthPool = new GrowingPool<BaseEnemy>(waves[waveCounter].earthEnemies, pooledPerWave);
-        CurrentWave.waterPool = new GrowingPool<BaseEnemy>(waves[waveCounter].waterEnemies, pooledPerWave);
         waveCounter++;
+        CurrentWave.firePool = new GrowingPool<BaseEnemy>(CurrentWave.fireEnemies, pooledPerWave);
+        CurrentWave.windPool = new GrowingPool<BaseEnemy>(CurrentWave.windEnemies, pooledPerWave);
+        CurrentWave.earthPool = new GrowingPool<BaseEnemy>(CurrentWave.earthEnemies, pooledPerWave);
+        CurrentWave.waterPool = new GrowingPool<BaseEnemy>(CurrentWave.waterEnemies, pooledPerWave);
     }
     private void Update()
     {
+        if (CurrentWave == null) return;
         spawnTimer += Time.deltaTime;
         if (spawnTimer > spawnRate)
         {
             spawnTimer = 0;
-            for (int i = 0; i < waves[waveCounter - 1].spawnCount; i++)
+            for (int i = 0; i < CurrentWave.spawnCount; i++)
             {
                 Vector2 randDir = new Vector2(Random.value * 2 - 1, Random.value * 2 - 1);
                 Vector2 randPos = (Vector2)GameManager.Player.transform.position + randDir.normalized * spawnRadius;

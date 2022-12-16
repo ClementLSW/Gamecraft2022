@@ -84,7 +84,7 @@ public static class KongrooUtils
         ;
     }
 
-    //public static T ShuffleArray<T, X>(T enumerable) where T: IEnumerable<X>
+    //public static T ShuffleArray<T, X>(T enumerable) where T : IEnumerable<X>
     //{
     //    var array = enumerable.ToArray();
     //    int currentIndex = array.Length;
@@ -101,8 +101,16 @@ public static class KongrooUtils
     //        array[rand] = temp2;
     //    }
 
-    //    return array.Select(a => a);
+    //    return array.Cast<X>();
     //}
+
+    public static T Pop<T>(this List<T> list, int index)
+    {
+        if (list.Count <= index) return default;
+        T thing = list[index];
+        list.RemoveAt(index);
+        return thing;
+    }
 
     public static T[] ShuffleArray<T>(T[] array)
     {

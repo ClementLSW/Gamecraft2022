@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class SpriteReorderer : MonoBehaviour
 {
-    SpriteRenderer sr;
+    public SpriteRenderer sr;
     private void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
+        if (sr == null)
+            sr = GetComponent<SpriteRenderer>();
     }
     void Update()
     {

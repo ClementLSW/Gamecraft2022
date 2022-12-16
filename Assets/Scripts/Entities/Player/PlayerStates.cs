@@ -26,40 +26,35 @@ namespace PlayerStates
     {
         public BaseIdle(Player sm) : base(sm) { }
     }
-    public class StopState : BaseIdle
+    public class IdleState : BaseIdle
     {
-        public StopState(Player sm) : base(sm) { }
-        public override void OnEnter()
-        {
-            base.OnEnter();
-            // Play idle anim
-        }
-        public override void Update()
-        {
-            base.Update();
-            if (player.moveDir.magnitude > 0)
-                sm.ChangeState(new MoveState(player));
-        }
-        public override void FixedUpdate()
-        {
-            player.rb.velocity = Vector2.zero;
-        }
+        public IdleState(Player sm) : base(sm) { }
+        //public override void Update()
+        //{
+        //    base.Update();
+        //    if (player.moveDir.magnitude > 0)
+        //        sm.ChangeState(new MoveState(player));
+        //}
+        //public override void FixedUpdate()
+        //{
+        //    player.rb.velocity = Vector2.zero;
+        //}
     }
-    public class MoveState : BaseIdle
-    {
-        public MoveState(Player sm) : base(sm) { }
-        public override void OnEnter()
-        {
-            base.OnEnter();
-            // Play walking anim
-        }
-        public override void Update()
-        {
-            base.Update();
-            if (player.moveDir.magnitude == 0)
-                sm.ChangeState(new StopState(player));
-        }
-    }
+    //public class MoveState : BaseIdle
+    //{
+    //    public MoveState(Player sm) : base(sm) { }
+    //    public override void OnEnter()
+    //    {
+    //        base.OnEnter();
+    //        player.anim.PlayInFixedTime(Player.IdleMoveKey);
+    //    }
+    //    public override void Update()
+    //    {
+    //        base.Update();
+    //        if (player.moveDir.magnitude == 0)
+    //            sm.ChangeState(new IdleState(player));
+    //    }
+    //}
     #endregion
     #region Primary Attack States
     public class BasePrimary : BasePlayerState

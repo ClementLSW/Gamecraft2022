@@ -3,7 +3,7 @@ Shader "Custom/MultiplicativeQuad"
     //show values to edit in inspector
     Properties
     {
-       [HDR] _Color("Additive_colour", Color) = (0, 0, 0, 1)
+       [HDR] _Color("Multiplicative_colour", Color) = (0, 0, 0, 1)
         _MainTex("Texture", 2D) = "white" {}
         _Texture("Tex2", 2D) = "white" {}
     }

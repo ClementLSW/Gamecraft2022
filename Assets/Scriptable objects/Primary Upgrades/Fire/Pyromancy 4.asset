@@ -18,9 +18,9 @@ MonoBehaviour:
     from base projectile damage.
 
 
-    +7.5% burn chance on projectiles
+    Player.BurnChance += 0.075
 
-    +20
-    base projectile damage'
+    Player.Damage
+    += 20'
   upgradeRequirements:
   - {fileID: 11400000, guid: 89a0384bf920f63488ed5a0c1e654e48, type: 2}

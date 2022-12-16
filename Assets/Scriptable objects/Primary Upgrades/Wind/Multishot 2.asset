@@ -17,11 +17,11 @@ MonoBehaviour:
   description: 'Increased number of projectiles when attacking.
 
 
-    +1 projectile
+    Player.Projectile.Count++
 
-    +15
-    spread
+    Player.Projectile.Spread
+    += 15
 
-    -15% projectile damage'
+    Player.Projectile.Damage *= 0.85'
   upgradeRequirements:
   - {fileID: 11400000, guid: e45f46f38830fb7408c27f04caa2fb8b, type: 2}

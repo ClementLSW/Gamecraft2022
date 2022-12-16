@@ -10,6 +10,7 @@ public class WindDashAbility : SecondaryAbility
     public float dashDur;
     public int charges;
     internal int currentCharges;
+    internal override bool ShowCooldown => currentCharges < charges;
     internal override bool CanActivate => currentCharges > 0;
     internal override bool ShowSpecial(out int current)
     {

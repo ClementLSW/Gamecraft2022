@@ -17,9 +17,9 @@ MonoBehaviour:
   description: 'Increased projectile size and knockback.
 
 
-    +10% projectile size
+    Player.Projectile.scale
+    *= 1.1
 
-    +15%
-    knockback'
+    Player.Knockback *= 1.15'
   upgradeRequirements:
   - {fileID: 11400000, guid: 21e736ccd3d1ea540b7b2736be236f5a, type: 2}

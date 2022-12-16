@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 8f1dc2a34708d2241ab07b4d6d32dde6, type: 3}
   element: 1
-  description: Adds an additional charge to the ability.
+  description: 'Adds an additional charge to the ability.
+
+
+    Player.Dashes++'
   upgradeRequirements:
   - {fileID: 11400000, guid: 2a5d0addd632d804da25a7187551c89a, type: 2}
   cooldown: 5

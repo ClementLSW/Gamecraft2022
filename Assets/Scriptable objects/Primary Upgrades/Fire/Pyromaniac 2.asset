@@ -17,7 +17,6 @@ MonoBehaviour:
   description: 'Increases burn damage scaling.
 
 
-    +25% of base damage as burn
-    damage'
+    Status.Burn.DamageScale += 0.25'
   upgradeRequirements:
   - {fileID: 11400000, guid: 441579b234501ef489e7fc03cbc3507e, type: 2}

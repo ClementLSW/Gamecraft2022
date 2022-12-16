@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour
 {
     public static UI _;
+    public Text clock;
     public Text ammoCount;
+    public Image abilityIcon;
     public Slider cooldownSlider;
     public Text cooldownCount;
     public GridLayoutGroup chargesGrid;
@@ -24,9 +26,11 @@ public class UI : MonoBehaviour
     }
     private void Update()
     {
+        Updateclock();
         UpdateAmmo();
         if (GameManager.Player.secondary)
         {
+            abilityIcon.gameObject.SetActive(true);
             UpdateCooldown();
             UpdateSpecial();
         }
@@ -49,6 +53,16 @@ public class UI : MonoBehaviour
             upgradeCards[i].gameObject.SetActive(true);
             upgradeCards[i].InitCard(options[i]);
         }
+    }
+    void Updateclock()
+    {
+        int mins = Mathf.FloorToInt(GameManager.CurrentTime / 60);
+        int secs = Mathf.FloorToInt(GameManager.CurrentTime % 60);
+        clock.text = $"{mins:00}:{secs:00}";
+    }
+    void UpdateHealth()
+    {
+
     }
     void UpdateAmmo()
     {

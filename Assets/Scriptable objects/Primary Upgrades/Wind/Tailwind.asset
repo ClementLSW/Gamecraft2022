@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: c4c70f00ceca50d499ba2ecba4cd9f46, type: 3}
   element: 1
-  description: All projectiles are doubled.
+  description: 'All projectiles are doubled.
+
+
+    Player.Shoot => Player.ShootTwice'
   upgradeRequirements:
   - {fileID: 11400000, guid: fa57358152cf47a458f30eb5a2a50c7d, type: 2}
   - {fileID: 11400000, guid: 25fac8eb4b1682843ba6834018194727, type: 2}

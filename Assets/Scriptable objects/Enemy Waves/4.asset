@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: 4
   m_EditorClassIdentifier: 
   spawnCount: 6
-  fireEnemies: {fileID: -1156192356302497417, guid: 600e1ea3fc358a34d9b1985a48c9502b, type: 3}
+  fireEnemies: {fileID: -1393580714538146725, guid: 1490323e9a0175447b206a58cee44f95, type: 3}
   windEnemies: {fileID: -6665913858812899563, guid: 108c51af55bb592499f571c46a6355f3, type: 3}
   earthEnemies: {fileID: 3181698612643486446, guid: 5cfc4e27acf5ffa4e8acd372e005f5e9, type: 3}
   waterEnemies: {fileID: 1554286406130470665, guid: 7e657be82e059cd4fab722425109b320, type: 3}
+  firePool:
+    poolCount: 14
+  windPool:
+    poolCount: 12
+  earthPool:
+    poolCount: 18
+  waterPool:
+    poolCount: 32

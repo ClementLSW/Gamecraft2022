@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
     private float _timeScale = 1; // Player stuff are not affected but everything else should be
     private bool _isPaused = true;
     private float _currentTime;
+    public BaseEnemy entropy;
+    bool winCondition = false;
     float waveTimer;
     public static Player Player { get => instance._player; }
     public static void SetPlayer(Player player) { instance._player = player; }
@@ -31,7 +34,6 @@ public class GameManager : MonoBehaviour
     public static float CurrentTime { get => instance._currentTime; }
 
     public AudioClip bgm;
-    public static Color StaggerMatColour = new Color(6, 1, 1, 1);
 
     [Header("Progression")]
     public int levelUpOptions = 4;
@@ -69,6 +71,16 @@ public class GameManager : MonoBehaviour
         EnemySpawner._.NextWave();
         IsPaused = false;
     }
+    public void WinGame()
+    {
+        Instantiate(entropy, (Vector2)Player.transform.position + Vector2.up * 15f, Quaternion.identity);
+        winCondition = true;
+    }
+    public void LoseGame()
+    {
+        // Do death screen
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     private void Update()
     {
         if (!IsPaused)
@@ -80,6 +92,13 @@ public class GameManager : MonoBehaviour
         {
             EnemySpawner._.NextWave();
             waveTimer = 0;
+        }
+        if (Player.health <= 0)
+        {
+            if (!winCondition)
+                LoseGame();
+            else
+                EndScreen._.PlayEndScreen();
         }
     }
     public static void OnLevelUp()

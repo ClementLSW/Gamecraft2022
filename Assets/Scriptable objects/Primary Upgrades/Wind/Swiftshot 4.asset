@@ -17,9 +17,9 @@ MonoBehaviour:
   description: 'Increased attack speed and ammo count.
 
 
-    +20% attack speed
+    Player.FireSpeed *=
+    1.2
 
-    +1
-    max ammo'
+    Player.MaxAmmo++'
   upgradeRequirements:
   - {fileID: 11400000, guid: 85c5ed8f85cd86940b6f0cab85e9ab5d, type: 2}

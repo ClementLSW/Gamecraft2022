@@ -23,6 +23,11 @@ public class EnemySpawner : MonoBehaviour
     public void NextWave()
     {
         waveCounter++;
+        if (waveCounter >= waves.Count)
+        {
+            GameManager.instance.WinGame();
+            return;
+        }
         CurrentWave.firePool = new GrowingPool<BaseEnemy>(CurrentWave.fireEnemies, pooledPerWave);
         CurrentWave.windPool = new GrowingPool<BaseEnemy>(CurrentWave.windEnemies, pooledPerWave);
         CurrentWave.earthPool = new GrowingPool<BaseEnemy>(CurrentWave.earthEnemies, pooledPerWave);

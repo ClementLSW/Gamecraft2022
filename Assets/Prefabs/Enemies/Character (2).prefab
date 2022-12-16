@@ -238,8 +238,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHealth: 1000000
-  baseMoveSpeed: 10
-  xp: 1
+  baseMoveSpeed: 15
+  xp: 0
   element: 4
 --- !u!114 &1874843549713012162
 MonoBehaviour:

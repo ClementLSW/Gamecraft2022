@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 8dd0295d8a40deb44bd9c0defa822755, type: 3}
   element: 3
-  description: Gains a bubble shield that blocks damage every 30 seconds, regenerates
-    a point of health every minute that the shield is active.
+  description: "Gains a bubble shield that blocks damage every 30 seconds, regenerates
+    a point of health every minute that the shield is active.\n\nShield.CoolDown
+    = 30 seconds\nIf (Hit)\n  Shield.Block(Player)"
   upgradeRequirements:
   - {fileID: 11400000, guid: a08479fb1155f28498a2ac950f73a842, type: 2}
   - {fileID: 11400000, guid: 6f436d07a9d619c4594e2a2f7cd06c79, type: 2}

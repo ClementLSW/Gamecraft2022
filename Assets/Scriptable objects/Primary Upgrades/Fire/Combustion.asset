@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 554dfa92a4f55854c84967981212b437, type: 3}
   element: 0
-  description: Killed enemies explode, applying burn to nearby enemies.
+  description: 'Killed enemies explode, applying burn to nearby enemies.
+
+
+    using
+    Ror2.Shatterspleen'
   upgradeRequirements:
   - {fileID: 11400000, guid: 104e3a85b17d3ca4ab98c0de06449802, type: 2}
   - {fileID: 11400000, guid: 3e77bd58685feaa479cab04ed7818d48, type: 2}

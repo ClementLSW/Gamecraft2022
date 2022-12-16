@@ -60,6 +60,10 @@ public class UI : MonoBehaviour
         int secs = Mathf.FloorToInt(GameManager.CurrentTime % 60);
         clock.text = $"{mins:00}:{secs:00}";
     }
+    void UpdateHealth()
+    {
+
+    }
     void UpdateAmmo()
     {
         ammoCount.text = $"{GameManager.Player.primary.currentAmmo}/{GameManager.Player.primary.maxAmmo}";

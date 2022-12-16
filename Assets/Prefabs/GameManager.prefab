@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66780fc09fd5674b86ab56b373bba83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entropy: {fileID: -7593660772397373882, guid: 0e280cd4ce521994eb618b6731c6a2f4, type: 3}
   bgm: {fileID: 8300000, guid: a45e6b713e4e6e94f8c4872d88829440, type: 3}
   levelUpOptions: 4
   baseXpScaling: 100

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using PlayerStates;
-enum AnimState { IdleStop, IdleMove, AttackStop, AttackMove }
+using System.Linq;
+
+enum AnimState { IdleStop, IdleMove, AttackStop, AttackMove, Special }
 public class Player : StateMachine
 {
     internal Rigidbody2D rb;
@@ -32,12 +34,16 @@ public class Player : StateMachine
     public float frostbiteDamageRatio = 0.25f; // percentage health damage
     public float slowStrength = 0;
     public float frostDur = 0;
+    [Header("Player Progression")]
+    public uint[] xpProgress = new uint[4]; // For current level up bar only
+    public uint[] xpTotal = new uint[4];
     #region Animations
-    AnimState currentAnim;
+    internal AnimState currentAnim;
     public static readonly int IdleStopKey = Animator.StringToHash("IdleStop");
     public static readonly int IdleMoveKey = Animator.StringToHash("IdleMove");
     public static readonly int AttackStopKey = Animator.StringToHash("AttackStop");
     public static readonly int AttackMoveKey = Animator.StringToHash("AttackMove");
+    public static readonly int SpecialKey = Animator.StringToHash("Special");
     #endregion
     protected override void Awake()
     {
@@ -49,10 +55,8 @@ public class Player : StateMachine
     {
         base.Start();
         GameManager.SetPlayer(this);
-        // Init abilities on pickup
         primary = Instantiate(startingWeapon, transform);
         primary.Init(this);
-        //secondary.Init(this);
     }
     protected override void Update()
     {
@@ -78,25 +82,14 @@ public class Player : StateMachine
             if (FireSecondary)
                 bufferedState = SecondaryAbility();
         }
-
-        // Anim management
-        if (currentState is BaseIdle)
-        {
-            sr.flipX = moveDir == Vector2.zero ? lookDir.x < 0 : moveDir.x < 0;
-            AnimateSprites(moveDir == Vector2.zero ? AnimState.IdleStop : AnimState.IdleMove);
-        }
-        else if (currentState is BasePrimary || currentState is BaseSecondary)
-        {
-            sr.flipX = lookDir.x < 0;
-            AnimateSprites(moveDir == Vector2.zero ? AnimState.AttackStop : AnimState.AttackMove);
-        }
-
+        CalculateXp();
         //Region currentReg = ProcGen.MapManager.GetRegion(transform.position);
         //if (currentReg == null) return;
         //print($"Currently in {currentReg.biome.name}");
     }
-    void AnimateSprites(AnimState nextAnim) // Non ideal implementation but oh well
+    internal void AnimateSprites(AnimState nextAnim, bool flipX) // Ew enums non ideal implementation but oh well
     {
+        sr.flipX = flipX;
         if (currentAnim == nextAnim) return;
         switch (nextAnim)
         {
@@ -112,12 +105,38 @@ public class Player : StateMachine
             case AnimState.AttackMove:
                 anim.PlayInFixedTime(AttackMoveKey);
                 break;
+            case AnimState.Special:
+                anim.PlayInFixedTime(SpecialKey);
+                break;
         }
         currentAnim = nextAnim;
     }
     public void TakeDamage()
     {
 
+    }
+    #region Progression
+    void CalculateXp() // Unsure if gpu to cpu calculation should be done in update loop, also, assigning a array copy as a ref type in xpPooler?
+    {
+        uint totalProgress = 0;
+        for (int i = 0; i < xpTotal.Length; i++)
+        {
+            if (xpTotal[i] < XpPooler.collectedXp[i])
+            {
+                xpProgress[i] += XpPooler.collectedXp[i] - xpTotal[i];
+                xpTotal[i] = XpPooler.collectedXp[i];
+                // Do ui lerping shit
+            }
+            totalProgress += xpProgress[i];
+        }
+        if (totalProgress >= GameManager.NeededToLevel)
+            LevelUp();
+    }
+    public void LevelUp()
+    {
+        for (int i = 0; i < xpProgress.Length; i++)
+            xpProgress[i] = 0;
+        GameManager.OnLevelUp();
     }
     public void GetUpgrade(Upgrade upgrade)
     {
@@ -127,4 +146,5 @@ public class Player : StateMachine
             upgrades.Add(upgrade);
         }
     }
+    #endregion
 }

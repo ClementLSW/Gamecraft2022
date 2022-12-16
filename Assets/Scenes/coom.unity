@@ -1411,6 +1411,8 @@ MonoBehaviour:
   frostbiteDamageRatio: 0.25
   slowStrength: 0
   frostDur: 0
+  xpProgress: 00000000000000000000000000000000
+  xpTotal: 00000000000000000000000000000000
 --- !u!4 &828537378
 Transform:
   m_ObjectHideFlags: 0
@@ -1587,7 +1589,7 @@ GameObject:
   - component: {fileID: 1204578520}
   - component: {fileID: 1204578521}
   m_Layer: 0
-  m_Name: Pooler
+  m_Name: XpPooler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1631,7 +1633,6 @@ MonoBehaviour:
   attractForce: 250
   eatDst: 0.2
   updateProgress: 1
-  toSpawn: 10
   spawnRad: 0.5
 --- !u!1 &1215726939
 GameObject:

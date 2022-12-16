@@ -28,33 +28,16 @@ namespace PlayerStates
     }
     public class IdleState : BaseIdle
     {
+        bool standingDir;
         public IdleState(Player sm) : base(sm) { }
-        //public override void Update()
-        //{
-        //    base.Update();
-        //    if (player.moveDir.magnitude > 0)
-        //        sm.ChangeState(new MoveState(player));
-        //}
-        //public override void FixedUpdate()
-        //{
-        //    player.rb.velocity = Vector2.zero;
-        //}
+        public override void Update()
+        {
+            base.Update();
+            if ((standingDir && player.moveDir.x > 0) || (!standingDir && player.moveDir.x < 0))
+                standingDir = !standingDir;
+            player.AnimateSprites(player.moveDir == Vector2.zero ? AnimState.IdleStop : AnimState.IdleMove, player.moveDir == Vector2.zero ? player.lookDir.x < 0 : standingDir);
+        }
     }
-    //public class MoveState : BaseIdle
-    //{
-    //    public MoveState(Player sm) : base(sm) { }
-    //    public override void OnEnter()
-    //    {
-    //        base.OnEnter();
-    //        player.anim.PlayInFixedTime(Player.IdleMoveKey);
-    //    }
-    //    public override void Update()
-    //    {
-    //        base.Update();
-    //        if (player.moveDir.magnitude == 0)
-    //            sm.ChangeState(new IdleState(player));
-    //    }
-    //}
     #endregion
     #region Primary Attack States
     public class BasePrimary : BasePlayerState
@@ -63,6 +46,11 @@ namespace PlayerStates
         public BasePrimary(Player sm) : base(sm)
         {
             weapon = player.primary;
+        }
+        public override void Update()
+        {
+            base.Update();
+            player.AnimateSprites(player.moveDir == Vector2.zero ? AnimState.AttackStop : AnimState.AttackMove, player.lookDir.x < 0);
         }
     }
     public class ShootState : BasePrimary
@@ -98,6 +86,11 @@ namespace PlayerStates
     public class BaseSecondary : BasePlayerState
     {
         public BaseSecondary(Player sm) : base(sm) { }
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            player.AnimateSprites(AnimState.Special, player.lookDir.x < 0);
+        }
     }
     public class WindDashState : BaseSecondary
     {
@@ -114,7 +107,8 @@ namespace PlayerStates
         {
             base.OnEnter();
             ability.ActivateSecondary();
-            dashDir = player.moveDir == Vector2.zero ? player.lookDir : player.moveDir;
+            //dashDir = player.moveDir == Vector2.zero ? player.lookDir : player.moveDir;
+            dashDir = player.lookDir;
         }
         public override void Update()
         {

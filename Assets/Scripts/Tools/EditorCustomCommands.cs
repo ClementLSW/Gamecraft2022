@@ -5,20 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class EditorCustomCommands : MonoBehaviour
 {
-
-    // Update is called once per frame
+    public int currentLevel;
+    public uint xpToNextLevel;
     void Update()
     {
+        currentLevel = GameManager.CurrentLevel;
+        xpToNextLevel = GameManager.NeededToLevel;
 #if UNITY_EDITOR
 
         if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         if (Input.GetKeyDown(KeyCode.Z))
-        {
             Zawarudo.StartZaWarudo();
-        }
         if (Input.GetKeyDown(KeyCode.X))
             Zawarudo.EndZaWarudo();
+
         if (Input.GetKeyDown(KeyCode.Alpha9))
             GameManager.Player.GetUpgrade(UpgradeDB._.tailwind);
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -40,6 +41,9 @@ public class EditorCustomCommands : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
             GameManager.Player.GetUpgrade(UpgradeDB._.windDash1);
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+            XpPooler._.SpawnXp(1000, GameManager.Player.transform.position + Vector3.up * 10, Element.Earth);
 #endif
     }
 }

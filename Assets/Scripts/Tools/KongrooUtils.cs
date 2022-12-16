@@ -41,7 +41,6 @@ public struct SerialKeyValuePair<K, V>
     public K key;
     public V val;
 }
-
 public static class KongrooUtils
 {
     public static Dictionary<K, V> ToDict<K, V>(this SerialKeyValuePair<K, V>[] self)

@@ -47,7 +47,7 @@ public class BaseEnemy : StateMachine
     public void Despawn()
     {
         //TODO: Return back to object pool instead of destroying, also spawn death effects in a deathstate instead of deleting instantly
-        XpPooler.i.SpawnXp(xp, transform.position, element);
+        XpPooler._.SpawnXp(xp, transform.position, element);
         //Destroy(gameObject);
         DestroyPooled();
     }

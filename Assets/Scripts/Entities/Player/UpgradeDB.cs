@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UpgradeDB : MonoBehaviour
@@ -36,6 +37,12 @@ public class UpgradeDB : MonoBehaviour
 
     private void Awake()
     {
-        _ = this;
+        if (_ == null)
+        {
+            _ = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
     }
 }

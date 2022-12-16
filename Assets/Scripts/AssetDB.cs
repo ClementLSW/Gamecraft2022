@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public enum Element: uint { Fire, Wind, Earth, Water, Neutral };
@@ -41,6 +42,9 @@ public class AssetDB : MonoBehaviour
     public SerialKeyValuePair<Element, Color>[] elementColInspector;
     public Dictionary<Element, Color> elementCol = new();
 
+    public List<Upgrade> upgradesInspector;
+    public HashSet<Upgrade> attainableUpgrades = new();
+
     [Header("Settings")]
     public Preferences defaultPrefs;
     public Preferences prefs;
@@ -65,6 +69,7 @@ public class AssetDB : MonoBehaviour
 
         elementCol = elementColInspector.ToDict();
         statusType = statusTypeInspector.ToDict();
+        attainableUpgrades = upgradesInspector.ToHashSet();
     }
     public async void SavePrefs()
     {

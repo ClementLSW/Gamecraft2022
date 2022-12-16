@@ -12,7 +12,7 @@ public class Upgrade : ScriptableObject
     public Upgrade[] upgradeRequirements;
     public virtual void OnAcquire(Player sm)
     {
-        Debug.Log($"{sm.name}: Pickup up {name}");
+        Debug.Log($"{sm.name}: Acquired upgrade {name}");
         //player.buffParticles.gameObject.SetActive(true);
     }
 }

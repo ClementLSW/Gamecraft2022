@@ -38,6 +38,9 @@ public class PlayerProjectile : PooledItem
     protected override void Reset()
     {
         targetDir = Vector2.zero;
+        speed = 0;
+        range = 0;
+        pierce = 0;
         age = 0;
     }
 }

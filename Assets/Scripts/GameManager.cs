@@ -51,16 +51,11 @@ public class GameManager : MonoBehaviour
     }
     public static void OnLevelUp()
     {
-        List<Upgrade> possibleOptions = new();
-        possibleOptions.AddRange(AssetDB._.attainableUpgrades.Where(s => !Player.upgrades.Contains(s) && s.upgradeRequirements.Count() == Player.upgrades.Intersect(s.upgradeRequirements).Count()));
+        //var possibleOptions = UpgradeDB.Upgrades.Where(s => !Player.upgrades.Contains(s) && s.upgradeRequirements.Length == Player.upgrades.Intersect(s.upgradeRequirements).Count());
+        var currentlyUnobtained = UpgradeDB.Upgrades.Except(Player.upgrades).ToDebuggableList();
+        var possibleOptions = currentlyUnobtained.Where(s => s.upgradeRequirements.Length == Player.upgrades.Intersect(s.upgradeRequirements).Count());
         var shuffled = KongrooUtils.ShuffleArray(possibleOptions.ToArray());
-
-        List<Upgrade> rolledOptions = new();
-        for (int i = 0; i < LevelUpOptions; i++)
-        {
-            if (i < shuffled.Length)
-                rolledOptions.Add(shuffled[i]);
-        }
+        var rolledOptions = shuffled.Take(LevelUpOptions);
 
         foreach (var item in rolledOptions) // Do the ui thingy and choose 1
         {

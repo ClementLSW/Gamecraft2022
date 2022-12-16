@@ -35,15 +35,10 @@ public class AssetDB : MonoBehaviour
 {
     public static AssetDB _;
     [Header("Game")]
-    //public SerialKeyValuePair<Element, ElementStats>[] elementStatsInspector;
-    //public Dictionary<Element, ElementStats> elementStats = new();
     public SerialKeyValuePair<StatusType, StatusEffect>[] statusTypeInspector;
     public Dictionary<StatusType, StatusEffect> statusType = new();
     public SerialKeyValuePair<Element, Color>[] elementColInspector;
     public Dictionary<Element, Color> elementCol = new();
-
-    public List<Upgrade> upgradesInspector;
-    public HashSet<Upgrade> attainableUpgrades = new();
 
     [Header("Settings")]
     public Preferences defaultPrefs;
@@ -69,7 +64,6 @@ public class AssetDB : MonoBehaviour
 
         elementCol = elementColInspector.ToDict();
         statusType = statusTypeInspector.ToDict();
-        attainableUpgrades = upgradesInspector.ToHashSet();
     }
     public async void SavePrefs()
     {

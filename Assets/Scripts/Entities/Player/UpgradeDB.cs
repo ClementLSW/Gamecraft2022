@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UpgradeDB : MonoBehaviour
@@ -35,14 +38,35 @@ public class UpgradeDB : MonoBehaviour
     public Upgrade windEvolution;
     public Upgrade windDash1, windDash2, windDash3, windDash4, windDash5;
 
+    public static HashSet<Upgrade> Upgrades;
+
     private void Awake()
     {
         if (_ == null)
         {
             _ = this;
             DontDestroyOnLoad(gameObject);
+            RunOnce();
         }
         else
             Destroy(gameObject);
+    }
+    void RunOnce()
+    {
+        Upgrades = new();
+        var props = typeof(UpgradeDB).GetFields();
+        foreach (var prop in props)
+        {
+            var propValue = prop.GetValue(this);
+            if (propValue is Upgrade upgrade)
+                Upgrades.Add(upgrade);
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+
+        }
     }
 }

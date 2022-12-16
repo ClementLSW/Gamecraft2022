@@ -74,6 +74,36 @@ public static class KongrooUtils
         else if (sm < min * (double)min) return v.normalized * min;
         return v;
     }
+
+    public static IEnumerable<T> ToDebuggableList<T>(this IEnumerable<T> enumerable)
+    {
+        return enumerable
+#if UNITY_EDITOR
+        .ToList()
+#endif
+        ;
+    }
+
+    //public static T ShuffleArray<T, X>(T enumerable) where T: IEnumerable<X>
+    //{
+    //    var array = enumerable.ToArray();
+    //    int currentIndex = array.Length;
+    //    while (currentIndex != 0)
+    //    {
+    //        //Pick random index
+    //        int rand = Random.Range(0, currentIndex);
+    //        currentIndex--;
+
+    //        X temp1 = array[rand];
+    //        X temp2 = array[currentIndex];
+
+    //        array[currentIndex] = temp1;
+    //        array[rand] = temp2;
+    //    }
+
+    //    return array.Select(a => a);
+    //}
+
     public static T[] ShuffleArray<T>(T[] array)
     {
         int currentIndex = array.Length;

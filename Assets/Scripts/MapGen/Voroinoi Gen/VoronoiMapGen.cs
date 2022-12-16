@@ -11,7 +11,7 @@ namespace ProcGen
     {
         public static VoronoiMapGen _;
         public Dictionary<veci2, Region> tiles = new();
-        public MeshRenderer map;
+        public SpriteRenderer overlay;
         public int biomeGrid;
         [Tooltip("Wiggly")]
         public float noiseMult;
@@ -32,7 +32,7 @@ namespace ProcGen
         }
         public Region GetRegion(Vector2 loc)
         {
-            var mapScalar = new Vector2(map.transform.localScale.x, map.transform.localScale.y) / mapSize.size;
+            var mapScalar = new Vector2(overlay.transform.localScale.x, overlay.transform.localScale.y) / mapSize.size;
             var newLoc = loc * mapScalar;
             var tileLoc = new veci2(Mathf.RoundToInt(newLoc.x), Mathf.RoundToInt(newLoc.y));
             tiles.TryGetValue(tileLoc, out Region foundReg);
@@ -150,7 +150,10 @@ namespace ProcGen
             var newTex = Resize(imageTex, (int)(mapSize.width * biomeBlendScalar), (int)(mapSize.height * biomeBlendScalar));
 
             //map.material.SetTexture("_MainTex", imageTex);
-            map.material.SetTexture("_MainTex", newTex);
+
+            var mat = new MaterialPropertyBlock();
+            mat.SetTexture("_MainTex", newTex);
+            overlay.SetPropertyBlock(mat);
         }
 
         Texture2D Resize(Texture2D texture2D, int targetX, int targetY)

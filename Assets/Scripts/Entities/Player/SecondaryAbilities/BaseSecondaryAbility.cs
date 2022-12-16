@@ -19,6 +19,9 @@ public class SecondaryAbility : Upgrade
     public override void OnAcquire(Player sm)
     {
         base.OnAcquire(sm);
+        if (player.secondary == null)
+            UI._.abilityIcon.sprite = icon;
+        // Add more logic when evolving secondary
         player = sm;
     }
     public virtual void ActivateSecondary()

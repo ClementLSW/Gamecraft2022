@@ -29,10 +29,13 @@ public class PlayerProjectile : PooledItem
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (pierce <= 0 && collision.CompareTag("Mob"))
-            DestroyPooled();
-        else
-            pierce--;
+        if (collision.CompareTag("Mob"))
+        {
+            if (pierce <= 0)
+                DestroyPooled();
+            else
+                pierce--;
+        }
     }
     
     protected override void Reset()

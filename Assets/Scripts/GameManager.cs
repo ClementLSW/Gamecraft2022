@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private float _tickRate = 0.4f; // Tickrate for DoT and status effects
     private float _timeScale = 1; // Player stuff are not affected but everything else should be
     private bool _isPaused = true;
+    private float _currentTime;
+    float waveTimer;
     public static Player Player { get => instance._player; }
     public static void SetPlayer(Player player) { instance._player = player; }
     public static float TickRate { get => instance._tickRate; }
@@ -26,7 +28,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = value ? 0 : 1;
         }
     }
-    public float currentTime;
+    public static float CurrentTime { get => instance._currentTime; }
 
     public AudioClip bgm;
     public static Color StaggerMatColour = new Color(6, 1, 1, 1);
@@ -70,7 +72,15 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (!IsPaused)
-            currentTime += Time.deltaTime;
+        {
+            _currentTime += Time.deltaTime * TimeScale;
+            waveTimer += Time.deltaTime * TimeScale;
+        }
+        if (waveTimer >= 60f)
+        {
+            EnemySpawner._.NextWave();
+            waveTimer = 0;
+        }
     }
     public static void OnLevelUp()
     {

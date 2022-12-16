@@ -155,9 +155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2b33ce41d31e634fa47e2e67e2dc810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 0
-  baseMoveSpeed: 0
-  xp: 0
+  baseHealth: 600
+  baseMoveSpeed: 2.25
+  xp: 10
   element: 0
 --- !u!114 &5825165094279753153
 MonoBehaviour:
@@ -186,7 +186,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.7
 --- !u!50 &8745749248750802289
 Rigidbody2D:
   serializedVersion: 4

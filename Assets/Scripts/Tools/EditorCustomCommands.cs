@@ -44,7 +44,7 @@ public class EditorCustomCommands : MonoBehaviour
             GameManager.Player.GetUpgrade(UpgradeDB._.windDash1);
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
-            XpPooler._.SpawnXp(1000, GameManager.Player.transform.position + Vector3.up * 10, Element.Earth);
+            XpPooler._.SpawnXp(1000, GameManager.Player.transform.position + Vector3.up * 10, Element.Wind);
 #endif
     }
 }

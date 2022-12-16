@@ -6,7 +6,8 @@ using System.Linq;
 using UnityEngine;
 
 public enum Element: uint { Fire, Wind, Earth, Water, Neutral };
-public enum StatusType { Burn, Frost, Frostbite, Shockwave };
+//AddingStatus to the start of the enum just shifts all elements forward one in inspector Dict
+public enum StatusType { Burn, Frost, Frostbite, Shockwave, PROTOTYPE };
 public class Region
 {
     public Biome biome;

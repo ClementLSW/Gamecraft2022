@@ -14,6 +14,8 @@ public class StatusInfo
 public class StatusManager : MonoBehaviour
 {
 
+    public int frostBiteMax = 20;
+    
     internal StateMachine sm;
     internal Dictionary<StatusType, StatusInfo> currentStatus = new();
     public bool HasStatus(StatusType status) => currentStatus.ContainsKey(status);
@@ -101,7 +103,7 @@ public class StatusManager : MonoBehaviour
                 sm.moveSpeed *= 0.5f;
                 break;
             case StatusType.Frostbite:
-                if (currentStatus[status] >= 1)
+                if (currentStatus[status].stacks >= frostBiteMax)
                     sm.health -= Mathf.CeilToInt(GameManager.Player.frostbiteDamageRatio * sm.baseHealth);
                 break;
             case StatusType.Shockwave:
@@ -132,6 +134,7 @@ public class StatusManager : MonoBehaviour
                 break;
             case StatusType.Frost:
                 sm.moveSpeed = sm.baseMoveSpeed;
+                RemoveStatus(StatusType.Frostbite);
                 break;
             case StatusType.Frostbite:
                 break;

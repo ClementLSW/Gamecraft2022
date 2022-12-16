@@ -1,7 +1,9 @@
 using ProcGen;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using EnemyStates;
 
 public class BaseEnemy : StateMachine
 {
@@ -11,8 +13,12 @@ public class BaseEnemy : StateMachine
     internal Animator anim;
     internal CircleCollider2D circleCollider;
     internal SpriteRenderer[] sr;
+    int[] initialSpriteOrder;
     internal Rigidbody2D rb;
     internal StatusManager status;
+    public AudioClip hitSound;
+    public Material spriteMat;
+    public Color staggerColor = Color.red;
     public override BaseState DefaultState() => new MoveState(this);
     public static readonly int IdleKey = Animator.StringToHash("idle");
     public static readonly int MoveKey = Animator.StringToHash("move");
@@ -27,6 +33,10 @@ public class BaseEnemy : StateMachine
         rb = GetComponent<Rigidbody2D>();
         circleCollider = GetComponent<CircleCollider2D>();
         status = GetComponent<StatusManager>();
+        foreach (var s in sr)
+            s.material = spriteMat;
+        initialSpriteOrder = sr.Select(s => s.sortingOrder).ToArray();
+
     }
     protected override void Start()
     {
@@ -43,6 +53,17 @@ public class BaseEnemy : StateMachine
             flipped.x *= -1;
             transform.localScale = flipped;
         }
+        ReorderSprites();
+
+    }
+    void ReorderSprites()
+    {
+        for (int i = 0; i < sr.Length; i++)
+        {
+            SpriteRenderer s = sr[i];
+            s.sortingOrder = Mathf.FloorToInt(transform.position.y * -100 + initialSpriteOrder[i]);
+        }
+
     }
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
@@ -52,10 +73,10 @@ public class BaseEnemy : StateMachine
             // We wanna avoid getcomponents for performance so we can get access from the cached player stats
             health -= Mathf.CeilToInt(GameManager.Player.primary.baseDamage * GameManager.Player.primary.damageScale);
         }
-        if (collision.CompareTag("Mob") && currentState is StaggerState && status.HasStatus(StatusType.Shockwave))
-        {
-            collision.GetComponent<BaseEnemy>().status.AddStatus(StatusType.Shockwave, new StatusInfo() { timer = 0.3f });
-        }
+        //if (collision.CompareTag("Mob") && currentState is StaggerState && status.HasStatus(StatusType.Shockwave))
+        //{
+        //    collision.GetComponent<BaseEnemy>().status.AddStatus(StatusType.Shockwave, new StatusInfo() { timer = 0.3f });
+        //}
         // Just use new tags for each unique type of player attack
         if (health <= 0)
             Despawn();

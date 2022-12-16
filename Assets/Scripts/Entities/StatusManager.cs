@@ -3,10 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+public class StatusInfo
+{
+    public float timer;
+    public int stacks;
+}
+
+
 public class StatusManager : MonoBehaviour
 {
+
     internal StateMachine sm;
-    internal Dictionary<StatusType, float> currentStatus = new();
+    internal Dictionary<StatusType, StatusInfo> currentStatus = new();
     public bool HasStatus(StatusType status) => currentStatus.ContainsKey(status);
 
     float tickCounter;
@@ -27,10 +36,12 @@ public class StatusManager : MonoBehaviour
         for (; i < statusList.Length; i++)
         {
             var status = statusList[i];
-            if (currentStatus[status] <= 0)
-                statusToRemove.Add(status);
-            else if (AssetDB._.statusType[status].timed)
-                currentStatus[status] -= Time.deltaTime * GameManager.TimeScale;
+            if (AssetDB._.statusType[status].timed)
+            {
+                if (currentStatus[status].timer <= 0)
+                    statusToRemove.Add(status);
+                currentStatus[status].timer -= Time.deltaTime * GameManager.TimeScale;
+            }
 
             //sm.buffIcons[i].gameObject.SetActive(true); //setting active buffs onto ui
             //sm.ui.buffIcons[i].sprite = buffDetails.icon;
@@ -53,14 +64,17 @@ public class StatusManager : MonoBehaviour
                 OnStatusTick(status);
         }
     }
-    public void AddStatus(StatusType status, float source)
+    public void AddStatus(StatusType status, StatusInfo source)
     {
         if (!currentStatus.ContainsKey(status))
-            currentStatus.Add(status, 0);
+            currentStatus.Add(status, source);
         if (AssetDB._.statusType[status].stackable)
-            currentStatus[status] += source;
+            currentStatus[status].stacks += source.stacks;
+        else if (AssetDB._.statusType[status].stackable && AssetDB._.statusType[status].timed)
+            currentStatus[status].timer += source.timer;
         else
-            currentStatus[status] = source;
+            currentStatus[status].timer = source.timer;
+
         OnStatusAcquire(status);
     }
     public void RemoveStatus(StatusType status)
@@ -118,7 +132,6 @@ public class StatusManager : MonoBehaviour
                 break;
             case StatusType.Frost:
                 sm.moveSpeed = sm.baseMoveSpeed;
-                RemoveStatus(StatusType.Frostbite);
                 break;
             case StatusType.Frostbite:
                 break;

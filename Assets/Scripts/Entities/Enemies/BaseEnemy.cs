@@ -52,6 +52,10 @@ public class BaseEnemy : StateMachine
             // We wanna avoid getcomponents for performance so we can get access from the cached player stats
             health -= Mathf.CeilToInt(GameManager.Player.primary.baseDamage * GameManager.Player.primary.damageScale);
         }
+        if (collision.CompareTag("Mob") && currentState is StaggerState && status.HasStatus(StatusType.Shockwave))
+        {
+            collision.GetComponent<BaseEnemy>().status.AddStatus(StatusType.Shockwave, new StatusInfo() { timer = 0.3f });
+        }
         // Just use new tags for each unique type of player attack
         if (health <= 0)
             Despawn();

@@ -8,6 +8,7 @@ public class UI : MonoBehaviour
     public static UI _;
     public Text clock;
     public Text ammoCount;
+    public GameObject abilityUI;
     public Image abilityIcon;
     public Slider cooldownSlider;
     public Text cooldownCount;
@@ -23,6 +24,7 @@ public class UI : MonoBehaviour
         _ = this;
         upgradeCards = upgradesGrid.GetComponentsInChildren<UpgradeCard>();
         levelupScreen.SetActive(false);
+        abilityUI.SetActive(false);
     }
     private void Update()
     {
@@ -30,7 +32,6 @@ public class UI : MonoBehaviour
         UpdateAmmo();
         if (GameManager.Player.secondary)
         {
-            abilityIcon.gameObject.SetActive(true);
             UpdateCooldown();
             UpdateSpecial();
         }

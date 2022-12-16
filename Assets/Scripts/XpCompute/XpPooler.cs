@@ -7,7 +7,7 @@ using System.Linq;
 
 public class XpPooler : MonoBehaviour
 {
-    public static XpPooler i;
+    public static XpPooler _;
     public ComputeShader dustCompute;
     public int totalParticles = 1_000_000;
     public int currentParticles = 0;
@@ -18,8 +18,8 @@ public class XpPooler : MonoBehaviour
     public float attractRadius = 1;
     public float attractForce = 10;
     public float eatDst = 0.2f;
-    public bool updateProgress;
-    public int toSpawn = 1000;
+    //public bool updateProgress;
+    //public int toSpawn = 1000;
     public float spawnRad = 10f;
 
     ComputeBuffer particleBuffer;
@@ -33,9 +33,11 @@ public class XpPooler : MonoBehaviour
     const int UpdateDustKernel = 1;
     AsyncGPUReadbackRequest readbackRequest;
 
+    public static uint[] collectedXp = new uint[4];
+
     private void Awake()
     {
-        i = this;
+        _ = this;
     }
     void Start()
     {
@@ -83,7 +85,7 @@ public class XpPooler : MonoBehaviour
         dustCompute.SetInt("numPoints2Add", numPoints);
         dustCompute.SetInt("colorType2Add", (int)element);
         dustCompute.SetVector("spawnCenter", pos);
-        instancedMaterial.color = AssetDB.i.elementAffinity[element].colourProfile;
+        //instancedMaterial.color = AssetDB._.elementCol[element].darkTheme;
         ComputeHelper.Dispatch(dustCompute, totalParticles, 1, 1, InitDustKernel);
         currentParticles += numPoints;
     }
@@ -91,7 +93,7 @@ public class XpPooler : MonoBehaviour
     void Update()
     {
         Graphics.DrawMeshInstancedIndirect(mesh, 0, instancedMaterial, new Bounds(Vector3.zero, Vector3.one * 1000), argsBuffer);
-        if (GameManager.IsPaused) return;
+        //if (GameManager.IsPaused) return;
         dustCompute.SetFloat("deltaTime", Time.deltaTime);
         dustCompute.SetVector("attractorPos", transform.position);
         dustCompute.SetInt("numParticles", totalParticles);
@@ -105,20 +107,14 @@ public class XpPooler : MonoBehaviour
         ComputeHelper.Dispatch(dustCompute, totalParticles, 1, 1, UpdateDustKernel);
 
 
-        if (updateProgress && readbackRequest.done)
+        if (readbackRequest.done)
         {
-            var n = readbackRequest.GetData<uint>().ToArray();
+            collectedXp = readbackRequest.GetData<uint>().ToArray();
             // This only goes up to uint max, use a timer to update in player script to check for xp changes
-            print($"partcletypes consumed: {n[0]}, {n[1]}, {n[2]}, {n[3]}");
+            //print($"partcletypes consumed: {n[0]}, {n[1]}, {n[2]}, {n[3]}");
             //Debug.Log(n + " / " + totalParticles + "  " + (n / (float)totalParticles) * 100 + "%");
             RequestAsyncReadback();
         }
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            SpawnXp(toSpawn, GameManager.Player.transform.position , Element.Water);
-        }
-#endif
     }
 
     void OnDestroy()

@@ -21,8 +21,11 @@ namespace ProcGen
             {
                 var region = MapManager.GetRegion(points[i]);
                 if (region == null) continue;
-                Tree tree = Instantiate(treePrefab, points[i], Quaternion.identity);
-                tree.sr.sprite = region.biome.treeSprites.RandomElement();
+                if (region.biome.treeSprites.Length > 0)
+                {
+                    Tree tree = Instantiate(treePrefab, points[i], Quaternion.identity, transform);
+                    tree.sr.sprite = region.biome.treeSprites.RandomElement();
+                }
             }
         }
 

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/SpriteReorderer.cs.meta
+guid: 1106e3fb77908554182058115819edcf
+========
+guid: f4c3230a76299c94da801780ab60649b
+>>>>>>>> main:Assets/Scripts/Enemy/Slime.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

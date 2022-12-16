@@ -1,21 +1,30 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
-public enum Element: uint { Fire, Wind, Earth, Water };
+public enum Element: uint { Fire, Wind, Earth, Water, Neutral };
+public enum StatusType { Burn, Frost, Frostbite, Shockwave };
 public class Region
 {
     public Biome biome;
     public Vector2Int Center = Vector2Int.zero;
 }
 [System.Serializable]
-public class Affinity
+public class ElementCols
 {
-    public float[] baseRatio;
-    public Color colourProfile;
+    public Color uiTheme;
+    public Color darkTheme;
+    public Color lightTheme;
 }
-
+[System.Serializable]
+public class StatusEffect
+{
+    public bool stackable;
+    public bool timed;
+}
 [System.Serializable]
 public class Preferences
 {
@@ -25,10 +34,16 @@ public class Preferences
 //[ExecuteInEditMode]
 public class AssetDB : MonoBehaviour
 {
-    public static AssetDB i;
+    public static AssetDB _;
     [Header("Game")]
-    public SerialKeyValuePair<Element, Affinity>[] elementAffinityInspector;
-    public Dictionary<Element, Affinity> elementAffinity = new();
+    public SerialKeyValuePair<StatusType, StatusEffect>[] statusTypeInspector;
+    public Dictionary<StatusType, StatusEffect> statusType = new();
+
+    public SerialKeyValuePair<Element, ElementCols>[] elementColInspector;
+    public Dictionary<Element, ElementCols> elementCol = new();
+
+    public SerialKeyValuePair<Color, Element>[] colToElementInspector;
+    public Dictionary<Color, Element> colToElement = new();
 
     [Header("Settings")]
     public Preferences defaultPrefs;
@@ -36,9 +51,9 @@ public class AssetDB : MonoBehaviour
     string prefsPath;
     private void Awake()
     {
-        if (i == null)
+        if (_ == null)
         {
-            i = this;
+            _ = this;
             RunOnce();
             DontDestroyOnLoad(gameObject);
         }
@@ -52,7 +67,9 @@ public class AssetDB : MonoBehaviour
         if (prefs == null)
             prefs = defaultPrefs;
 
-        elementAffinity = elementAffinityInspector.ToDict();
+        elementCol = elementColInspector.ToDict();
+        statusType = statusTypeInspector.ToDict();
+        colToElement = colToElementInspector.ToDict();
     }
     public async void SavePrefs()
     {

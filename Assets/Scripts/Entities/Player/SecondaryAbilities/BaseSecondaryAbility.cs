@@ -20,7 +20,10 @@ public class SecondaryAbility : Upgrade
     {
         base.OnAcquire(sm);
         if (player.secondary == null)
+        {
+            UI._.abilityUI.SetActive(true);
             UI._.abilityIcon.sprite = icon;
+        }
         // Add more logic when evolving secondary
         player = sm;
     }

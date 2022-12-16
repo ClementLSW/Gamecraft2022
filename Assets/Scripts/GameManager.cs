@@ -17,7 +17,15 @@ public class GameManager : MonoBehaviour
     public static float TickRate { get => instance._tickRate; }
     public static float TimeScale { get => instance._timeScale; }
     public static void SetTimeScale(float timeScale) { instance._timeScale = timeScale; }
-    public static bool IsPaused { get => instance._isPaused; set { instance._isPaused = value; } }
+    public static bool IsPaused
+    { 
+        get => instance._isPaused;
+        set
+        {
+            instance._isPaused = value;
+            Time.timeScale = value ? 0 : 1;
+        }
+    }
 
     public AudioClip bgm;
     public static Color StaggerMatColour = new Color(6, 1, 1, 1);
@@ -55,17 +63,25 @@ public class GameManager : MonoBehaviour
         //var possibleOptions = UpgradeDB.Upgrades.Where(s => !Player.upgrades.Contains(s) && s.upgradeRequirements.Length == Player.upgrades.Intersect(s.upgradeRequirements).Count());
         var currentlyUnobtained = UpgradeDB.Upgrades.Except(Player.upgrades).ToDebuggableList();
         var possibleOptions = currentlyUnobtained.Where(s => s.upgradeRequirements.Length == Player.upgrades.Intersect(s.upgradeRequirements).Count());
-        var shuffled = KongrooUtils.ShuffleArray(possibleOptions.ToArray());
-        var rolledOptions = shuffled.Take(LevelUpOptions).ToList();
 
-        for (int i = 0; i < rolledOptions.Count(); i++)
+        // Weighted shuffle algo
+        for (int i = 0; i < Player.xpProgress.Length; i++)
         {
-            UI._.upgradeCards[i].upgrade = rolledOptions[i];
+
         }
-        foreach (var item in rolledOptions) // Do the ui thingy and choose 1
-        {
-            Player.GetUpgrade(item);
-        }
+
+        var shuffled = KongrooUtils.ShuffleArray(possibleOptions.ToArray());
+        var rolledOptions = shuffled.Take(LevelUpOptions);
+
+        UI._.levelupScreen.SetActive(true);
+        UI._.InitLevelUp(rolledOptions.ToArray());
+        IsPaused = true;
+    }
+    public static void OnSelectUpgrade(Upgrade selected)
+    {
+        Player.GetUpgrade(selected);
+        UI._.levelupScreen.SetActive(false);
+        IsPaused = false;
     }
     void RunOnce()
     {

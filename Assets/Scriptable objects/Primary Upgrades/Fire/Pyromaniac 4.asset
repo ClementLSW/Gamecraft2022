@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 26ea4d40c3ed35e4c9dfe7d5b001291a, type: 3}
   element: 0
-  description: +25% of base damage as burn damage
+  description: 'Increases burn damage scaling.
+
+
+    +25% of base damage as burn
+    damage'
   upgradeRequirements:
   - {fileID: 11400000, guid: 4e6461992ec9744448b6da414a141209, type: 2}

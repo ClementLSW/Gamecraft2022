@@ -16,6 +16,7 @@ MonoBehaviour:
   element: 3
   description: 'Projectiles pierce through enemies.
 
+
     +1 piercing
 
     -20% projectile

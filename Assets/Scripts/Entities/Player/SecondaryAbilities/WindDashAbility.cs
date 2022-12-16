@@ -23,7 +23,7 @@ public class WindDashAbility : SecondaryAbility
         currentCharges = charges;
         currentCooldown = cooldown;
         if (ShowSpecial(out _))
-            UI._.InitCharges(charges, AssetDB._.elementCol[element]);
+            UI._.InitCharges(charges, AssetDB._.elementCol[element].lightTheme);
     }
     public override void ActivateSecondary()
     {

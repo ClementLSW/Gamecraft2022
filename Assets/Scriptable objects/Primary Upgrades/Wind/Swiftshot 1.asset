@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 8bb629a57b1ec794eac0d86b8acee8e7, type: 3}
   element: 1
-  description: '+20% attack speed
+  description: 'Increased attack speed and ammo count.
 
-    +1 max ammo'
+
+    +20% attack speed
+
+    +1
+    max ammo'
   upgradeRequirements: []

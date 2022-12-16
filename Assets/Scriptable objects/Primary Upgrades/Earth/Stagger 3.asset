@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: b1115bb9cc757df48ada4c6385fee63b, type: 3}
   element: 2
-  description: '+10% projectile size
+  description: 'Increased projectile size and knockback.
 
-    +15% knockback'
+
+    +10% projectile size
+
+    +15%
+    knockback'
   upgradeRequirements:
   - {fileID: 11400000, guid: b14a0d3877279964d8ced5a76c57317a, type: 2}

@@ -17,6 +17,7 @@ MonoBehaviour:
   description: 'Projectiles apply frost, slowing their movement. Frostbite is triggered
     on fully frosted enemies, dealing percentage health damage.
 
+
     +0.3s frost
     duration
 

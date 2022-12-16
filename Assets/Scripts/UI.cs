@@ -20,6 +20,7 @@ public class UI : MonoBehaviour
     {
         _ = this;
         upgradeCards = upgradesGrid.GetComponentsInChildren<UpgradeCard>();
+        levelupScreen.SetActive(false);
     }
     private void Update()
     {
@@ -37,6 +38,16 @@ public class UI : MonoBehaviour
         {
             chargeIcons.Add(Instantiate(chargeIconPrefab, chargesGrid.transform));
             chargeIcons[i].color = color;
+        }
+    }
+    public void InitLevelUp(Upgrade[] options)
+    {
+        foreach (var item in upgradeCards)
+            item.gameObject.SetActive(false);
+        for (int i = 0; i < options.Length; i++)
+        {
+            upgradeCards[i].gameObject.SetActive(true);
+            upgradeCards[i].InitCard(options[i]);
         }
     }
     void UpdateAmmo()

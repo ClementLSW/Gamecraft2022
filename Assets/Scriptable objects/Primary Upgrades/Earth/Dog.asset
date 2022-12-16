@@ -14,9 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: a7a249284234edb48ab32d4f696ab6cf, type: 3}
   element: 2
-  description: 'Could this be dog?
-
-    Gain an ally that attacks nearby enemies.'
+  description: Could this be dog? Gain an ally that attacks nearby enemies.
   upgradeRequirements:
   - {fileID: 11400000, guid: 869f5b89f00c4c549bf08427c817b368, type: 2}
   - {fileID: 11400000, guid: 2bfd40a322b5554418b949d81ebd0194, type: 2}

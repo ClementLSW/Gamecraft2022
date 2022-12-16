@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: cdf210eb862abc24db72b1c281673697, type: 3}
   element: 1
-  description: '+1 projectile
+  description: 'Increased number of projectiles when attacking.
 
-    +15 spread
+
+    +1 projectile
+
+    +15
+    spread
 
     -15% projectile damage'
   upgradeRequirements: []

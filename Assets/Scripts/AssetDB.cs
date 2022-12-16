@@ -12,12 +12,13 @@ public class Region
     public Biome biome;
     public Vector2Int Center = Vector2Int.zero;
 }
-//[System.Serializable]
-//public class ElementStats
-//{
-//    //public float[] baseRatio;
-//    public Color colourProfile;
-//}
+[System.Serializable]
+public class ElementCols
+{
+    public Color uiTheme;
+    public Color darkTheme;
+    public Color lightTheme;
+}
 [System.Serializable]
 public class StatusEffect
 {
@@ -37,8 +38,9 @@ public class AssetDB : MonoBehaviour
     [Header("Game")]
     public SerialKeyValuePair<StatusType, StatusEffect>[] statusTypeInspector;
     public Dictionary<StatusType, StatusEffect> statusType = new();
-    public SerialKeyValuePair<Element, Color>[] elementColInspector;
-    public Dictionary<Element, Color> elementCol = new();
+
+    public SerialKeyValuePair<Element, ElementCols>[] elementColInspector;
+    public Dictionary<Element, ElementCols> elementCol = new();
 
     [Header("Settings")]
     public Preferences defaultPrefs;

@@ -85,7 +85,7 @@ public class XpPooler : MonoBehaviour
         dustCompute.SetInt("numPoints2Add", numPoints);
         dustCompute.SetInt("colorType2Add", (int)element);
         dustCompute.SetVector("spawnCenter", pos);
-        instancedMaterial.color = AssetDB._.elementCol[element];
+        //instancedMaterial.color = AssetDB._.elementCol[element].darkTheme;
         ComputeHelper.Dispatch(dustCompute, totalParticles, 1, 1, InitDustKernel);
         currentParticles += numPoints;
     }

@@ -59,6 +59,6 @@ public class BaseEnemy : StateMachine
         base.Init();
         var region = MapManager.GetRegion(transform.position);
         element = region.biome.element;
-        sr.color = AssetDB._.elementCol[element];
+        sr.color = AssetDB._.elementCol[element].darkTheme;
     }
 }

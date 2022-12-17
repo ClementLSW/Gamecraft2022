@@ -27,61 +27,24 @@ namespace EnemyStates
         }
     }
 
-    //public class StaggerState : BaseEnemyState
-    //{
-    //    Vector2 knockbackDir;
-    //    float currentSpeed;
-
-    //    public StaggerState( sm, Vector2 dir) : base(sm)
-    //    {
-    //        duration = player.baseStaggerDur;
-    //        knockbackDir = dir;
-    //        SaveParams(dir);
-    //    }
-
-    //    public override void OnEnter()
-    //    {
-    //        base.OnEnter();
-    //        player.bufferedState = null;
-    //        player.queuedState = null;
-    //        player.anim.PlayInFixedTime(Player.StaggerKey);
-    //        player.currentEquip.transform.localPosition = Vector2.zero;
-    //        player.invincibilityTimer = player.invincibilityDur + duration;
-    //        AudioManager.i.PlaySFX(player.hitSound);
-    //    }
-
-    //    public override void Update()
-    //    {
-    //        base.Update();
-    //        currentSpeed = Mathf.SmoothStep(player.baseStaggerSpeed, 0, 1 - age / duration);
-    //        if (age <= duration * 0.5f)
-    //            bufferPoint = true;
-    //    }
-
-    //    public override void FixedUpdate()
-    //    {
-    //        base.FixedUpdate();
-    //        player.rb.velocity = currentSpeed * knockbackDir;
-    //    }
-    //}
-
 
     public class StaggerState : BaseEnemyState
     {
-        readonly float staggerKnockback;
+        public readonly float StaggerDist;
         float currentStagger;
         float currentSpeed;
         readonly Vector2 knockbackDir;
         public StaggerState(BaseEnemy sm, float staggerDist, Vector2 dir, float staggerDur) : base(sm)
         {
             duration = staggerDur;
-            staggerKnockback = staggerDist;
-            knockbackDir = dir;
+            StaggerDist = staggerDist;
+            knockbackDir = dir.normalized;
         }
         public override void OnEnter()
         {
             base.OnEnter();
             enemy.anim.PlayInFixedTime(BaseEnemy.IdleKey);
+            enemy.health -= Mathf.FloorToInt(StaggerDist * GameManager.Player.primary.baseDamage);
             foreach (var s in enemy.sr)
                 s.color = enemy.staggerColor;
             AudioManager.i.PlaySFX(enemy.hitSound);
@@ -90,7 +53,7 @@ namespace EnemyStates
         {
             base.Update();
             currentStagger += Time.deltaTime / (duration);
-            currentSpeed = Mathf.SmoothStep(staggerKnockback, 0, currentStagger);
+            currentSpeed = Mathf.SmoothStep(StaggerDist, 0, currentStagger);
         }
         public override void FixedUpdate()
         {
@@ -100,7 +63,7 @@ namespace EnemyStates
         public override void OnExit()
         {
             base.OnExit();
-
+            enemy.status.RemoveStatus(StatusType.Shockwave);
             foreach (var s in enemy.sr)
                 s.color = Color.black;
         }

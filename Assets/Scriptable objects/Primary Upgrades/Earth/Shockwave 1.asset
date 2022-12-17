@@ -17,6 +17,10 @@ MonoBehaviour:
   description: 'Staggered enemies release shockwaves, damaging each other.
 
 
-    Player.Shockwave
-    *= 1.15'
+    Player.ShockwaveChance
+    += 30%
+
+    Player.Shockwave *= 0.2'
   upgradeRequirements: []
+  ProcChanceIncrease: 0.3
+  CurrentRatio: 0.4

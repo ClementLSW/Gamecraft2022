@@ -29,7 +29,8 @@ public class Player : StateMachine
     public float burnDamageRatio = 1; // burn DoT on burned enemies, percentage of base damage
     public float burnProc = 0; // burn chance
     public float burnDur = 5f;
-    public float shockwaveProc = 0; // damage and knockback conversion ratio when enemies are knocked into each other
+    public float shockwaveProc = 0; // Proc chance of shockwave
+    public float shockWaveRatio = 0; // damage and knockback conversion ratio when enemies are knocked into each other
     public float frostbiteProc = 0; // frozen once reaches 1
     public float frostbiteDamageRatio = 0.25f; // percentage health damage
     public float slowStrength = 0;

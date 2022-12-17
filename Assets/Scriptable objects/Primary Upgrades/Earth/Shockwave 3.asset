@@ -21,3 +21,5 @@ MonoBehaviour:
     *= 1.15'
   upgradeRequirements:
   - {fileID: 11400000, guid: 99dc89a28182b8148afe20c90196fc60, type: 2}
+  ProcChanceIncrease: 0.15
+  CurrentRatio: 0.6

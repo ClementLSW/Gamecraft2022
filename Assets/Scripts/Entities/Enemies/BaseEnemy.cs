@@ -79,15 +79,23 @@ public class BaseEnemy : StateMachine
             health -= Mathf.CeilToInt(GameManager.Player.primary.baseDamage * GameManager.Player.primary.damageScale);
             var vel = collision.attachedRigidbody.velocity;
             var knockback = GameManager.Player.primary.knockback;
-            ChangeState(new StaggerState(this, knockback, vel, knockback * 1 / circleCollider.radius));
+            ChangeState(new StaggerState(this, 0.25f + knockback, vel, knockback * 1 / circleCollider.radius));
+            if (GameManager.Player.shockwaveProc > Random.value) status.AddStatus(StatusType.Shockwave, new StatusInfo()); 
         }
-        //if (collision.CompareTag("Mob") && currentState is StaggerState && status.HasStatus(StatusType.Shockwave))
-        //{
-        //    collision.GetComponent<BaseEnemy>().status.AddStatus(StatusType.Shockwave, new StatusInfo() { timer = 0.3f });
-        //}
         // Just use new tags for each unique type of player attack
         if (health <= 0)
             Despawn();
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Mob") && currentState is StaggerState staggerState && status.HasStatus(StatusType.Shockwave))
+        {
+            var enemy = collision.gameObject.GetComponent<BaseEnemy>();
+            if (enemy.status.HasStatus(StatusType.Shockwave)) return;
+            enemy.ChangeState(new StaggerState(enemy, staggerState.StaggerDist * GameManager.Player.shockWaveRatio, rb.velocity, staggerState.StaggerDist * 1 / circleCollider.radius * GameManager.Player.shockWaveRatio));
+            enemy.status.AddStatus(StatusType.Shockwave, new StatusInfo());
+        }
+        
     }
     public void Despawn()
     {

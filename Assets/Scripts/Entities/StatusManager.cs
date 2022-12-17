@@ -8,6 +8,11 @@ public class StatusInfo
 {
     public float timer;
     public int stacks;
+    public StatusInfo()
+    {
+        timer= 0;
+        stacks= 0;
+    }
 }
 
 
@@ -15,7 +20,13 @@ public class StatusManager : MonoBehaviour
 {
 
     public int frostBiteMax = 20;
-    
+    //[ColorUsage(true, true)]
+    //public Color shockWaveColor = new Color(0.58823529411f, 0.29411764705f, 0);
+
+
+    //Color shockWaveColor = new Color(5.8f, 2.9f, 0, 1f);
+    Color shockWaveColor = new Color(0, 1f, 0, 1f);
+
     internal StateMachine sm;
     internal Dictionary<StatusType, StatusInfo> currentStatus = new();
     public bool HasStatus(StatusType status) => currentStatus.ContainsKey(status);
@@ -90,8 +101,9 @@ public class StatusManager : MonoBehaviour
         foreach (var status in currentStatus.Keys)
         {
             OnStatusExpire(status);
-            currentStatus.Remove(status);
         }
+        currentStatus.Clear();
+
     }
     void OnStatusAcquire(StatusType status)
     {
@@ -108,6 +120,11 @@ public class StatusManager : MonoBehaviour
                 break;
             case StatusType.Shockwave:
                 // change tag to shockwaved
+                //if (sm is BaseEnemy enemy)
+                //{
+                //    foreach (var s in enemy.sr)
+                //        s.color = shockWaveColor;
+                //}
                 break;
         }
     }
@@ -140,6 +157,11 @@ public class StatusManager : MonoBehaviour
                 break;
             case StatusType.Shockwave:
                 // change tag back
+                //if (sm is BaseEnemy enemy)
+                //{
+                //    foreach (var s in enemy.sr)
+                //        s.color = Color.black;
+                //}
                 break;
         }
     }

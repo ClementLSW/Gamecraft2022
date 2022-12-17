@@ -44,7 +44,6 @@ public class XpPooler : MonoBehaviour
     void Start()
     {
         collectedXp = new uint[4];
-        ignoredFirstReadback = false;
         ComputeHelper.CreateStructuredBuffer<Particle>(ref particleBuffer, totalParticles);
         ComputeHelper.CreateStructuredBuffer<Vector3>(ref positionBuffer, totalParticles);
         ComputeHelper.CreateStructuredBuffer<uint>(ref colorTypeBuffer, totalParticles);

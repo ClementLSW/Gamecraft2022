@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
     public void LoseGame()
     {
         // Do death screen
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     private void Update()
     {

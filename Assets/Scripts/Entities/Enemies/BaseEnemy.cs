@@ -83,7 +83,7 @@ public class BaseEnemy : StateMachine
             var knockback = GameManager.Player.primary.knockback;
             ChangeState(new StaggerState(this, 0.25f + knockback, vel, knockback * 1 / circleCollider.radius));
             if (GameManager.Player.shockwaveProc > Random.value) status.AddStatus(StatusType.Shockwave, new StatusInfo());
-            status.AddStatus(StatusType.Frost, new StatusInfo() { timer = GameManager.Player.frostDur });
+            if (GameManager.Player.frostDur > 0) status.AddStatus(StatusType.Frost, new StatusInfo() { timer = GameManager.Player.frostDur });
             if (GameManager.Player.frostbiteProc > 0) status.AddStatus(StatusType.Frostbite, new StatusInfo() { buildup = GameManager.Player.frostbiteProc });
             if (GameManager.Player.burnProc > Random.value) status.AddStatus(StatusType.Burn, new StatusInfo() { timer = GameManager.Player.burnDur });
 

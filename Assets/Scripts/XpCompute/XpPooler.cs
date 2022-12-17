@@ -34,7 +34,6 @@ public class XpPooler : MonoBehaviour
     const int UpdateDustKernel = 1;
     AsyncGPUReadbackRequest readbackRequest;
 
-    bool ignoredFirstReadback = false;
 
     public static uint[] collectedXp = new uint[4];
 
@@ -44,6 +43,7 @@ public class XpPooler : MonoBehaviour
     }
     void Start()
     {
+        collectedXp = new uint[4];
         ignoredFirstReadback = false;
         ComputeHelper.CreateStructuredBuffer<Particle>(ref particleBuffer, totalParticles);
         ComputeHelper.CreateStructuredBuffer<Vector3>(ref positionBuffer, totalParticles);
@@ -98,8 +98,8 @@ public class XpPooler : MonoBehaviour
     void Update()
     {
         Graphics.DrawMeshInstancedIndirect(mesh, 0, instancedMaterial, new Bounds(Vector3.zero, Vector3.one * 1000), argsBuffer);
-        //if (GameManager.IsPaused) return;
-        dustCompute.SetFloat("deltaTime", Time.deltaTime);
+        //if (GameManager.IsPaused) 
+        dustCompute.SetFloat("deltaTime", GameManager.IsPaused ? 0 : Time.deltaTime);
         dustCompute.SetVector("attractorPos", transform.position);
         dustCompute.SetInt("numParticles", totalParticles);
         dustCompute.SetFloat("size", size);
@@ -113,12 +113,6 @@ public class XpPooler : MonoBehaviour
 
         if (readbackRequest.done)
         {
-            //if (!ignoredFirstReadback)
-            //{
-            //    ignoredFirstReadback = true;
-            //    RequestAsyncReadback();
-            //    return;
-            //}
             collectedXp = readbackRequest.GetData<uint>().ToArray();
             // This only goes up to uint max, use a timer to update in player script to check for xp changes
             //print($"partcletypes consumed: {n[0]}, {n[1]}, {n[2]}, {n[3]}");
@@ -130,7 +124,7 @@ public class XpPooler : MonoBehaviour
     void OnDestroy()
     {
         ComputeHelper.Release(particleBuffer, positionBuffer, argsBuffer, numParticlesConsumedBuffer, colorTypeBuffer);
-        readbackRequest = default;
+        AsyncGPUReadback.WaitAllRequests();
     }
 
     public struct Particle

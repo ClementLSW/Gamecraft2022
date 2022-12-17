@@ -10,12 +10,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Invulnerable
   - Water
   - UI
   - Player
   - PlayerProjectile
-  - 
+  - Map
   - 
   - 
   - 

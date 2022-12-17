@@ -62,11 +62,4 @@ public class UpgradeDB : MonoBehaviour
                 Upgrades.Add(upgrade);
         }
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-
-        }
-    }
 }

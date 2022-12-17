@@ -146,4 +146,35 @@ namespace PlayerStates
     }
 
     #endregion
+    public class StaggerState : BasePlayerState
+    {
+        Vector2 knockbackDir;
+        float currentSpeed;
+        public StaggerState(Player sm, Vector2 dir) : base(sm)
+        {
+            duration = 0.25f;
+            knockbackDir = dir;
+        }
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            player.health--;
+            player.bufferedState = null;
+            player.AnimateSprites(AnimState.Special, knockbackDir.x < 0);
+            player.invincibilityTimer = 2;
+            //AudioManager.i.PlaySFX(player.hitSound);
+        }
+        public override void Update()
+        {
+            base.Update();
+            currentSpeed = Mathf.SmoothStep(20, 0, 1 - age / duration);
+            if (age <= duration * 0.5f)
+                bufferPoint = true;
+        }
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            player.rb.velocity = currentSpeed * knockbackDir;
+        }
+    }
 }

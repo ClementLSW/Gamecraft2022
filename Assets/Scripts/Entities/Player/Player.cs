@@ -35,6 +35,7 @@ public class Player : StateMachine
     public float frostbiteDamageRatio = 0.25f; // percentage health damage
     public float slowStrength = 0;
     public float frostDur = 0;
+    internal float invincibilityTimer;
     [Header("Player Progression")]
     public uint[] xpProgress = new uint[4]; // For current level up bar only
     public uint[] xpTotal = new uint[4];
@@ -83,10 +84,29 @@ public class Player : StateMachine
             if (FireSecondary)
                 bufferedState = SecondaryAbility();
         }
+        if (invincibilityTimer > 0)
+        {
+            gameObject.layer = 3;
+            Color col = sr.color;
+            col.a = 0.5f;
+            sr.color = col;
+            invincibilityTimer -= Time.deltaTime;
+        }
+        else
+        {
+            gameObject.layer = 7;
+            sr.color = Color.white;
+        }
         CalculateXp();
         //Region currentReg = ProcGen.MapManager.GetRegion(transform.position);
         //if (currentReg == null) return;
         //print($"Currently in {currentReg.biome.name}");
+    }
+    protected override void OnCollisionEnter2D(Collision2D collision)
+    {
+        base.OnCollisionEnter2D(collision);
+        if (collision.gameObject.CompareTag("Mob"))
+            ChangeState(new StaggerState(this, transform.position - collision.gameObject.transform.position));
     }
     internal void AnimateSprites(AnimState nextAnim, bool flipX) // Ew enums non ideal implementation but oh well
     {
@@ -111,10 +131,6 @@ public class Player : StateMachine
                 break;
         }
         currentAnim = nextAnim;
-    }
-    public void TakeDamage()
-    {
-
     }
     #region Progression
     void CalculateXp() // Unsure if gpu to cpu calculation should be done in update loop, also, assigning a array copy as a ref type in xpPooler?

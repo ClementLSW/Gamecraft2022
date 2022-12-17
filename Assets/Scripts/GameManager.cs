@@ -33,8 +33,6 @@ public class GameManager : MonoBehaviour
     }
     public static float CurrentTime { get => instance._currentTime; }
 
-    public AudioClip bgm;
-
     [Header("Progression")]
     public int levelUpOptions = 4;
     public int baseXpScaling = 100;
@@ -55,15 +53,8 @@ public class GameManager : MonoBehaviour
     #endregion
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(instance);
-            RunOnce();
-        }
-        else
-            Destroy(gameObject);
-
+        instance = this;
+        RunOnce();
         //AudioManager.i.PlayBGM(bgm);
     }
     public void StartGame()

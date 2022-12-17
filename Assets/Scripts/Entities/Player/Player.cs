@@ -152,7 +152,7 @@ public class Player : StateMachine
     }
     public void LevelUp()
     {
-        GameManager.OnLevelUp();
+        Zawarudo.StartZaWarudo();
         for (int i = 0; i < xpProgress.Length; i++)
             xpProgress[i] = 0;
     }

@@ -7,11 +7,11 @@ using UnityEngine;
 public class StatusInfo
 {
     public float timer;
-    public int stacks;
+    public float buildup;
     public StatusInfo()
     {
-        timer= 0;
-        stacks= 0;
+        timer = 0;
+        buildup = 0;
     }
 }
 
@@ -20,12 +20,14 @@ public class StatusManager : MonoBehaviour
 {
 
     public int frostBiteMax = 20;
+    public Color frostColor = Color.cyan;
+    public Color burnColor = new Color(1, 0.5f, 0);
     //[ColorUsage(true, true)]
-    //public Color shockWaveColor = new Color(0.58823529411f, 0.29411764705f, 0);
+    public Color shockWaveColor = new Color(0.58823529411f, 0.29411764705f, 0);
 
 
     //Color shockWaveColor = new Color(5.8f, 2.9f, 0, 1f);
-    Color shockWaveColor = new Color(0, 1f, 0, 1f);
+    //Color shockWaveColor = new Color(0, 1f, 0, 1f);
 
     internal StateMachine sm;
     internal Dictionary<StatusType, StatusInfo> currentStatus = new();
@@ -81,8 +83,8 @@ public class StatusManager : MonoBehaviour
     {
         if (!currentStatus.ContainsKey(status))
             currentStatus.Add(status, source);
-        if (AssetDB._.statusType[status].stackable)
-            currentStatus[status].stacks += source.stacks;
+        if (AssetDB._.statusType[status].stackable && !AssetDB._.statusType[status].timed)
+            currentStatus[status].buildup += source.buildup;
         else if (AssetDB._.statusType[status].stackable && AssetDB._.statusType[status].timed)
             currentStatus[status].timer += source.timer;
         else
@@ -110,21 +112,33 @@ public class StatusManager : MonoBehaviour
         switch (status)
         {
             case StatusType.Burn:
+                //if (sm is BaseEnemy burn)
+                //{
+                //    foreach (var s in burn.sr)
+                //        s.color = burnColor;
+                //}
+                if (sm is BaseEnemy burn)
+                    burn.ps.Play();
                 break;
             case StatusType.Frost:
                 sm.moveSpeed *= 0.5f;
+                if (sm is BaseEnemy frost)
+                {
+                    foreach (var s in frost.sr)
+                        s.color = frostColor;
+                }
                 break;
             case StatusType.Frostbite:
-                if (currentStatus[status].stacks >= frostBiteMax)
+                if (currentStatus[status].buildup >= 1.0f)
                     sm.health -= Mathf.CeilToInt(GameManager.Player.frostbiteDamageRatio * sm.baseHealth);
                 break;
             case StatusType.Shockwave:
                 // change tag to shockwaved
-                //if (sm is BaseEnemy enemy)
-                //{
-                //    foreach (var s in enemy.sr)
-                //        s.color = shockWaveColor;
-                //}
+                if (sm is BaseEnemy shock)
+                {
+                    foreach (var s in shock.sr)
+                        s.color = shockWaveColor;
+                }
                 break;
         }
     }
@@ -148,6 +162,8 @@ public class StatusManager : MonoBehaviour
         switch (status)
         {
             case StatusType.Burn:
+                if (sm is BaseEnemy burn)
+                    burn.ps.Stop();
                 break;
             case StatusType.Frost:
                 sm.moveSpeed = sm.baseMoveSpeed;
@@ -156,13 +172,12 @@ public class StatusManager : MonoBehaviour
             case StatusType.Frostbite:
                 break;
             case StatusType.Shockwave:
-                // change tag back
-                //if (sm is BaseEnemy enemy)
-                //{
-                //    foreach (var s in enemy.sr)
-                //        s.color = Color.black;
-                //}
                 break;
         }
+        //if (sm is BaseEnemy enemy)
+        //{
+        //    foreach (var s in enemy.sr)
+        //        s.color = Color.black;
+        //}
     }
 }

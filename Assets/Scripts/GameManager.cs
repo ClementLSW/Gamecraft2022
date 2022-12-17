@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
     public void LoseGame()
     {
         // Do death screen
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
     private void Update()
     {
@@ -99,7 +99,6 @@ public class GameManager : MonoBehaviour
         var possibleOptions = currentlyUnobtained.Where(s => s.upgradeRequirements.Length == Player.upgrades.Intersect(s.upgradeRequirements).Count());
 
         if (possibleOptions.ToArray().Length == 0) return;
-
         var shuffled = KongrooUtils.ShuffleArray(possibleOptions.ToArray());
         //var rolledOptions = shuffled.Take(LevelUpOptions);
 
@@ -151,6 +150,7 @@ public class GameManager : MonoBehaviour
         Player.GetUpgrade(selected);
         UI._.levelupScreen.SetActive(false);
         IsPaused = false;
+        Zawarudo.EndZaWarudo();
     }
     void RunOnce()
     {

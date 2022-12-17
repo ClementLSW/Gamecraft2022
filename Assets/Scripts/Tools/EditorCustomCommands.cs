@@ -25,8 +25,8 @@ public class EditorCustomCommands : MonoBehaviour
             GameManager.Player.GetUpgrade(UpgradeDB._.tailwind);
         if (Input.GetKeyDown(KeyCode.Alpha1))
             GameManager.Player.GetUpgrade(UpgradeDB._.pyromancy5);
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            GameManager.Player.GetUpgrade(UpgradeDB._.pyromaniac5);
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+            //GameManager.Player.GetUpgrade(UpgradeDB._.pyromaniac5);
         if (Input.GetKeyDown(KeyCode.Alpha3))
             GameManager.Player.GetUpgrade(UpgradeDB._.multishot5);
         if (Input.GetKeyDown(KeyCode.Alpha4))

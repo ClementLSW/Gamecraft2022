@@ -23,6 +23,6 @@ MonoBehaviour:
 
     Status.Frost.Slow += 0.15
 
-    Status.Frostbite += 0.02'
+    Status.FrostbiteBuildup += 0.02'
   upgradeRequirements:
   - {fileID: 11400000, guid: f4d319fb8cc71794aaf4ace71d5ead7b, type: 2}

@@ -55,6 +55,7 @@ public class Zawarudo : PostProcessingApplication
                 if (timer >= duration)
                 {
                     state = State.PAUSED;
+                    GameManager.OnLevelUp();
                 }
                 break;
             case State.DESCREASE:

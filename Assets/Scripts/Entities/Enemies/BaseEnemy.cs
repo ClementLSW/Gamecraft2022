@@ -11,6 +11,7 @@ public class BaseEnemy : StateMachine
     public Element element;
     internal Vector2 moveDir;
     internal Animator anim;
+    internal ParticleSystem ps;
     internal CircleCollider2D circleCollider;
     internal SpriteRenderer[] sr;
     int[] initialSpriteOrder;
@@ -29,6 +30,7 @@ public class BaseEnemy : StateMachine
     {
         base.Awake();
         anim = GetComponent<Animator>();
+        ps = GetComponent<ParticleSystem>();
         sr = GetComponentsInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         circleCollider = GetComponent<CircleCollider2D>();
@@ -80,7 +82,11 @@ public class BaseEnemy : StateMachine
             var vel = collision.attachedRigidbody.velocity;
             var knockback = GameManager.Player.primary.knockback;
             ChangeState(new StaggerState(this, 0.25f + knockback, vel, knockback * 1 / circleCollider.radius));
-            if (GameManager.Player.shockwaveProc > Random.value) status.AddStatus(StatusType.Shockwave, new StatusInfo()); 
+            if (GameManager.Player.shockwaveProc > Random.value) status.AddStatus(StatusType.Shockwave, new StatusInfo());
+            status.AddStatus(StatusType.Frost, new StatusInfo() { timer = GameManager.Player.frostDur });
+            if (GameManager.Player.frostbiteProc > 0) status.AddStatus(StatusType.Frostbite, new StatusInfo() { buildup = GameManager.Player.frostbiteProc });
+            if (GameManager.Player.burnProc > Random.value) status.AddStatus(StatusType.Burn, new StatusInfo() { timer = GameManager.Player.burnDur });
+
         }
         // Just use new tags for each unique type of player attack
         if (health <= 0)
@@ -95,7 +101,7 @@ public class BaseEnemy : StateMachine
             enemy.ChangeState(new StaggerState(enemy, staggerState.StaggerDist * GameManager.Player.shockWaveRatio, rb.velocity, staggerState.StaggerDist * 1 / circleCollider.radius * GameManager.Player.shockWaveRatio));
             enemy.status.AddStatus(StatusType.Shockwave, new StatusInfo());
         }
-        
+
     }
     public void Despawn()
     {

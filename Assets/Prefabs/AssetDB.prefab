@@ -61,7 +61,7 @@ MonoBehaviour:
   - key: 3
     val:
       stackable: 0
-      timed: 1
+      timed: 0
   elementColInspector:
   - key: 0
     val:
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af71fbbbea77a44eafbae52b74e7065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combustion: {fileID: 11400000, guid: 09509d64aa1c4d0449fa4669817c5102, type: 2}
+  combustion: {fileID: 0}
   pyromancy1: {fileID: 11400000, guid: 3846d21ca30c1cd468d823f65e75a3ee, type: 2}
   pyromancy2: {fileID: 11400000, guid: 6fded33af9df10b45b02dcae69d92c57, type: 2}
   pyromancy3: {fileID: 11400000, guid: 89a0384bf920f63488ed5a0c1e654e48, type: 2}
@@ -140,7 +140,7 @@ MonoBehaviour:
   swiftshot3: {fileID: 11400000, guid: 85c5ed8f85cd86940b6f0cab85e9ab5d, type: 2}
   swiftshot4: {fileID: 11400000, guid: 747ed34a5b98f0b42a1086dc4af447c3, type: 2}
   swiftshot5: {fileID: 11400000, guid: fa57358152cf47a458f30eb5a2a50c7d, type: 2}
-  dog: {fileID: 11400000, guid: 633198057e1ad7b4b8d5851d1fe67eb9, type: 2}
+  dog: {fileID: 0}
   stagger1: {fileID: 11400000, guid: 21e736ccd3d1ea540b7b2736be236f5a, type: 2}
   stagger2: {fileID: 11400000, guid: b14a0d3877279964d8ced5a76c57317a, type: 2}
   stagger3: {fileID: 11400000, guid: 70677e2848421d4478556b1209ec42e5, type: 2}
@@ -151,7 +151,7 @@ MonoBehaviour:
   shockwave3: {fileID: 11400000, guid: 0776adf30f163564f9b2f47a05f991dd, type: 2}
   shockwave4: {fileID: 11400000, guid: 6baf59306496b85488cb099b0e16bdb4, type: 2}
   shockwave5: {fileID: 11400000, guid: 869f5b89f00c4c549bf08427c817b368, type: 2}
-  holywater: {fileID: 11400000, guid: ad7c564d9cf44e84095ffbcfe13e8d4b, type: 2}
+  holywater: {fileID: 0}
   pierce1: {fileID: 11400000, guid: 2c4ea0cdfac5e6442bdaa9bda1afe5d3, type: 2}
   pierce2: {fileID: 11400000, guid: 52c37ed3f650d434aa1d0bacc90c227b, type: 2}
   pierce3: {fileID: 11400000, guid: 2c61bc5798729ef4981637162013114f, type: 2}

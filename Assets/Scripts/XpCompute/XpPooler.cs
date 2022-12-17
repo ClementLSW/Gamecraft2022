@@ -4,6 +4,7 @@ using UnityEngine;
 using ComputeShaderUtility;
 using UnityEngine.Rendering;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class XpPooler : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class XpPooler : MonoBehaviour
     const int UpdateDustKernel = 1;
     AsyncGPUReadbackRequest readbackRequest;
 
+    bool ignoredFirstReadback = false;
+
     public static uint[] collectedXp = new uint[4];
 
     private void Awake()
@@ -41,6 +44,7 @@ public class XpPooler : MonoBehaviour
     }
     void Start()
     {
+        ignoredFirstReadback = false;
         ComputeHelper.CreateStructuredBuffer<Particle>(ref particleBuffer, totalParticles);
         ComputeHelper.CreateStructuredBuffer<Vector3>(ref positionBuffer, totalParticles);
         ComputeHelper.CreateStructuredBuffer<uint>(ref colorTypeBuffer, totalParticles);
@@ -109,6 +113,12 @@ public class XpPooler : MonoBehaviour
 
         if (readbackRequest.done)
         {
+            //if (!ignoredFirstReadback)
+            //{
+            //    ignoredFirstReadback = true;
+            //    RequestAsyncReadback();
+            //    return;
+            //}
             collectedXp = readbackRequest.GetData<uint>().ToArray();
             // This only goes up to uint max, use a timer to update in player script to check for xp changes
             //print($"partcletypes consumed: {n[0]}, {n[1]}, {n[2]}, {n[3]}");
@@ -119,7 +129,8 @@ public class XpPooler : MonoBehaviour
 
     void OnDestroy()
     {
-        ComputeHelper.Release(particleBuffer, positionBuffer, argsBuffer, numParticlesConsumedBuffer);
+        ComputeHelper.Release(particleBuffer, positionBuffer, argsBuffer, numParticlesConsumedBuffer, colorTypeBuffer);
+        readbackRequest = default;
     }
 
     public struct Particle

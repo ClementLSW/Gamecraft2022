@@ -18,9 +18,9 @@ MonoBehaviour:
 
 
     Player.ShockwaveChance
-    += 30%
+    += 20%
 
-    Player.Shockwave *= 0.2'
+    Player.Shockwave = 0.4'
   upgradeRequirements: []
-  ProcChanceIncrease: 0.3
+  ProcChanceIncrease: 0.2
   CurrentRatio: 0.4

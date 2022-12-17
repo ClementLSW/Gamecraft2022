@@ -20,7 +20,6 @@ public class WindDashAbility : SecondaryAbility
     public override void OnAcquire(Player sm)
     {
         base.OnAcquire(sm);
-        sm.secondary = this;
         currentCharges = charges;
         currentCooldown = cooldown;
         if (ShowSpecial(out _))
